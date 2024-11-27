@@ -9,9 +9,7 @@ public abstract class User {
 
     User currnentUser;
 
-    public User(String fName, String lName, String username, String password){
-        this.fName=fName;
-        this.lName=lName;
+    public User(String username, String password){
         this.username=username;
         this.password=password;
     }

@@ -8,7 +8,6 @@ public class Order{
     HashMap<Product,Integer> shoppingCart;
     LocalDateTime dateTime;
     double total;
-    ArrayList<Order> orderHistory;
 
     public Order(Customer customer, HashMap<Product,Integer> shoppingCart, LocalDateTime dateTime, double total){
         this.customer=customer;
@@ -16,6 +15,24 @@ public class Order{
         this.dateTime=dateTime;
         this.total=total;
     }
+
+    public Customer getCustomer(){
+        return customer;
+    }
+
+    public HashMap<Product,Integer> getShoppingCart(){
+        return shoppingCart;
+    }
+
+    public LocalDateTime getDateTime(){
+        return dateTime;
+    }
+
+    public double getTotal(){
+        return total;
+    }
+
+
 
 
 

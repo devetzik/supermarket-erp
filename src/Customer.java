@@ -5,24 +5,32 @@ import java.util.HashMap;
 
 public class Customer extends User{
 
+    String fName, lName;
     HashMap<Product, Integer> shoppingCart = new HashMap();
-    ArrayList<Order> orderHistory= new ArrayList<>();
+    ArrayList<Order> orderHistory;
     Order order;
 
 
 
     double total=0;
 
-    public Customer(String fName, String lName, String username, String password){
-        super(fName, lName, username, password);
+    public Customer(String username, String password, String fName, String lName){
+        super(username, password);
+        this.fName=fName;
+        this.lName=lName;
+    }
+
+    public void shoppingCart(){
+        for (Product i : shoppingCart.keySet()){
+            System.out.println("Τίτλος: "+i.getTitle()+"\nΠοσότητα: "+shoppingCart.get(i)+"Συνολικό κόστος: "+(shoppingCart.get(i)* i.getPrice())+"€");
+        }
+        System.out.println("Συνολικό κόστος καλαθιού: "+ getTotal()+"€");
     }
 
 
 
 
-
-
-
+    // Μέθοδος για την προσθήκη προϊόντος στο καλάθι, με έλεγχο έγκυρης εκχώρησης και διαθεσιμότητας
 
     public void addToShoppingCart(Product product, int posotita){
         boolean flag=true;
@@ -39,12 +47,12 @@ public class Customer extends User{
         if (flag){
             shoppingCart.put(product, posotita);
         }
-
-
     }
 
 
 
+
+    // Μέθοδος για την αλλαγή της ποσότητας ενός προϊόντος του καλαθιού
 
     public void changeProductQuantity(Product product, int posotita){
         shoppingCart.replace(product, posotita);
@@ -54,6 +62,9 @@ public class Customer extends User{
         shoppingCart.remove(product);
     }
 
+
+
+
     public double getTotal(){
         for (Product i : shoppingCart.keySet()){
             total+=(i.getPrice() * shoppingCart.get(i));
@@ -61,23 +72,29 @@ public class Customer extends User{
         return total;
     }
 
+    //Ολοκλήρωση παραγγελίας, Εγγραφή στο ιστορικό και αφαίρεση αποθέματος
+
     public void confirmOrder(){
         Order order = new Order((Customer) getCurrentUser(),shoppingCart,LocalDateTime.now(),this.total);
-    }
-
-    public void addToOrderHistory(Order order){
         orderHistory.add(order);
+        for (Product i : shoppingCart.keySet()){
+            i.setQty(i.getQty()-shoppingCart.get(i));
+        }
     }
 
-    public Order getOrder(){
-        return order;
+    public void orderHistory(Customer customer){
+        boolean flag=false;
+        System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
+        for (Order i : orderHistory){
+            if (i.getCustomer()==customer){
+                flag=true;
+                System.out.println("Ημερομηνία παραγγελίας: "+i.getDateTime()+"\n");
+                System.out.println("Προϊόντα και ποσότητες παραγγελίας: "+i.getShoppingCart()+"\n");
+                System.out.println("Συνολικό κόστος: "+i.getTotal()+"€\n");
+            }
+        }
+        if (!flag){
+            System.out.println("Δεν βρέθηκε ιστορικό παραγγελιών για τον χρήστη "+customer.getUsername());
+        }
     }
-
-
-
-
-
-
-
-
 }
