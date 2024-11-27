@@ -8,6 +8,7 @@ public class Customer extends User{
     String fName, lName;
     HashMap<Product, Integer> shoppingCart = new HashMap();
     ArrayList<Order> orderHistory;
+    HashMap<Product, Double> sales;
     double total=0;
 
     // Κατασκευαστής του αντικειμένου Customer

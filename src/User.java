@@ -6,7 +6,6 @@ public abstract class User {
     ArrayList<Customer> customers;
     ArrayList<Administrator> admins;
     ArrayList<Product> products;
-
     User currnentUser;
 
     public User(String username, String password){
@@ -58,10 +57,6 @@ public abstract class User {
     }
 
 
-
-
-
-
     // Μέθοδος για την είσοδο χρηστών στην εφαρμογή
 
     public void login(String username, String password){
@@ -71,7 +66,6 @@ public abstract class User {
         if (username.isBlank() || password.isBlank()){
             System.out.println("Συμπληρώστε τα πεδία");
         }
-
 
         //Έλεγχος για το είδος χρήστη
 
@@ -83,6 +77,7 @@ public abstract class User {
                     isCust=true;
                     System.out.println("Καλωσήρθατε");
                     currnentUser=i;
+                    break;
                 }
                 else {
                     System.out.println("Λάθος password");
@@ -96,6 +91,7 @@ public abstract class User {
                     isAdmin=true;
                     System.out.println("Καλωσήρθατε");
                     currnentUser=i;
+                    break;
                 }
                 else {
                     System.out.println("Λάθος password");
@@ -105,36 +101,33 @@ public abstract class User {
     }
 
 
+    // Μέθοδος για την αποσύνδεση χρηστών
+
+    public void logout(){
+        username=null;
+        password=null;
+        fName=null;
+        lName=null;
+        currnentUser=null;
+    }
 
 
+    // Μέθοδος για την αναζήτηση προϊόντων
 
-
-
-
-
-
-
-
-
-
-
-
-    public Product productSearch(String title){
+    /*public Product productSearch(String title){
         for (Product i : products){
             if (title==i.getTitle()){
                 return i;
             }
         }
-    }
+    }*/
 
     public String getUsername(){
         return username;
     }
-
     public String getPassword(){
         return password;
     }
-
     public User getCurrentUser(){
         return currnentUser;
     }

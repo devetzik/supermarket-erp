@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Product {
 
-    String title, description, category, subcategory;
+    String title, description, category, subcategory, unit;
     double price, qty;
 
     public ArrayList<Product> products;
@@ -68,6 +68,6 @@ public class Product {
 
 
     public String getDetails(Product product){
-        return ("Τίτλος: "+ title+"\nΠεριγραφή: "+ description+"\nΚατηγορία: "+category+"\nΥποκατηγορία: "+subcategory+"\nΤιμή: "+price+"€\nΠοσότητα: "+qty);
+        return ("Τίτλος: "+ title+"\nΠεριγραφή: "+ description+"\nΚατηγορία: "+category+"\nΥποκατηγορία: "+subcategory+"\nΤιμή: "+price+"€\nΠοσότητα: "+qty+unit);
     }
 }

@@ -1,8 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Administrator extends User{
 
     ArrayList<Product> products;
+    ArrayList<Order> orderHistory;
+    HashMap<Product, Integer> sales;
+
+    // Κατασκευαστής για το αντικείμενο Administrator
 
     public Administrator(String username, String password){
         super(username,password);
@@ -31,6 +36,24 @@ public class Administrator extends User{
                 System.out.println(i.getTitle() + "\n");
             }
         }
+    }
+
+
+    // Μέθοδος για την καταγραφή του πλήθους των παραγγελιών ανά προϊόν
+
+    public void salesMap(){
+        for (Order i : orderHistory){
+            for (Product p : i.getShoppingCart().keySet()){
+                sales.put(p, sales.get(p)+1);
+            }
+        }
+    }
+
+
+    // Μέθοδος για την ταξινόμιση των προϊόντων με βάση το πλήθος των παραγγελιών στις οποίες συμπεριλήφθηκαν
+
+    public void salesSort(){
+
     }
 
 
