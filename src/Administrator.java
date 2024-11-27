@@ -4,9 +4,12 @@ public class Administrator extends User{
 
     ArrayList<Product> products;
 
-    public Administrator(String fName, String lName, String username, String password){
-        super(fName,lName,username,password);
+    public Administrator(String username, String password){
+        super(username,password);
     }
+
+
+    // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
     public void addProduct(String title, String description, String category, String subcategory,double price, double qty){
         if (title.isBlank() || description.isBlank() || category.isBlank() || subcategory.isBlank() || price<0 || qty<0){
@@ -17,6 +20,9 @@ public class Administrator extends User{
             products.add(p);
         }
     }
+
+
+    // Μέθοδος για την εύρεση προϊόντων με μηδενικό απόθεμα
 
     public void outOfStock(){
         System.out.println("Τα προϊόντα με εξαντλημένο απόθεμα είναι: \n");
