@@ -8,12 +8,12 @@ public class Administrator extends User{
         super(fName,lName,username,password);
     }
 
-    public void addProduct(String title, String description, String category, double price, double qty){
-        if (title.isBlank() || description.isBlank() || category.isBlank() || price<0 || qty<0){
+    public void addProduct(String title, String description, String category, String subcategory,double price, double qty){
+        if (title.isBlank() || description.isBlank() || category.isBlank() || subcategory.isBlank() || price<0 || qty<0){
             System.out.println("Λανθασμένη εισαγωγή");
         }
         else {
-            Product p = new Product(title, description, category, price, qty);
+            Product p = new Product(title, description, category, subcategory, price, qty);
             products.add(p);
         }
     }

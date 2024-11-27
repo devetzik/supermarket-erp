@@ -1,9 +1,16 @@
+import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Customer extends User{
 
     HashMap<Product, Integer> shoppingCart = new HashMap();
+    ArrayList<Order> orderHistory= new ArrayList<>();
+    Order order;
+
+
+
     double total=0;
 
     public Customer(String fName, String lName, String username, String password){
@@ -53,6 +60,20 @@ public class Customer extends User{
         }
         return total;
     }
+
+    public void confirmOrder(){
+        Order order = new Order((Customer) getCurrentUser(),shoppingCart,LocalDateTime.now(),this.total);
+    }
+
+    public void addToOrderHistory(Order order){
+        orderHistory.add(order);
+    }
+
+    public Order getOrder(){
+        return order;
+    }
+
+
 
 
 

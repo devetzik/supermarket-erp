@@ -2,19 +2,19 @@ import java.util.ArrayList;
 
 public class Product {
 
-    String title, description, category;
+    String title, description, category, subcategory;
     double price, qty;
 
     public ArrayList<Product> products;
 
 
-    public Product(String title, String description, String category, double price, double qty){
+    public Product(String title, String description, String category, String subcategory, double price, double qty){
         this.title=title;
         this.description=description;
         this.category=category;
+        this.subcategory=subcategory;
         this.price=price;
         this.qty=qty;
-
     }
 
     // Setters για τα χαρακτηριστικά του προϊόντος
@@ -30,6 +30,8 @@ public class Product {
     public void setCategory(String category){
         this.category=category;
     }
+
+    public void setSubcategory(String subcategory) { this.subcategory=subcategory;}
 
     public void setPrice(double price){
         this.price=price;
@@ -54,6 +56,8 @@ public class Product {
         return category;
     }
 
+    public String getSubcategory(){ return subcategory;}
+
     public double getPrice(){
         return price;
     }
@@ -63,5 +67,7 @@ public class Product {
     }
 
 
-    public
+    public String getDetails(Product product){
+        return ("Τίτλος: "+ title+"\nΠεριγραφή: "+ description+"\nΚατηγορία: "+category+"\nΥποκατηγορία: "+subcategory+"\nΤιμή: "+price+"€\nΠοσότητα: "+qty);
+    }
 }

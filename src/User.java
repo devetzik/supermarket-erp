@@ -137,7 +137,7 @@ public abstract class User {
         return password;
     }
 
-    public User getCurrentUser(String username){
+    public User getCurrentUser(){
         return currnentUser;
     }
 
