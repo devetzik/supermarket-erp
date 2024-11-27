@@ -5,6 +5,7 @@ public abstract class User {
     private String username, password, fName, lName;
     ArrayList<Customer> customers;
     ArrayList<Administrator> admins;
+    ArrayList<Product> products;
 
     User currnentUser;
 
@@ -57,6 +58,11 @@ public abstract class User {
             customers.add(customer);
         }
     }
+
+
+
+
+
 
     // Μέθοδος για την είσοδο χρηστών στην εφαρμογή
 
@@ -116,7 +122,6 @@ public abstract class User {
 
 
     public Product productSearch(String title){
-        ArrayList<Product> products;
         for (Product i : products){
             if (title==i.getTitle()){
                 return i;
@@ -136,6 +141,4 @@ public abstract class User {
         return currnentUser;
     }
 
-
 }
-

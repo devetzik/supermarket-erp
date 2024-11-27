@@ -18,8 +18,26 @@ public class Customer extends User{
 
 
     public void addToShoppingCart(Product product, int posotita){
-        shoppingCart.put(product, posotita);
+        boolean flag=true;
+        if (posotita<0){
+            flag=false;
+            System.out.println("Μη έγκυρη ποσότητα προϊόντος, εισάγετε τιμή >0");
+        }
+
+        if (posotita> product.getQty()){
+            flag=false;
+            System.out.println("Δεν υπάρχει αρκετό απόθεμα, μέγιστη ποσότητα: " + product.getQty());
+        }
+
+        if (flag){
+            shoppingCart.put(product, posotita);
+        }
+
+
     }
+
+
+
 
     public void changeProductQuantity(Product product, int posotita){
         shoppingCart.replace(product, posotita);
@@ -35,6 +53,7 @@ public class Customer extends User{
         }
         return total;
     }
+
 
 
 
