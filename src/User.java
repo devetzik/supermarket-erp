@@ -6,7 +6,7 @@ public abstract class User implements Serializable {
     private String username, password, fName, lName;
     ArrayList<Customer> customers;
     ArrayList<Administrator> admins;
-    //ArrayList<Product> products;
+    ArrayList<Product> products;
     User currnentUser;
 
 
@@ -36,14 +36,13 @@ public abstract class User implements Serializable {
     }
 
 
-    /*// Μέθοδος για την φόρτωση την λίστας προϊόντων από αρχείο
+    // Μέθοδος για την φόρτωση την λίστας προϊόντων από αρχείο
 
     public void loadProducts() throws IOException, ClassNotFoundException {
         ObjectInputStream reader=new ObjectInputStream(new FileInputStream("products.txt"));
         products= (ArrayList<Product>) reader.readObject();
         reader.close();
     }
-    */
 
 
     //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
@@ -154,13 +153,14 @@ public abstract class User implements Serializable {
 
     // Μέθοδος για την αναζήτηση προϊόντων
 
-    /*public Product productSearch(String title){
+    public void productSearchByTitle(String title){
         for (Product i : products){
             if (title==i.getTitle()){
-                return i;
+                System.out.println(i.getDetails(i));;
             }
         }
-    }*/
+    }
+
 
     public String getUsername(){
         return username;
