@@ -1,14 +1,15 @@
+import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Customer extends User{
+public class Customer extends User implements Serializable {
 
     String fName, lName;
     HashMap<Product, Integer> shoppingCart = new HashMap();
     ArrayList<Order> orderHistory;
-    HashMap<Product, Double> sales;
+
     double total=0;
 
     // Κατασκευαστής του αντικειμένου Customer
@@ -17,6 +18,15 @@ public class Customer extends User{
         super(username, password);
         this.fName=fName;
         this.lName=lName;
+    }
+
+
+    // Μέθοδος για την φόρτωση του ιστορικού παραγγελιών από αρχείο
+
+    public void loadOrderHistory() throws IOException, ClassNotFoundException {
+        ObjectInputStream reader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
+        orderHistory = (ArrayList<Order>) reader.readObject();
+        reader.close();
     }
 
 
@@ -76,9 +86,18 @@ public class Customer extends User{
 
     //Ολοκλήρωση παραγγελίας, εγγραφή στο ιστορικό και αφαίρεση αποθέματος
 
-    public void confirmOrder(){
+    public void confirmOrder() throws IOException, ClassNotFoundException {
         Order order = new Order((Customer) getCurrentUser(),shoppingCart,LocalDateTime.now(), getTotal());
         orderHistory.add(order);
+
+        ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("orderhistory.txt"));
+        writer.writeObject(orderHistory);
+        writer.close();
+
+        ObjectInputStream reader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
+        orderHistory = (ArrayList<Order>) reader.readObject();
+        reader.close();
+
         for (Product i : shoppingCart.keySet()){
             i.setQty(i.getQty()-shoppingCart.get(i));
         }
@@ -87,7 +106,7 @@ public class Customer extends User{
 
     // Μέθοδος για την προσπέλαση του ιστορικού παραγγελιών
 
-    public void orderHistory(Customer customer){
+    public void viewOrderHistory(Customer customer){
         boolean flag=false;
         System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
         for (Order i : orderHistory){

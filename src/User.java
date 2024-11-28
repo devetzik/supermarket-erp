@@ -1,12 +1,16 @@
+import java.io.*;
 import java.util.ArrayList;
 
-public abstract class User {
+public abstract class User implements Serializable {
 
     private String username, password, fName, lName;
     ArrayList<Customer> customers;
     ArrayList<Administrator> admins;
-    ArrayList<Product> products;
+    //ArrayList<Product> products;
     User currnentUser;
+
+
+    // Κατασκευαστής αντικειμένου User
 
     public User(String username, String password){
         this.username=username;
@@ -14,9 +18,37 @@ public abstract class User {
     }
 
 
+    // Μέθοδος για την φόρτωση της λίστας πελατών από αρχείο
+
+    public void loadCustomers () throws IOException, ClassNotFoundException {
+        ObjectInputStream reader = new ObjectInputStream(new FileInputStream("customers.txt"));
+        customers= (ArrayList<Customer>) reader.readObject();
+        reader.close();
+    }
+
+
+    // Μέθοδος για την φόρτωση την λίστας διαχειριστών από αρχείο
+
+    public void loadAdmins() throws IOException, ClassNotFoundException {
+        ObjectInputStream reader=new ObjectInputStream(new FileInputStream("admins.txt"));
+        admins= (ArrayList<Administrator>) reader.readObject();
+        reader.close();
+    }
+
+
+    /*// Μέθοδος για την φόρτωση την λίστας προϊόντων από αρχείο
+
+    public void loadProducts() throws IOException, ClassNotFoundException {
+        ObjectInputStream reader=new ObjectInputStream(new FileInputStream("products.txt"));
+        products= (ArrayList<Product>) reader.readObject();
+        reader.close();
+    }
+    */
+
+
     //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
 
-    public void addCustomer(String fName, String lName, String username, String password){
+    public void addCustomer(String fName, String lName, String username, String password) throws IOException, ClassNotFoundException {
         boolean flag=true;
 
         // Έλεγχος για κενά πεδία κατά το registration
@@ -53,6 +85,14 @@ public abstract class User {
         if (flag){
             Customer customer = new Customer(fName, lName, username, password);
             customers.add(customer);
+
+            ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("customers.txt"));
+            writer.writeObject(customers);
+            writer.close();
+
+            ObjectInputStream reader=new ObjectInputStream(new FileInputStream("admins.txt"));
+            admins= (ArrayList<Administrator>) reader.readObject();
+            reader.close();
         }
     }
 
