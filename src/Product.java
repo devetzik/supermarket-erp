@@ -1,14 +1,16 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Product {
+public class Product implements Serializable {
 
     String title, description, category, subcategory, unit;
-    double price, qty;
+    double price;
+    int qty;
 
     public ArrayList<Product> products;
 
 
-    public Product(String title, String description, String category, String subcategory, double price, double qty){
+    public Product(String title, String description, String category, String subcategory, double price, int qty){
         this.title=title;
         this.description=description;
         this.category=category;
@@ -16,6 +18,8 @@ public class Product {
         this.price=price;
         this.qty=qty;
     }
+
+
 
     // Setters για τα χαρακτηριστικά του προϊόντος
 
@@ -37,7 +41,7 @@ public class Product {
         this.price=price;
     }
 
-    public void setQty(double qty){
+    public void setQty(int qty){
         this.qty=qty;
     }
 
@@ -62,12 +66,18 @@ public class Product {
         return price;
     }
 
-    public double getQty(){
+    public int getQty(){
         return qty;
     }
 
 
     public String getDetails(Product product){
+        if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
+            unit="kg";
+        }
+        else {
+            unit=" τεμάχια";
+        }
         return ("Τίτλος: "+ title+"\nΠεριγραφή: "+ description+"\nΚατηγορία: "+category+"\nΥποκατηγορία: "+subcategory+"\nΤιμή: "+price+"€\nΠοσότητα: "+qty+unit);
     }
 }

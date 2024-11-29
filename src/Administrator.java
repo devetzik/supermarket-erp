@@ -35,7 +35,7 @@ public class Administrator extends User implements Serializable {
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public void addProduct(String title, String description, String category, String subcategory,double price, double qty) throws IOException, ClassNotFoundException {
+    public void addProduct(String title, String description, String category, String subcategory,double price, int qty) throws IOException, ClassNotFoundException {
         if (title.isBlank() || description.isBlank() || category.isBlank() || subcategory.isBlank() || price<0 || qty<0){
             System.out.println("Λανθασμένη εισαγωγή");
         }
