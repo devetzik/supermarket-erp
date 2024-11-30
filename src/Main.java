@@ -43,6 +43,7 @@ public class Main implements Serializable {
         while ((line= pr.readLine())!=null){
             productCategories.add(line);
         }
+        pr.close();
 
         Scanner scanner= new Scanner(System.in);
 
