@@ -55,6 +55,24 @@ public class Main implements Serializable {
 
 
 
+        //USER IS ADMIN
+
+        if (admins.contains(currnentUser)){
+            System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΕπεξεργασία προϊόντος (2)\nΑναζήτηση προϊόντος (3)\nΣτατιστικά προϊόντων (4)");
+            int x=scanner.nextInt();
+            if (x==1){
+
+            } else if (x==2) {
+
+            } else if (x==3) {
+
+            } else if (x==4) {
+
+            } else System.out.println("Επιλέξτε ένα από τα παραπάνω (1-2-3-4)");
+        }
+
+
+
 
 
 

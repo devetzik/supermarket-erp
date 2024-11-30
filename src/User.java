@@ -156,7 +156,7 @@ public abstract class User implements Serializable {
             if (username.equals(i.getUsername())) {
                 if (password.equals(i.getPassword())) {
                     isCust = true;
-                    System.out.println("Καλωσήρθατε " + username);
+                    System.out.println("Καλωσήρθατε " + username + "\n");
                     currnentUser=i;
                     break;
                 } else {
@@ -166,7 +166,7 @@ public abstract class User implements Serializable {
                         if (password.equals(i.getPassword())) {
                             isAdmin = true;
                             currnentUser=i;
-                            System.out.println("Καλωσήρθατε " + username);
+                            System.out.println("Καλωσήρθατε " + username + "\n");
                             break;
                         }
                     }
@@ -180,7 +180,7 @@ public abstract class User implements Serializable {
                     if (password.equals(i.getPassword())) {
                         isAdmin = true;
                         currnentUser=i;
-                        System.out.println("Καλωσήρθατε " + username);
+                        System.out.println("Καλωσήρθατε " + username + "\n");
                         break;
                     } else {
 
@@ -190,11 +190,10 @@ public abstract class User implements Serializable {
                             if (password.equals(i.getPassword())) {
                                 isAdmin = true;
                                 currnentUser=i;
-                                System.out.println("Καλωσήρθατε " + username);
+                                System.out.println("Καλωσήρθατε " + username + "\n");
                                 break;
                             }
                         }
-
                     }
                 }
             }
