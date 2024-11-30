@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class User implements Serializable {
 
@@ -7,6 +8,7 @@ public abstract class User implements Serializable {
     ArrayList<Customer> customers;
     ArrayList<Administrator> admins;
     ArrayList<Product> products;
+    ArrayList<Order> orderHistory;
     User currnentUser;
 
 
@@ -15,6 +17,24 @@ public abstract class User implements Serializable {
     public User(String username, String password){
         this.username=username;
         this.password=password;
+    }
+
+    public void loader() throws IOException, ClassNotFoundException {
+        ObjectInputStream custReader = new ObjectInputStream(new FileInputStream("customers.txt"));
+        customers= (ArrayList<Customer>) custReader.readObject();
+        custReader.close();
+
+        ObjectInputStream adminReader=new ObjectInputStream(new FileInputStream("admins.txt"));
+        admins= (ArrayList<Administrator>) adminReader.readObject();
+        adminReader.close();
+
+        ObjectInputStream productReader=new ObjectInputStream(new FileInputStream("products.txt"));
+        products= (ArrayList<Product>) productReader.readObject();
+        productReader.close();
+
+        ObjectInputStream orderHistoryReader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
+        orderHistory = (ArrayList<Order>) orderHistoryReader.readObject();
+        orderHistoryReader.close();
     }
 
 
@@ -47,7 +67,18 @@ public abstract class User implements Serializable {
 
     //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
 
-    public void addCustomer(String fName, String lName, String username, String password) throws IOException, ClassNotFoundException {
+    public void addCustomer() throws IOException, ClassNotFoundException {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Εισάγετε το όνομα χρήστη\n");
+        username=scanner.nextLine();
+        System.out.println("Εισάγετε τον κωδικό\n");
+        password=scanner.nextLine();
+        System.out.println("Εισάγετε το μικρό σας όνομα");
+        fName=scanner.nextLine();
+        System.out.println("Εισάγετε το επώνυμό σας");
+        lName=scanner.nextLine();
+
         boolean flag=true;
 
         // Έλεγχος για κενά πεδία κατά το registration
@@ -82,61 +113,97 @@ public abstract class User implements Serializable {
         // Προσθήκη του νέου πελάτη στη λίστα των customers
 
         if (flag){
-            Customer customer = new Customer(fName, lName, username, password);
+            Customer customer = new Customer(username, password, fName, lName);
             customers.add(customer);
+            System.out.println("Επιτυχής εγγραφή χρήστη");
 
-            ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("customers.txt"));
+            ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("customers.txt",true));
             writer.writeObject(customers);
             writer.close();
 
-            ObjectInputStream reader=new ObjectInputStream(new FileInputStream("admins.txt"));
-            admins= (ArrayList<Administrator>) reader.readObject();
-            reader.close();
+            ObjectInputStream custReader = new ObjectInputStream(new FileInputStream("customers.txt"));
+            customers= (ArrayList<Customer>) custReader.readObject();
+            custReader.close();
         }
     }
 
 
     // Μέθοδος για την είσοδο χρηστών στην εφαρμογή
 
-    public void login(String username, String password){
+    public User login(ArrayList<Customer> customers, ArrayList<Administrator> admins) {
+
+        currnentUser= new User(null,null) {};
+
+        Scanner scanner=new Scanner(System.in);
+
+        System.out.println("Εισάγετε το όνομα χρήστη:\n");
+        String username= scanner.nextLine();
+        System.out.println("Εισάγετε τον κωδικό:\n");
+        String password= scanner.nextLine();
 
         //Έλεγχος για τη σωστή συμπλήρωση των πεδίων
 
-        if (username.isBlank() || password.isBlank()){
+        if (username.isBlank() || password.isBlank()) {
             System.out.println("Συμπληρώστε τα πεδία");
         }
 
-        //Έλεγχος για το είδος χρήστη
 
-        boolean isCust=false, isAdmin=false;
+        //Έλεγχος για το είδος χρήστη (admin/customer)
 
-        for (Customer i : customers){
-            if (username==i.getUsername()){
-                if (password==i.getPassword()){
-                    isCust=true;
-                    System.out.println("Καλωσήρθατε");
+        boolean isCust = false, isAdmin = false;
+
+        for (Customer i : customers) {
+            if (username.equals(i.getUsername())) {
+                if (password.equals(i.getPassword())) {
+                    isCust = true;
+                    System.out.println("Καλωσήρθατε " + username);
                     currnentUser=i;
                     break;
-                }
-                else {
-                    System.out.println("Λάθος password");
+                } else {
+                    while (!password.equals(i.getPassword())) {
+                        System.out.println("Λάθος password, προσπαθήστε ξανά");
+                        password = scanner.nextLine();
+                        if (password.equals(i.getPassword())) {
+                            isAdmin = true;
+                            currnentUser=i;
+                            System.out.println("Καλωσήρθατε " + username);
+                            break;
+                        }
+                    }
                 }
             }
         }
 
-        for (Administrator i : admins){
-            if (username==i.getUsername()){
-                if (password==i.getPassword()){
-                    isAdmin=true;
-                    System.out.println("Καλωσήρθατε");
-                    currnentUser=i;
-                    break;
-                }
-                else {
-                    System.out.println("Λάθος password");
+        if (!isCust) {
+            for (Administrator i : admins) {
+                if (username.equals(i.getUsername())) {
+                    if (password.equals(i.getPassword())) {
+                        isAdmin = true;
+                        currnentUser=i;
+                        System.out.println("Καλωσήρθατε " + username);
+                        break;
+                    } else {
+
+                        while (!password.equals(i.getPassword())) {
+                            System.out.println("Λάθος password, προσπαθήστε ξανά");
+                            password = scanner.nextLine();
+                            if (password.equals(i.getPassword())) {
+                                isAdmin = true;
+                                currnentUser=i;
+                                System.out.println("Καλωσήρθατε " + username);
+                                break;
+                            }
+                        }
+
+                    }
                 }
             }
         }
+
+        if (!isAdmin && !isCust) {
+            System.out.println("Δεν βρέθηκε χρήστης με το συγκεκριμένο username");
+        }
+        return currnentUser;
     }
 
 
