@@ -1,12 +1,15 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Administrator extends User implements Serializable {
 
     ArrayList<Product> products;
     ArrayList<Order> orderHistory;
     HashMap<Product, Integer> sales;
+
+    ArrayList<String> productCategories= new ArrayList<>();
 
     // Κατασκευαστής για το αντικείμενο Administrator
 
@@ -15,27 +18,22 @@ public class Administrator extends User implements Serializable {
     }
 
 
-    // Μέθοδος για την φόρτωση της λίστας προϊόντων από αρχείο
-
-    public void loadProducts() throws IOException, ClassNotFoundException {
-        ObjectInputStream reader= new ObjectInputStream(new FileInputStream("products.txt"));
-        products= (ArrayList<Product>) reader.readObject();
-        reader.close();
-    }
-
-
-    // Μέθοδος για την φόρτωση του ιστορικού παραγγελιών από αρχείο
-
-    public void loadOrderHistory() throws IOException, ClassNotFoundException {
-        ObjectInputStream reader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
-        orderHistory = (ArrayList<Order>) reader.readObject();
-        reader.close();
-    }
-
-
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public void addProduct(String title, String description, String category, String subcategory,double price, int qty) throws IOException, ClassNotFoundException {
+    public void addProduct(String category, String subcategory) throws IOException, ClassNotFoundException {
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("Εισάγετε τον τίτλο του προϊόντος");
+        String title=scanner.nextLine();
+        System.out.println("Εισάγετε την περιγραφή του προϊόντος");
+        String description=scanner.nextLine();
+        System.out.println("Επιλέξτε την κατηγορία του προϊόντος");
+        System.out.println("Επιλέξτε την υποκατηγορία του προϊόντος");
+        System.out.println("Εισάγετε την τιμή του προϊόντος");
+        double price=scanner.nextDouble();
+        System.out.println("Εισάγετε την διαθέσιμη ποσότητα του προϊόντος");
+        int qty=scanner.nextInt();
+
+
         if (title.isBlank() || description.isBlank() || category.isBlank() || subcategory.isBlank() || price<0 || qty<0){
             System.out.println("Λανθασμένη εισαγωγή");
         }

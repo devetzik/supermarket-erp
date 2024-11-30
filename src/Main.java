@@ -17,6 +17,7 @@ public class Main implements Serializable {
         ArrayList<Administrator> admins=new ArrayList<>();
         ArrayList<Product> products= new ArrayList<>();
         ArrayList<Order> orderHistory=new ArrayList<>();
+        ArrayList<String> productCategories= new ArrayList<>();
 
 
         // LOAD DATA
