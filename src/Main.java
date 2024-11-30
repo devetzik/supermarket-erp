@@ -38,6 +38,12 @@ public class Main implements Serializable {
         orderHistory = (ArrayList<Order>) orderHistoryReader.readObject();
         orderHistoryReader.close();
 
+        BufferedReader pr= new BufferedReader(new FileReader("productCategories.txt"));
+        String line;
+        while ((line= pr.readLine())!=null){
+            productCategories.add(line);
+        }
+
         Scanner scanner= new Scanner(System.in);
 
         while (currnentUser.getUsername()==null) {
