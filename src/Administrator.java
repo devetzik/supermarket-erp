@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class Administrator extends User implements Serializable {
 
-    ArrayList<Product> products;
+    Utilities util=new Utilities();
+    ArrayList<Product> products=util.productsLoader();
     ArrayList<Order> orderHistory;
     HashMap<Product, Integer> sales;
 
@@ -82,7 +83,7 @@ public class Administrator extends User implements Serializable {
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public ArrayList<Product> addProduct(ArrayList<Product> products,String cat [][]) throws IOException, ClassNotFoundException {
+    public void addProduct() throws IOException, ClassNotFoundException {
         Scanner scanner= new Scanner(System.in);
         System.out.println("Εισάγετε τον τίτλο του προϊόντος");
         String title=scanner.nextLine();
@@ -115,10 +116,11 @@ public class Administrator extends User implements Serializable {
             System.out.println("Λανθασμένη εισαγωγή");
         }
         else {
-            Product p = new Product(title, description, category, subcategory, price, qty);
-            products.add(p);
+            BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt"));
+            writer.append((title+";"+description+";"+category+";"+subcategory+";"+price+";"+qty));
+            writer.close();
+            System.out.println("Επιτυχής προσθήκη προϊόντος");
         }
-        return products;
     }
 
 

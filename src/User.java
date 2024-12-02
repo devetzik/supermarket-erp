@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 public abstract class User implements Serializable {
 
+    Utilities util=new Utilities();
     private String username, password, fName, lName;
     User currnentUser;
-    String [][] cat;
-    ArrayList<Customer> customers;
-    ArrayList<Administrator> admins;
-    ArrayList<Product> products;
+    String [][] cat= util.catLoader();
+    ArrayList<Customer> customers=util.custLoader();
+    ArrayList <Administrator> admins=util.adminLoader();
+    ArrayList<Product> products=util.productsLoader();
 
 
     // Κατασκευαστής αντικειμένου User
@@ -22,68 +23,9 @@ public abstract class User implements Serializable {
     }
 
 
-
-
-
-
-
-    //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
-
-    public ArrayList<Customer> addCustomer(ArrayList<Customer> customers, ArrayList<Administrator>admins) throws IOException, ClassNotFoundException {
-
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Εισάγετε το όνομα χρήστη\n");
-        username=scanner.nextLine();
-        System.out.println("Εισάγετε τον κωδικό\n");
-        password=scanner.nextLine();
-        System.out.println("Εισάγετε το μικρό σας όνομα");
-        fName=scanner.nextLine();
-        System.out.println("Εισάγετε το επώνυμό σας");
-        lName=scanner.nextLine();
-
-        boolean flag=true;
-
-        // Έλεγχος για κενά πεδία κατά το registration
-
-        if (fName.isBlank() || lName.isBlank() || username.isBlank() || password.isBlank()){
-            System.out.println("Συμπληρώστε τα κενά πεδία");
-            flag=false;
-        }
-
-        // Έλεγχος ύπαρξης του username στη λίστα των customers
-
-        for (Customer i : customers){
-            if (username.equals(i.getUsername())){
-                System.out.println("Το username χρησιμοποιείται");
-                flag=false;
-            }
-        }
-
-        // Έλεγχος ύπαρξης του username στη λίστα των admins
-
-        for (Administrator i: admins){
-            if (username==i.getUsername()){
-                System.out.println("Το username χρησιμοποιείται");
-                flag=false;
-            }
-        }
-
-        // Προσθήκη του νέου πελάτη στη λίστα των customers
-
-        if (flag){
-            Customer customer = new Customer(username, password, fName, lName);
-            customers.add(customer);
-            System.out.println("Επιτυχής εγγραφή χρήστη");
-        }
-        return customers;
-    }
-
-
-    // Μέθοδος για την είσοδο χρηστών στην εφαρμογή
+    // Μέθοδος για την είσοδο χρήστη στο σύστημα
 
     public User login(ArrayList<Customer> customers, ArrayList<Administrator> admins) throws IOException, ClassNotFoundException {
-
 
         Scanner scanner=new Scanner(System.in);
 
@@ -157,20 +99,69 @@ public abstract class User implements Serializable {
     }
 
 
-    // Μέθοδος για την αποσύνδεση χρηστών
+    //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
 
-    public void logout(){
-        username=null;
-        password=null;
-        fName=null;
-        lName=null;
-        currnentUser=null;
+    public void addCustomer() throws IOException, ClassNotFoundException {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Εισάγετε το όνομα χρήστη\n");
+        username=scanner.nextLine();
+        System.out.println("Εισάγετε τον κωδικό\n");
+        password=scanner.nextLine();
+        System.out.println("Εισάγετε το μικρό σας όνομα");
+        fName=scanner.nextLine();
+        System.out.println("Εισάγετε το επώνυμό σας");
+        lName=scanner.nextLine();
+
+        boolean flag=true;
+
+        // Έλεγχος για κενά πεδία κατά το registration
+
+        if (fName.isBlank() || lName.isBlank() || username.isBlank() || password.isBlank()){
+            System.out.println("Συμπληρώστε τα κενά πεδία");
+            flag=false;
+        }
+
+        // Έλεγχος ύπαρξης του username στη λίστα των customers
+
+        for (Customer i : customers){
+            if (username.equals(i.getUsername())){
+                System.out.println("Το username χρησιμοποιείται");
+                flag=false;
+            }
+        }
+
+        // Έλεγχος ύπαρξης του username στη λίστα των admins
+
+        for (Administrator i: admins){
+            if (username==i.getUsername()){
+                System.out.println("Το username χρησιμοποιείται");
+                flag=false;
+            }
+        }
+
+        // Προσθήκη του νέου πελάτη στη λίστα των customers
+
+        if (flag){
+            BufferedWriter writer=new BufferedWriter(new FileWriter("customers.txt"));
+            writer.append(username+";"+password+";"+fName+";"+lName);
+            writer.close();
+            System.out.println("Επιτυχής εγγραφή χρήστη");
+        }
     }
 
 
     // Μέθοδος για την αναζήτηση προϊόντων
 
     public abstract void productSearch(ArrayList<Product> products);
+
+
+    // Μέθοδος για την αποσύνδεση χρηστών
+
+    public void logout(){}
+
+
+
 
 
     public String getUsername(){
