@@ -16,9 +16,68 @@ public class Administrator extends User implements Serializable {
 
     // Κατασκευαστής για το αντικείμενο Administrator
 
-    public Administrator(String username, String password){
+    public Administrator(String username, String password) throws IOException, ClassNotFoundException {
         super(username,password);
     }
+
+    @Override
+    public void productSearch(ArrayList<Product> products) {
+        ArrayList<Product> searchResults = new ArrayList<Product>();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Αναζήτηση βάσει τίτλου (1)\nΑναζήτηση βάσει κατηγορίας (2)");
+        int s=scanner.nextInt();
+        if (s==1) {
+            System.out.println("Πληκτρολογίστε τον τίτλο του προϊόντος προς αναζήτηση");
+            String spare=scanner.nextLine();
+            String title= scanner.nextLine();
+            for (Product i : products) {
+                if (i.getTitle().contains(title)) {
+                    searchResults.add(i);
+                }
+            }
+        }else if (s==2){
+            System.out.println("Επιλέξτε την κατηγορία του προϊόντος");
+            for (int x=0; x< cat.length; x++){
+                if (cat[x]!=null) {
+                    System.out.println(cat[x][0] + "(" + x + ")");
+                }
+            }
+            int x=scanner.nextInt();
+            String category= cat[x][0];
+            System.out.println("Επιλέξτε την υποκατηγορία του προϊόντος");
+            System.out.println("Καμία υποκατηγορία (100)");
+            for (int y=0; y<cat[x].length; y++){
+                if (cat[x][y]!=null) {
+                    System.out.println(cat[x][y] + "(" + y + ")");
+                }
+            }
+            int y= scanner.nextInt();
+            if (y==100){
+                for (Product p : products){
+                    if (p.getCategory().equals(category)){
+                        searchResults.add(p);
+                    }
+                }
+            }else {
+                String subcategory=cat[x][y];
+                for (Product p : products) {
+                    if (p.getSubcategory().equals(subcategory)){
+                        searchResults.add(p);
+                    }
+                }
+            }
+        }
+
+        if (searchResults != null) {
+            System.out.println("Επιλέξτε προϊόν:");
+            for (int i = 0; i < searchResults.size(); i++) {
+                System.out.println(searchResults.get(i).getTitle() + "(" + i + ")");
+            }
+            int y = scanner.nextInt();
+            System.out.println(searchResults.get(y).getDetails());
+        }
+    }
+
 
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα

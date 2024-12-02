@@ -13,20 +13,40 @@ public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException{
 
-        User currnentUser= new User(null,null) {};
-        ArrayList<Customer> customers= new ArrayList<>();
-        ArrayList<Administrator> admins=new ArrayList<>();
-        ArrayList<Product> products= new ArrayList<>();
         ArrayList<Order> orderHistory=new ArrayList<>();
         HashMap <Product,Integer>sales= new HashMap<>();
-        String [][] cat= new String[50][20];
+
+        User currnentUser=null;
+        Utilities util=new Utilities();
+
+
+        ArrayList<Administrator> admins=util.adminLoader();
+        ArrayList<Customer> customers=util.custLoader();
+        ArrayList<Product> products=util.productsLoader();
+        String [][] cat= util.catLoader();
+
+        /*
+        for (int i=0; i< admins.size(); i++)
+            System.out.println(admins.get(i).getUsername()+"\n"+admins.get(i).getPassword());
+        for (int i=0; i<customers.size();i++)
+            System.out.println(customers.get(i).getUsername() +"\n"+customers.get(i).getPassword());
+
+
+        for (int i=0;i<cat.length;i++)
+            for (int j=0;j<cat[i].length;j++)
+                if (cat[i][j]!=null) {
+                    if (j == 0)
+                        System.out.println("\n\n\n");
+                    System.out.println(cat[i][j]);
+                    if (j == 0)
+                        System.out.println("\n");
+                }
+
+         */
 
 
 
-
-
-
-
+/*
         // LOAD DATA
 
         ObjectInputStream custReader = new ObjectInputStream(new FileInputStream("customers.txt"));
@@ -59,6 +79,7 @@ public class Main implements Serializable {
             }
         }
         pr.close();
+
 
 
         Scanner scanner= new Scanner(System.in);

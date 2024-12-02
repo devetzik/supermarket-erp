@@ -14,7 +14,7 @@ public class Customer extends User implements Serializable {
 
     // Κατασκευαστής του αντικειμένου Customer
 
-    public Customer(String username, String password, String fName, String lName){
+    public Customer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
         super(username, password);
         this.fName=fName;
         this.lName=lName;
@@ -111,5 +111,10 @@ public class Customer extends User implements Serializable {
         if (!flag){
             System.out.println("Δεν βρέθηκε ιστορικό παραγγελιών για τον χρήστη "+customer.getUsername());
         }
+    }
+
+    @Override
+    public void productSearch(ArrayList<Product> products) {
+
     }
 }
