@@ -13,7 +13,7 @@ public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException{
 
-        User currnentUser=new User(null,null) {};
+        User currnentUser= new User(null,null) {};
         ArrayList<Customer> customers= new ArrayList<>();
         ArrayList<Administrator> admins=new ArrayList<>();
         ArrayList<Product> products= new ArrayList<>();
@@ -88,7 +88,7 @@ public class Main implements Serializable {
 
         if (admins.contains(currnentUser)){
             Administrator admin=(Administrator) currnentUser;
-            System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΕπεξεργασία προϊόντος (2)\nΑναζήτηση προϊόντος (3)\nΣτατιστικά προϊόντων (4)");
+            System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΑναζήτηση προϊόντος (2)\nΣτατιστικά προϊόντων (3)");
             int x=scanner.nextInt();
             if (x==1){
                 products=admin.addProduct(products,cat);
@@ -96,19 +96,13 @@ public class Main implements Serializable {
                 ObjectOutputStream pw= new ObjectOutputStream(new FileOutputStream("products.txt"));
                 pw.writeObject(products);
                 pw.close();
-
-
             } else if (x==2) {
-                products=admin.editProduct(products);
-                ObjectOutputStream pw= new ObjectOutputStream(new FileOutputStream("products.txt"));
-                pw.writeObject(products);
-                pw.close();
-            } else if (x==3) {
                admin.productSearch(products);
-            } else if (x==4) {
+            } else if (x==3) {
                 admin.adminStats(products,orderHistory,sales);
-            } else System.out.println("Επιλέξτε ένα από τα παραπάνω (1-2-3-4)");
+            } else System.out.println("Επιλέξτε ένα από τα παραπάνω (1-2-3)");
         }
+
 
 
 

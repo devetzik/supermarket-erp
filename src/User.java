@@ -47,7 +47,7 @@ public abstract class User implements Serializable {
         // Έλεγχος ύπαρξης του username στη λίστα των customers
 
         for (Customer i : customers){
-            if (username==i.getUsername()){
+            if (username.equals(i.getUsername())){
                 System.out.println("Το username χρησιμοποιείται");
                 flag=false;
             }
@@ -220,6 +220,7 @@ public abstract class User implements Serializable {
             System.out.println(searchResults.get(y).getDetails());
         }
     }
+
 
 
 

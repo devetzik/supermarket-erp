@@ -21,6 +21,8 @@ public class Product implements Serializable {
 
 
 
+
+
     // Setters για τα χαρακτηριστικά του προϊόντος
 
     public void setTitle(String title){

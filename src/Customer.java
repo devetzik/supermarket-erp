@@ -21,15 +21,6 @@ public class Customer extends User implements Serializable {
     }
 
 
-    // Μέθοδος για την φόρτωση του ιστορικού παραγγελιών από αρχείο
-
-    public void loadOrderHistory() throws IOException, ClassNotFoundException {
-        ObjectInputStream reader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
-        orderHistory = (ArrayList<Order>) reader.readObject();
-        reader.close();
-    }
-
-
     // Τρέχουσα κατάσταση του καλαθιού
 
     public void shoppingCart(){
