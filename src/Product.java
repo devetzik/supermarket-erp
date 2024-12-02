@@ -71,7 +71,7 @@ public class Product implements Serializable {
     }
 
 
-    public String getDetails(Product product){
+    public String getDetails(){
         if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
             unit="kg";
         }

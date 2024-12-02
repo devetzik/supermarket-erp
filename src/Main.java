@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -17,7 +18,13 @@ public class Main implements Serializable {
         ArrayList<Administrator> admins=new ArrayList<>();
         ArrayList<Product> products= new ArrayList<>();
         ArrayList<Order> orderHistory=new ArrayList<>();
-        ArrayList<String> productCategories= new ArrayList<>();
+        HashMap <Product,Integer>sales= new HashMap<>();
+        String [][] cat= new String[50][20];
+
+
+
+
+
 
 
         // LOAD DATA
@@ -38,12 +45,21 @@ public class Main implements Serializable {
         orderHistory = (ArrayList<Order>) orderHistoryReader.readObject();
         orderHistoryReader.close();
 
-        BufferedReader pr= new BufferedReader(new FileReader("productCategories.txt"));
+        BufferedReader pr= new BufferedReader(new FileReader("cat.txt"));
         String line;
+        int z=0;
+        int h=0;
         while ((line= pr.readLine())!=null){
-            productCategories.add(line);
+            if (line.equals(" ")){
+                z++;
+                h=0;
+            } else {
+                cat[z][h]=line;
+                h++;
+            }
         }
         pr.close();
+
 
         Scanner scanner= new Scanner(System.in);
 
@@ -57,7 +73,12 @@ public class Main implements Serializable {
                 currnentUser = currnentUser.login(customers, admins);
             } else if (x == 2) {
                 //ADD CUSTOMER
-                currnentUser.addCustomer();
+                customers=currnentUser.addCustomer(customers,admins);
+
+                ObjectOutputStream nc= new ObjectOutputStream(new FileOutputStream("customers.txt"));
+                nc.writeObject(customers);
+                nc.close();
+
             } else System.out.println("Επιλέξτε 1 ή 2");
         }
 
@@ -66,16 +87,26 @@ public class Main implements Serializable {
         //USER IS ADMIN
 
         if (admins.contains(currnentUser)){
+            Administrator admin=(Administrator) currnentUser;
             System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΕπεξεργασία προϊόντος (2)\nΑναζήτηση προϊόντος (3)\nΣτατιστικά προϊόντων (4)");
             int x=scanner.nextInt();
             if (x==1){
+                products=admin.addProduct(products,cat);
+
+                ObjectOutputStream pw= new ObjectOutputStream(new FileOutputStream("products.txt"));
+                pw.writeObject(products);
+                pw.close();
+
 
             } else if (x==2) {
-
+                products=admin.editProduct(products);
+                ObjectOutputStream pw= new ObjectOutputStream(new FileOutputStream("products.txt"));
+                pw.writeObject(products);
+                pw.close();
             } else if (x==3) {
-
+               admin.productSearch(products);
             } else if (x==4) {
-
+                admin.adminStats(products,orderHistory,sales);
             } else System.out.println("Επιλέξτε ένα από τα παραπάνω (1-2-3-4)");
         }
 
@@ -94,7 +125,7 @@ public class Main implements Serializable {
 
 
 
-       /* for (int i=0; i<1; i++) {
+       /*for (int i=0; i<1; i++) {
             System.out.println("Τίτλος");
             String title=scanner.nextLine();
             System.out.println("Περιγραφή");
@@ -109,14 +140,15 @@ public class Main implements Serializable {
             int qty= scanner.nextInt();
             String spare= scanner.nextLine();
 
-
-
-        }
+           products.add(new Product(title,description,category,subcategory,price,qty));
+       }
 
         */
 
 
-        //products.add(new Product("Πορτοκάλια 1kg", "Φρέσκα πορτοκάλια, ιδανικά για χυμό ή κατανάλωση.", "Φρέσκα τρόφιμα", "Φρούτα", 1.2, 200));
+
+
+        //
 
         /*ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("products.txt",true));
         writer.writeObject(products);

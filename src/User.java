@@ -5,11 +5,8 @@ import java.util.Scanner;
 public abstract class User implements Serializable {
 
     private String username, password, fName, lName;
-    ArrayList<Customer> customers;
-    ArrayList<Administrator> admins;
-    ArrayList<Product> products;
-    ArrayList<Order> orderHistory;
     User currnentUser;
+    String [][] cat;
 
 
     // Κατασκευαστής αντικειμένου User
@@ -19,55 +16,14 @@ public abstract class User implements Serializable {
         this.password=password;
     }
 
-    public void loader() throws IOException, ClassNotFoundException {
-        ObjectInputStream custReader = new ObjectInputStream(new FileInputStream("customers.txt"));
-        customers= (ArrayList<Customer>) custReader.readObject();
-        custReader.close();
-
-        ObjectInputStream adminReader=new ObjectInputStream(new FileInputStream("admins.txt"));
-        admins= (ArrayList<Administrator>) adminReader.readObject();
-        adminReader.close();
-
-        ObjectInputStream productReader=new ObjectInputStream(new FileInputStream("products.txt"));
-        products= (ArrayList<Product>) productReader.readObject();
-        productReader.close();
-
-        ObjectInputStream orderHistoryReader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
-        orderHistory = (ArrayList<Order>) orderHistoryReader.readObject();
-        orderHistoryReader.close();
-    }
 
 
-    // Μέθοδος για την φόρτωση της λίστας πελατών από αρχείο
-
-    public void loadCustomers () throws IOException, ClassNotFoundException {
-        ObjectInputStream reader = new ObjectInputStream(new FileInputStream("customers.txt"));
-        customers= (ArrayList<Customer>) reader.readObject();
-        reader.close();
-    }
-
-
-    // Μέθοδος για την φόρτωση την λίστας διαχειριστών από αρχείο
-
-    public void loadAdmins() throws IOException, ClassNotFoundException {
-        ObjectInputStream reader=new ObjectInputStream(new FileInputStream("admins.txt"));
-        admins= (ArrayList<Administrator>) reader.readObject();
-        reader.close();
-    }
-
-
-    // Μέθοδος για την φόρτωση την λίστας προϊόντων από αρχείο
-
-    public void loadProducts() throws IOException, ClassNotFoundException {
-        ObjectInputStream reader=new ObjectInputStream(new FileInputStream("products.txt"));
-        products= (ArrayList<Product>) reader.readObject();
-        reader.close();
-    }
 
 
     //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
 
-    public void addCustomer() throws IOException, ClassNotFoundException {
+    public ArrayList<Customer> addCustomer(ArrayList<Customer> customers, ArrayList<Administrator>admins) throws IOException, ClassNotFoundException {
+
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Εισάγετε το όνομα χρήστη\n");
@@ -87,10 +43,6 @@ public abstract class User implements Serializable {
             System.out.println("Συμπληρώστε τα κενά πεδία");
             flag=false;
         }
-        /*if (customers.contains(customer)){
-            System.out.println("Ο Πελάτης είναι ήδη εγγεγραμμένος");
-           flag=false;
-        }*/
 
         // Έλεγχος ύπαρξης του username στη λίστα των customers
 
@@ -116,15 +68,8 @@ public abstract class User implements Serializable {
             Customer customer = new Customer(username, password, fName, lName);
             customers.add(customer);
             System.out.println("Επιτυχής εγγραφή χρήστη");
-
-            ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("customers.txt",true));
-            writer.writeObject(customers);
-            writer.close();
-
-            ObjectInputStream custReader = new ObjectInputStream(new FileInputStream("customers.txt"));
-            customers= (ArrayList<Customer>) custReader.readObject();
-            custReader.close();
         }
+        return customers;
     }
 
 
@@ -219,13 +164,64 @@ public abstract class User implements Serializable {
 
     // Μέθοδος για την αναζήτηση προϊόντων
 
-    public void productSearchByTitle(String title){
-        for (Product i : products){
-            if (title==i.getTitle()){
-                System.out.println(i.getDetails(i));;
+    public void productSearch(ArrayList<Product> products) {
+        ArrayList<Product> searchResults = new ArrayList<Product>();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Αναζήτηση βάσει τίτλου (1)\nΑναζήτηση βάσει κατηγορίας (2)");
+        int s=scanner.nextInt();
+        if (s==1) {
+            System.out.println("Πληκτρολογίστε τον τίτλο του προϊόντος προς αναζήτηση");
+            String spare=scanner.nextLine();
+            String title= scanner.nextLine();
+            for (Product i : products) {
+                if (i.getTitle().contains(title)) {
+                    searchResults.add(i);
+                }
+            }
+        }else if (s==2){
+            System.out.println("Επιλέξτε την κατηγορία του προϊόντος");
+            for (int x=0; x< cat.length; x++){
+                if (cat[x]!=null) {
+                    System.out.println(cat[x][0] + "(" + x + ")");
+                }
+            }
+            int x=scanner.nextInt();
+            String category= cat[x][0];
+            System.out.println("Επιλέξτε την υποκατηγορία του προϊόντος");
+            System.out.println("Καμία υποκατηγορία (100)");
+            for (int y=0; y<cat[x].length; y++){
+                if (cat[x][y]!=null) {
+                    System.out.println(cat[x][y] + "(" + y + ")");
+                }
+            }
+            int y= scanner.nextInt();
+            if (y==100){
+                for (Product p : products){
+                    if (p.getCategory().equals(category)){
+                        searchResults.add(p);
+                    }
+                }
+            }else {
+                String subcategory=cat[x][y];
+                for (Product p : products) {
+                    if (p.getSubcategory().equals(subcategory)){
+                        searchResults.add(p);
+                    }
+                }
             }
         }
+
+        if (searchResults != null) {
+            System.out.println("Επιλέξτε προϊόν:");
+            for (int i = 0; i < searchResults.size(); i++) {
+                System.out.println(searchResults.get(i).getTitle() + "(" + i + ")");
+            }
+            int y = scanner.nextInt();
+            System.out.println(searchResults.get(y).getDetails());
+        }
     }
+
+
 
 
     public String getUsername(){
