@@ -11,35 +11,34 @@ import java.util.Scanner;
  */
 public class Main implements Serializable {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException{
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        ArrayList<Order> orderHistory=new ArrayList<>();
-        HashMap <Product,Integer>sales= new HashMap<>();
+        ArrayList<Order> orderHistory = new ArrayList<>();
+        HashMap<Product, Integer> sales = new HashMap<>();
 
-        User currnentUser=null;
-        Utilities util=new Utilities();
+        User currnentUser = null;
+        Utilities util = new Utilities();
 
-        ArrayList<Administrator> admins=util.adminLoader();
-        ArrayList<Customer> customers=util.custLoader();
-        ArrayList<Product> products=util.productsLoader();
-        String [][] cat= util.catLoader();
+        ArrayList<Administrator> admins = new ArrayList<>();
+        admins = util.adminLoader();
+        ArrayList<Customer> customers = new ArrayList<>();
+        customers=util.custLoader();
+        ArrayList<Product> products = new ArrayList<>();
+        String[][] cat = new String[30][10];
 
-        ObjectInputStream orderHistoryReader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
-        orderHistory = (ArrayList<Order>) orderHistoryReader.readObject();
-        orderHistoryReader.close();
-        Scanner scanner= new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        while (currnentUser.getUsername()==null) {
+        while (currnentUser == null) {
 
             System.out.println("Είσοδος χρήστη (1) ή Εγγραφή νέου χρήστη(2)");
             int x = scanner.nextInt();
 
             if (x == 1) {
                 //LOGIN
-                currnentUser = currnentUser.login(customers, admins);
+                currnentUser = util.login();
             } else if (x == 2) {
                 //ADD CUSTOMER
-                currnentUser.addCustomer();
+                util.addCustomer();
             }
 
 

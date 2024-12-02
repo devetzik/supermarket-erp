@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Administrator extends User implements Serializable {
 
     Utilities util=new Utilities();
-    ArrayList<Product> products=util.productsLoader();
+    ArrayList<Product> products;
     ArrayList<Order> orderHistory;
     HashMap<Product, Integer> sales;
 
