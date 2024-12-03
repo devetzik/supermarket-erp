@@ -13,18 +13,23 @@ public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        ArrayList<Order> orderHistory = new ArrayList<>();
-        HashMap<Product, Integer> sales = new HashMap<>();
-
-        User currnentUser = null;
         Utilities util = new Utilities();
+        ArrayList<Product> p = new ArrayList<>();
+        p=util.productsLoader();
+        for (Product i : p){
+            System.out.println(i.getTitle());
+        }
+        System.out.println(p.size());
+        util.productsRemover(p.get(1));
+        p=util.productsLoader();
+        for (Product i : p)
+            System.out.println(i.getTitle());
+        System.out.println(p.size());
 
-        ArrayList<Administrator> admins = new ArrayList<>();
-        admins = util.adminLoader();
-        ArrayList<Customer> customers = new ArrayList<>();
-        customers=util.custLoader();
-        ArrayList<Product> products = new ArrayList<>();
-        String[][] cat = new String[30][10];
+
+
+        /*
+        User currnentUser = null;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -44,18 +49,33 @@ public class Main implements Serializable {
 
             //USER IS ADMIN
 
-            if (admins.contains(currnentUser)) {
+            if (currnentUser instanceof Administrator) {
                 Administrator admin = (Administrator) currnentUser;
                 System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΑναζήτηση προϊόντος (2)\nΣτατιστικά προϊόντων (3)");
                 x = scanner.nextInt();
                 if (x == 1) {
                     admin.addProduct();
                 } else if (x == 2) {
-                    admin.productSearch(products);
+                    admin.productSearch();
                 } else if (x == 3) {
-                    admin.adminStats(products, orderHistory, sales);
-                } else System.out.println("Επιλέξτε ένα από τα παραπάνω (1-2-3)");
+                    admin.adminStats();
+                }
             }
+
+
+            //USER IS CUSTOMER
+
+            if (currnentUser instanceof Customer) {
+                Customer customer=(Customer) currnentUser;
+                System.out.println("Επιλέξτε λειτουργία:\nΠροβολή Ιστορικού Παραγγελιών (1)");
+                x= scanner.nextInt();
+                if (x==1){
+                    customer.viewOrderHistory(customer);
+                }
+
+            }
+
+
 
 
         /*
@@ -85,6 +105,5 @@ public class Main implements Serializable {
             }
         }
          */
-        }
     }
-}
+    }

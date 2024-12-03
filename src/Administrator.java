@@ -7,11 +7,10 @@ public class Administrator extends User implements Serializable {
 
     Utilities util=new Utilities();
     ArrayList<Product> products;
+
     ArrayList<Order> orderHistory;
     HashMap<Product, Integer> sales;
-
-    ArrayList<String> productCategories= new ArrayList<>();
-    String [][] cat;
+    String [][] cat= util.catLoader();
 
 
 
@@ -22,8 +21,8 @@ public class Administrator extends User implements Serializable {
     }
 
     @Override
-    public void productSearch(ArrayList<Product> products) {
-        ArrayList<Product> searchResults = new ArrayList<Product>();
+    public void productSearch() {
+        ArrayList<Product> searchResults= new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Αναζήτηση βάσει τίτλου (1)\nΑναζήτηση βάσει κατηγορίας (2)");
         int s=scanner.nextInt();
@@ -47,7 +46,7 @@ public class Administrator extends User implements Serializable {
             String category= cat[x][0];
             System.out.println("Επιλέξτε την υποκατηγορία του προϊόντος");
             System.out.println("Καμία υποκατηγορία (100)");
-            for (int y=0; y<cat[x].length; y++){
+            for (int y=1; y<cat[x].length; y++){
                 if (cat[x][y]!=null) {
                     System.out.println(cat[x][y] + "(" + y + ")");
                 }
@@ -69,14 +68,17 @@ public class Administrator extends User implements Serializable {
             }
         }
 
-        if (searchResults != null) {
+        if (!searchResults.isEmpty()) {
             System.out.println("Επιλέξτε προϊόν:");
             for (int i = 0; i < searchResults.size(); i++) {
                 System.out.println(searchResults.get(i).getTitle() + "(" + i + ")");
             }
             int y = scanner.nextInt();
             System.out.println(searchResults.get(y).getDetails());
+        }else {
+            System.out.println("Δεν βρέθηκαν προϊόντα για αυτή την αναζήτηση");
         }
+        scanner.close();
     }
 
 
@@ -90,16 +92,16 @@ public class Administrator extends User implements Serializable {
         System.out.println("Εισάγετε την περιγραφή του προϊόντος");
         String description=scanner.nextLine();
         System.out.println("Επιλέξτε την κατηγορία του προϊόντος");
-        int tmp=0;
+
         for (int x=0; x< cat.length; x++){
-            if (cat[x][tmp]!=null) {
+            if (cat[x][0]!=null) {
                 System.out.println(cat[x][0] + "(" + x + ")");
             }
         }
         int x=scanner.nextInt();
         String category= cat[x][0];
         System.out.println("Επιλέξτε την υποκατηγορία του προϊόντος");
-        for (int y=0; y<cat[x].length; y++){
+        for (int y=1; y<cat[x].length; y++){
             if (cat[x][y]!=null) {
                 System.out.println(cat[x][y] + "(" + y + ")");
             }
@@ -116,35 +118,57 @@ public class Administrator extends User implements Serializable {
             System.out.println("Λανθασμένη εισαγωγή");
         }
         else {
-            BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt"));
-            writer.append((title+";"+description+";"+category+";"+subcategory+";"+price+";"+qty));
-            writer.close();
+            Product product=new Product(title,description,category,subcategory,price,qty);
+            util.productsWriter(product);
             System.out.println("Επιτυχής προσθήκη προϊόντος");
         }
+        scanner.close();
     }
 
 
 
 
 
-    public ArrayList<Product> editProduct(ArrayList<Product> products){
+    public void editProduct(Product product) throws IOException {
+        Product newP= product;
+        Scanner scanner=new Scanner(System.in);
+        products=util.productsLoader();
+        System.out.println("Επεξεργασία τίτλου (1)\nΕπεξεργασία περιγραφής (2)\nΑλλαγή κατηγορίας (3)\nΑλλαγή Υποκατηγορίας (4)\nΑλλαγή τιμής (5)\nΑλλαγή ποσότητας αποθέματος (6)");
+        int x= scanner.nextInt();
+
+        if (x==1){
+            System.out.println("Εισάγετε τον νέο τίτλο");
+            String title=scanner.nextLine();
+            newP.setTitle(title);
+            System.out.println("Επιτυχής αλλαγή τίτλου");
+            util.productsRemover(product);
+            util.productsWriter(newP);
+        }
 
 
 
-        return products;
+        scanner.close();
     }
 
 
-    public void adminStats(ArrayList<Product> products, ArrayList<Order> orderHistory, HashMap<Product, Integer> sales){
+    public void adminStats() throws IOException {
         Scanner scanner= new Scanner(System.in);
+        products=util.productsLoader();
         System.out.println("Επιλέξτε λειτουργία:\nΠροϊόντα με εξαντλημένο απόθεμα (1)\nΠροϊόντα που εμφανίστηκαν στις περισσότερες παραγγελίες (2)");
         int x=scanner.nextInt();
         if (x==1){
-            System.out.println("Τα προϊόντα με εξαντλημένο απόθεμα είναι: \n");
+            ArrayList<Product> noInv=new ArrayList<>();
             for (Product i : products){
                 if (i.getQty()==0){
-                    System.out.println(i.getTitle() + "\n");
+                    noInv.add(i);
                 }
+            }
+            if (noInv.isEmpty()){
+                System.out.println("Δεν υπάρχουν προϊόντα με εξαντλημένο απόθεμα");
+            }else {
+                System.out.println("Τα προϊόντα με εξαντλημένο απόθεμα είναι: \n");
+                for (Product j : noInv)
+                    System.out.println(j.getTitle());
             }
         } else if (x==2) {
             for (Order i : orderHistory){

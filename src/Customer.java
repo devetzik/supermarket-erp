@@ -47,6 +47,7 @@ public class Customer extends User implements Serializable {
 
         if (flag){
             shoppingCart.put(product, posotita);
+            System.out.println("Επιτυχής προσθήκη στο καλάθι");
         }
     }
 
@@ -78,16 +79,9 @@ public class Customer extends User implements Serializable {
     //Ολοκλήρωση παραγγελίας, εγγραφή στο ιστορικό και αφαίρεση αποθέματος
 
     public void confirmOrder() throws IOException, ClassNotFoundException {
-        Order order = new Order((Customer) getCurrentUser(),shoppingCart,LocalDateTime.now(), getTotal());
+        Order order = new Order((Customer) currnentUser, shoppingCart,LocalDateTime.now(), getTotal());
         orderHistory.add(order);
 
-        ObjectOutputStream writer= new ObjectOutputStream(new FileOutputStream("orderhistory.txt"));
-        writer.writeObject(orderHistory);
-        writer.close();
-
-        ObjectInputStream reader= new ObjectInputStream(new FileInputStream("orderhistory.txt"));
-        orderHistory = (ArrayList<Order>) reader.readObject();
-        reader.close();
 
         for (Product i : shoppingCart.keySet()){
             i.setQty(i.getQty()-shoppingCart.get(i));
@@ -97,8 +91,9 @@ public class Customer extends User implements Serializable {
 
     // Μέθοδος για την προσπέλαση του ιστορικού παραγγελιών
 
-    public void viewOrderHistory(Customer customer){
+    public void viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
         boolean flag=false;
+        orderHistory=util.orderHistoryLoader();
         System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
         for (Order i : orderHistory){
             if (i.getCustomer()==customer){
@@ -114,7 +109,7 @@ public class Customer extends User implements Serializable {
     }
 
     @Override
-    public void productSearch(ArrayList<Product> products) {
+    public void productSearch() {
 
     }
 }

@@ -24,22 +24,13 @@ public abstract class User implements Serializable {
     }
 
 
-    // Μέθοδος για την είσοδο χρήστη στο σύστημα
-
-
-
-
-    //Μέθοδος για την προσθήκη νέου πελάτη στο σύστημα
-
-
-
-
     // Μέθοδος για την αναζήτηση προϊόντων
 
-    public abstract void productSearch(ArrayList<Product> products);
+    public abstract void productSearch();
 
 
     // Μέθοδος για την αποσύνδεση χρηστών
+
 
     public void logout(){}
 
