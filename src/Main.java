@@ -14,21 +14,7 @@ public class Main implements Serializable {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         Utilities util = new Utilities();
-        ArrayList<Product> p = new ArrayList<>();
-        p=util.productsLoader();
-        for (Product i : p){
-            System.out.println(i.getTitle());
-        }
-        System.out.println(p.size());
-        util.productsRemover(p.get(1));
-        p=util.productsLoader();
-        for (Product i : p)
-            System.out.println(i.getTitle());
-        System.out.println(p.size());
 
-
-
-        /*
         User currnentUser = null;
 
         Scanner scanner = new Scanner(System.in);
@@ -66,10 +52,10 @@ public class Main implements Serializable {
             //USER IS CUSTOMER
 
             if (currnentUser instanceof Customer) {
-                Customer customer=(Customer) currnentUser;
+                Customer customer = (Customer) currnentUser;
                 System.out.println("Επιλέξτε λειτουργία:\nΠροβολή Ιστορικού Παραγγελιών (1)");
-                x= scanner.nextInt();
-                if (x==1){
+                x = scanner.nextInt();
+                if (x == 1) {
                     customer.viewOrderHistory(customer);
                 }
 
@@ -105,5 +91,6 @@ public class Main implements Serializable {
             }
         }
          */
+        }
     }
-    }
+}
