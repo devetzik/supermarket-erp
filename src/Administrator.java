@@ -20,72 +20,13 @@ public class Administrator extends User implements Serializable {
         super(username,password);
     }
 
-    @Override
-    public void productSearch() {
-        ArrayList<Product> searchResults= new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Αναζήτηση βάσει τίτλου (1)\nΑναζήτηση βάσει κατηγορίας (2)");
-        int s=scanner.nextInt();
-        if (s==1) {
-            System.out.println("Πληκτρολογίστε τον τίτλο του προϊόντος προς αναζήτηση");
-            String spare=scanner.nextLine();
-            String title= scanner.nextLine();
-            for (Product i : products) {
-                if (i.getTitle().contains(title)) {
-                    searchResults.add(i);
-                }
-            }
-        }else if (s==2){
-            System.out.println("Επιλέξτε την κατηγορία του προϊόντος");
-            for (int x=0; x< cat.length; x++){
-                if (cat[x]!=null) {
-                    System.out.println(cat[x][0] + "(" + x + ")");
-                }
-            }
-            int x=scanner.nextInt();
-            String category= cat[x][0];
-            System.out.println("Επιλέξτε την υποκατηγορία του προϊόντος");
-            System.out.println("Καμία υποκατηγορία (100)");
-            for (int y=1; y<cat[x].length; y++){
-                if (cat[x][y]!=null) {
-                    System.out.println(cat[x][y] + "(" + y + ")");
-                }
-            }
-            int y= scanner.nextInt();
-            if (y==100){
-                for (Product p : products){
-                    if (p.getCategory().equals(category)){
-                        searchResults.add(p);
-                    }
-                }
-            }else {
-                String subcategory=cat[x][y];
-                for (Product p : products) {
-                    if (p.getSubcategory().equals(subcategory)){
-                        searchResults.add(p);
-                    }
-                }
-            }
-        }
 
-        if (!searchResults.isEmpty()) {
-            System.out.println("Επιλέξτε προϊόν:");
-            for (int i = 0; i < searchResults.size(); i++) {
-                System.out.println(searchResults.get(i).getTitle() + "(" + i + ")");
-            }
-            int y = scanner.nextInt();
-            System.out.println(searchResults.get(y).getDetails());
-        }else {
-            System.out.println("Δεν βρέθηκαν προϊόντα για αυτή την αναζήτηση");
-        }
-        scanner.close();
-    }
 
 
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public void addProduct() throws IOException, ClassNotFoundException {
+    public void addProduct() throws IOException {
         Scanner scanner= new Scanner(System.in);
         System.out.println("Εισάγετε τον τίτλο του προϊόντος");
         String title=scanner.nextLine();
@@ -135,19 +76,74 @@ public class Administrator extends User implements Serializable {
         products=util.productsLoader();
         System.out.println("Επεξεργασία τίτλου (1)\nΕπεξεργασία περιγραφής (2)\nΑλλαγή κατηγορίας (3)\nΑλλαγή Υποκατηγορίας (4)\nΑλλαγή τιμής (5)\nΑλλαγή ποσότητας αποθέματος (6)");
         int x= scanner.nextInt();
+        String line;
+        double newPrice;
+        int newQty;
 
         if (x==1){
             System.out.println("Εισάγετε τον νέο τίτλο");
-            String title=scanner.nextLine();
-            newP.setTitle(title);
+            line=scanner.nextLine();
+            newP.setTitle(line);
             System.out.println("Επιτυχής αλλαγή τίτλου");
-            util.productsRemover(product);
-            util.productsWriter(newP);
+        } else if (x==2) {
+            System.out.println("Εισάγετε την νέα περιγραφή");
+            line=scanner.nextLine();
+            newP.setDescription(line);
+            System.out.println("Επιτυχής αλλαγή περιγραφής");
+        } else if (x==3) {
+            System.out.println("Επιλέξτε κατηγορία:");
+            for (int i=0;i< cat.length;i++){
+                if (cat[i][0]!=null) {
+                    System.out.println(cat[i][0] + "(" + i + ")");
+                }
+            }
+            int i= scanner.nextInt();
+            line=cat[i][0];
+            newP.setCategory(line);
+            System.out.println("Επιλέξτε υποκατηγορία");
+            for (int j=1; j<cat[i].length; j++){
+                if (cat[i][j]!=null) {
+                    System.out.println(cat[i][j] + "(" + j + ")");
+                }
+            }
+            int j= scanner.nextInt();
+            line=cat[i][j];
+            newP.setSubcategory(line);
+            System.out.println("Επιτυχής αλλαγή κατηγορίας-υποκατηγορίας");
+        } else if (x==4) {
+            System.out.println("Επιλέξτε υποκατηγορία:");
+            int c=0;
+            for (int i=0;i< cat.length;i++){
+                if (cat[i][0].equals(newP.getCategory())){
+                    c=i;
+                    break;
+                }
+            }
+            for (int j=1; j<cat[c].length; j++){
+                if (cat[c][j]!=null) {
+                    System.out.println(cat[c][j] + "(" + j + ")");
+                }
+            }
+            int j= scanner.nextInt();
+            line=cat[c][j];
+            newP.setSubcategory(line);
+            System.out.println("Επιτυχής αλλαγή υποκατηγορίας");
+        } else if (x==5) {
+            System.out.println("Εισάγετε την νέα τιμή");
+            newPrice=scanner.nextDouble();
+            newP.setPrice(newPrice);
+            System.out.println("Επιτυχής αλλαγή τιμής");
+        } else if (x==6) {
+            System.out.println("Εισάγετε την νέα ποσότητα αποθέματος");
+            newQty=scanner.nextInt();
+            newP.setQty(newQty);
+            System.out.println("Επιτυχής αλλαγή ποσότητας αποθέματος");
         }
 
-
-
+        util.productsRemover(product);
+        util.productsWriter(newP);
         scanner.close();
+        System.out.println(newP.getDetails());
     }
 
 
@@ -179,5 +175,14 @@ public class Administrator extends User implements Serializable {
         }
     }
 
-
+    @Override
+    public void viewProduct(Product product) throws IOException {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println(product.getDetails());
+        System.out.println("Επεξεργασία προϊόντος (0)");
+        int x=scanner.nextInt();
+        if (x==0){
+            editProduct(product);
+        }
+    }
 }

@@ -3,6 +3,7 @@ import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
 
@@ -23,11 +24,21 @@ public class Customer extends User implements Serializable {
 
     // Τρέχουσα κατάσταση του καλαθιού
 
-    public void shoppingCart(){
-        for (Product i : shoppingCart.keySet()){
-            System.out.println("Τίτλος: "+i.getTitle()+"\nΠοσότητα: "+shoppingCart.get(i)+"Συνολικό κόστος: "+(shoppingCart.get(i)* i.getPrice())+"€");
+    public void viewShoppingCart() throws IOException, ClassNotFoundException {
+        Scanner scanner=new Scanner(System.in);
+        if (shoppingCart.isEmpty()){
+            System.out.println("Το καλάθι είναι άδειο");
+        }else {
+            for (Product i : shoppingCart.keySet()) {
+                System.out.println("Τίτλος: " + i.getTitle() + "\nΠοσότητα: " + shoppingCart.get(i) + "Συνολικό κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€");
+            }
+            System.out.println("Συνολικό κόστος καλαθιού: "+ getTotal()+"€");
+            System.out.println("Ολοκλήρωση παραγγελίας (0)");
+            int x=scanner.nextInt();
+            if (x==0){
+                confirmOrder();
+            }
         }
-        System.out.println("Συνολικό κόστος καλαθιού: "+ getTotal()+"€");
     }
 
 
@@ -81,10 +92,11 @@ public class Customer extends User implements Serializable {
     public void confirmOrder() throws IOException, ClassNotFoundException {
         Order order = new Order((Customer) currnentUser, shoppingCart,LocalDateTime.now(), getTotal());
         orderHistory.add(order);
-
-
         for (Product i : shoppingCart.keySet()){
-            i.setQty(i.getQty()-shoppingCart.get(i));
+            Product newP=i;
+            newP.setQty(i.getQty()-shoppingCart.get(i));
+            util.productsRemover(i);
+            util.productsWriter(newP);
         }
     }
 
@@ -109,7 +121,16 @@ public class Customer extends User implements Serializable {
     }
 
     @Override
-    public void productSearch() {
+    public void viewProduct(Product product) {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println(product.getDetails());
+        System.out.println("Προσθήκη στο καλάθι (1)");
+        int x=scanner.nextInt();
+        if (x==0){
+            System.out.println("Εισάγετε τα τεμάχια");
+            int qty= scanner.nextInt();
+            addToShoppingCart(product,qty);
+        }
 
     }
 }

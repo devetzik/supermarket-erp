@@ -14,52 +14,59 @@ public class Main implements Serializable {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         Utilities util = new Utilities();
-
         User currnentUser = null;
-
         Scanner scanner = new Scanner(System.in);
 
         while (currnentUser == null) {
-
-            System.out.println("Είσοδος χρήστη (1) ή Εγγραφή νέου χρήστη(2)");
+            System.out.println("Είσοδος χρήστη (1) / Εγγραφή νέου χρήστη(2) / Τερματισμός προγράμματος (3)");
             int x = scanner.nextInt();
-
             if (x == 1) {
                 //LOGIN
                 currnentUser = util.login();
             } else if (x == 2) {
                 //ADD CUSTOMER
                 util.addCustomer();
+            } else if (x==3) {
+                System.exit(0);
             }
 
 
             //USER IS ADMIN
 
-            if (currnentUser instanceof Administrator) {
+            while (currnentUser instanceof Administrator) {
                 Administrator admin = (Administrator) currnentUser;
-                System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΑναζήτηση προϊόντος (2)\nΣτατιστικά προϊόντων (3)");
+                System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΑναζήτηση προϊόντος (2)\nΣτατιστικά προϊόντων (3)\nΑποσύνδεση χρήστη(4)");
                 x = scanner.nextInt();
                 if (x == 1) {
                     admin.addProduct();
                 } else if (x == 2) {
-                    admin.productSearch();
+                    admin.productSearch(admin);
                 } else if (x == 3) {
                     admin.adminStats();
+                } else if (x == 4) {
+                    currnentUser = null;
                 }
             }
 
 
             //USER IS CUSTOMER
 
-            if (currnentUser instanceof Customer) {
+            while (currnentUser instanceof Customer) {
                 Customer customer = (Customer) currnentUser;
-                System.out.println("Επιλέξτε λειτουργία:\nΠροβολή Ιστορικού Παραγγελιών (1)");
+                System.out.println("Επιλέξτε λειτουργία:\nΠροβολή Ιστορικού Παραγγελιών (1)\nΑναζήτηση προϊόντος (2)\nΠροβολή καλαθιού (3)\nΑποσύνδεση χρήστη(4)");
                 x = scanner.nextInt();
                 if (x == 1) {
                     customer.viewOrderHistory(customer);
+                } else if (x == 2) {
+                    customer.productSearch(customer);
+                } else if (x == 3) {
+                    customer.viewShoppingCart();
+                } else if (x == 4) {
+                    currnentUser = null;
                 }
 
             }
+        }
 
 
 
@@ -91,6 +98,5 @@ public class Main implements Serializable {
             }
         }
          */
-        }
     }
 }
