@@ -1,4 +1,4 @@
-import jdk.jshell.spi.ExecutionControl;
+package api;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public abstract class User implements Serializable {
 
 
 
-    // Κατασκευαστής αντικειμένου User
+    // Κατασκευαστής αντικειμένου api.User
 
     public User(String username, String password) throws IOException, ClassNotFoundException {
         this.username=username;

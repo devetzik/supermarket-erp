@@ -1,7 +1,7 @@
+package api;
+
 import java.io.*;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class Customer extends User implements Serializable {
 
     double total=0;
 
-    // Κατασκευαστής του αντικειμένου Customer
+    // Κατασκευαστής του αντικειμένου api.Customer
 
     public Customer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
         super(username, password);
@@ -106,8 +106,10 @@ public class Customer extends User implements Serializable {
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
+
             util.productsRemover(i);
             util.productsWriter(newP);
+
         }
     }
 
@@ -115,12 +117,19 @@ public class Customer extends User implements Serializable {
     // Μέθοδος για την προσπέλαση του ιστορικού παραγγελιών
 
     public void viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
+        ArrayList<Order> tmp=new ArrayList<>();
         boolean flag=false;
         orderHistory=util.orderHistoryLoader();
-        System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
-        for (Order i : orderHistory){
-            if (i.username.equals(customer.getUsername())){
-                flag=true;
+
+        for (Order i : orderHistory) {
+            if (i.username.equals(customer.getUsername())) {
+                flag = true;
+                tmp.add(i);
+            }
+        }
+        if (flag){
+            System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
+            for (Order i : tmp){
                 System.out.println("Ημερομηνία παραγγελίας: "+i.datetime);
                 System.out.println("Προϊόντα και ποσότητες παραγγελίας: \n");
                 for (int j=0; j< i.pr.length;j++){

@@ -1,3 +1,10 @@
+package api;
+
+import api.Order;
+import api.Product;
+import api.User;
+import api.Utilities;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +21,7 @@ public class Administrator extends User implements Serializable {
 
 
 
-    // Κατασκευαστής για το αντικείμενο Administrator
+    // Κατασκευαστής για το αντικείμενο api.Administrator
 
     public Administrator(String username, String password) throws IOException, ClassNotFoundException {
         super(username,password);
@@ -139,8 +146,8 @@ public class Administrator extends User implements Serializable {
             System.out.println("Επιτυχής αλλαγή ποσότητας αποθέματος");
         }
 
-        util.productsRemover(product);
         util.productsWriter(newP);
+        util.productsRemover(product);
         System.out.println(newP.getDetails());
     }
 

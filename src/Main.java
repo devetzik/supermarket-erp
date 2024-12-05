@@ -1,6 +1,9 @@
+import api.Administrator;
+import api.Customer;
+import api.User;
+import api.Utilities;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -77,7 +80,7 @@ public class Main implements Serializable {
         for (int i=0; i<customers.size();i++) {
             System.out.println(customers.get(i).getUsername() + "\n" + customers.get(i).getPassword());
         }
-        for (Product i : products){
+        for (api.Product i : products){
             System.out.println(i.getDetails()+"\n");
         }
 
