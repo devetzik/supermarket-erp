@@ -119,10 +119,15 @@ public class Customer extends User implements Serializable {
         orderHistory=util.orderHistoryLoader();
         System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
         for (Order i : orderHistory){
-            if (i.getCustomer()==customer){
+            if (i.username.equals(customer.getUsername())){
                 flag=true;
-                System.out.println("Ημερομηνία παραγγελίας: "+i.datetime+"\n");
-                System.out.println("Προϊόντα και ποσότητες παραγγελίας: "+i.getShoppingCart()+"\n");
+                System.out.println("Ημερομηνία παραγγελίας: "+i.datetime);
+                System.out.println("Προϊόντα και ποσότητες παραγγελίας: \n");
+                for (int j=0; j< i.pr.length;j++){
+                    if (i.pr[j][0] != null) {
+                        System.out.println(i.pr[j][1] + " x " + i.pr[j][0]);
+                    }
+                }
                 System.out.println("Συνολικό κόστος: "+i.getTotal()+"€\n");
             }
         }
