@@ -4,15 +4,16 @@ import java.util.HashMap;
 
 public class Order{
 
+    String username,datetime;
+    String[][] pr;
     Customer customer;
     HashMap<Product,Integer> shoppingCart;
-    LocalDateTime dateTime;
     double total;
 
-    public Order(Customer customer, HashMap<Product,Integer> shoppingCart, LocalDateTime dateTime, double total){
-        this.customer=customer;
-        this.shoppingCart=shoppingCart;
-        this.dateTime=dateTime;
+    public Order(String username, String[][] pr, String dateTime, double total){
+        this.username=username;
+        this.pr=pr;
+        this.datetime=dateTime;
         this.total=total;
     }
 
@@ -20,13 +21,14 @@ public class Order{
         return customer;
     }
 
+    public String[][] getPr(){
+        return pr;
+    }
+
     public HashMap<Product,Integer> getShoppingCart(){
         return shoppingCart;
     }
 
-    public LocalDateTime getDateTime(){
-        return dateTime;
-    }
 
     public double getTotal(){
         return total;

@@ -63,7 +63,6 @@ public class Administrator extends User implements Serializable {
             util.productsWriter(product);
             System.out.println("Επιτυχής προσθήκη προϊόντος");
         }
-        scanner.close();
     }
 
 
@@ -142,7 +141,6 @@ public class Administrator extends User implements Serializable {
 
         util.productsRemover(product);
         util.productsWriter(newP);
-        scanner.close();
         System.out.println(newP.getDetails());
     }
 

@@ -1,5 +1,6 @@
 import java.io.*;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ public class Customer extends User implements Serializable {
     String fName, lName;
     HashMap<Product, Integer> shoppingCart = new HashMap();
     ArrayList<Order> orderHistory;
+    String pr[][]=new String[products.size()][products.size()];
 
     double total=0;
 
@@ -24,7 +26,7 @@ public class Customer extends User implements Serializable {
 
     // Τρέχουσα κατάσταση του καλαθιού
 
-    public void viewShoppingCart() throws IOException, ClassNotFoundException {
+    public void viewShoppingCart(User currentUser) throws IOException, ClassNotFoundException {
         Scanner scanner=new Scanner(System.in);
         if (shoppingCart.isEmpty()){
             System.out.println("Το καλάθι είναι άδειο");
@@ -36,7 +38,7 @@ public class Customer extends User implements Serializable {
             System.out.println("\nΟλοκλήρωση παραγγελίας (0)");
             int x=scanner.nextInt();
             if (x==0){
-                confirmOrder();
+                confirmOrder(currentUser);
             }
         }
     }
@@ -80,6 +82,7 @@ public class Customer extends User implements Serializable {
     // Μέθοδος για τον υπολογισμό του συνολικού κόστους του καλαθιού
 
     public double getTotal(){
+        total=0;
         for (Product i : shoppingCart.keySet()){
             total+=(i.getPrice() * shoppingCart.get(i));
         }
@@ -89,9 +92,17 @@ public class Customer extends User implements Serializable {
 
     //Ολοκλήρωση παραγγελίας, εγγραφή στο ιστορικό και αφαίρεση αποθέματος
 
-    public void confirmOrder() throws IOException, ClassNotFoundException {
-        Order order = new Order((Customer) currnentUser, shoppingCart,LocalDateTime.now(), getTotal());
-        orderHistory.add(order);
+    public void confirmOrder(User currentUser) throws IOException, ClassNotFoundException {
+
+        int k=0;
+        for (Product i: shoppingCart.keySet()){
+            pr[k][0]=i.getTitle();
+            pr[k][1]=shoppingCart.get(i).toString();
+            k++;
+        }
+        Order order = new Order(currentUser.getUsername(), pr, LocalDate.now().toString(), getTotal());
+        util.orderWriter(order);
+
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
@@ -110,7 +121,7 @@ public class Customer extends User implements Serializable {
         for (Order i : orderHistory){
             if (i.getCustomer()==customer){
                 flag=true;
-                System.out.println("Ημερομηνία παραγγελίας: "+i.getDateTime()+"\n");
+                System.out.println("Ημερομηνία παραγγελίας: "+i.datetime+"\n");
                 System.out.println("Προϊόντα και ποσότητες παραγγελίας: "+i.getShoppingCart()+"\n");
                 System.out.println("Συνολικό κόστος: "+i.getTotal()+"€\n");
             }

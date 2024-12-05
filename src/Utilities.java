@@ -70,7 +70,7 @@ public class Utilities {
 
     public void productsWriter(Product product) throws IOException {
         BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
-        writer.append("\n"+product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+product.getQty());
+        writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+product.getQty());
         writer.close();
     }
 
@@ -95,12 +95,43 @@ public class Utilities {
         return cat;
     }
 
+    public void orderWriter(Order order) throws IOException {
+        BufferedWriter writer=new BufferedWriter(new FileWriter("orderhistory.txt",true));
+        writer.append(order.username+";");
+        for (int i=0;i<order.pr.length;i++){
+            if (order.pr[i][0]!=null) {
+                writer.append(order.pr[i][0] + "@");
+            }
+        }
+        writer.append(";");
+        for (int i=0;i<order.pr.length;i++){
+            if (order.pr[i][1]!=null) {
+                writer.append(order.pr[i][1] + "@");
+            }
+        }
+        writer.append(";"+order.datetime+";"+(order.getTotal()));
+        writer.close();
+    }
+
     public ArrayList<Order> orderHistoryLoader() throws IOException, ClassNotFoundException {
         ArrayList<Order> orderHistory=new ArrayList<>();
-        ObjectInputStream oos=new ObjectInputStream(new FileInputStream("orderhistory.txt"));
-        oos.readObject();
-        oos.close();
-        return  orderHistory;
+        BufferedReader reader=new BufferedReader(new FileReader("orderhistory.txt"));
+        String line;
+        String s[]= new String[5];
+        String pr[][]=new String[50][50];
+        String qty [];
+        String []prod;
+        while ((line= reader.readLine()) != null){
+            s=line.split(";");
+            prod=s[1].split("@");
+            qty=s[2].split("@");
+            for (int i=0; i<prod.length;i++){
+                pr[i][0]=prod[i];
+                pr[i][1]=qty[i];
+            }
+            orderHistory.add(new Order(s[0],pr,s[3],Integer.parseInt(s[4]) ));
+        }
+        return orderHistory;
     }
 
 

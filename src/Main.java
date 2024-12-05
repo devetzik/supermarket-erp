@@ -60,7 +60,7 @@ public class Main implements Serializable {
                 } else if (x == 2) {
                     customer.productSearch(customer);
                 } else if (x == 3) {
-                    customer.viewShoppingCart();
+                    customer.viewShoppingCart(customer);
                 } else if (x == 4) {
                     currnentUser = null;
                 }
