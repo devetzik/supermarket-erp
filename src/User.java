@@ -90,18 +90,9 @@ public abstract class User implements Serializable {
                 System.out.println("Δεν βρέθηκαν προϊόντα για αυτή την αναζήτηση");
             }
         }
-        scanner.close();
     }
 
     public abstract void viewProduct(Product product) throws IOException;
-
-    // Μέθοδος για την αποσύνδεση χρηστών
-
-
-    public void logout(){}
-
-
-
 
 
     public String getUsername(){
@@ -110,8 +101,4 @@ public abstract class User implements Serializable {
     public String getPassword(){
         return password;
     }
-    public User getCurrentUser(){
-        return currnentUser;
-    }
-
 }

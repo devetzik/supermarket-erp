@@ -30,10 +30,10 @@ public class Customer extends User implements Serializable {
             System.out.println("Το καλάθι είναι άδειο");
         }else {
             for (Product i : shoppingCart.keySet()) {
-                System.out.println("Τίτλος: " + i.getTitle() + "\nΠοσότητα: " + shoppingCart.get(i) + "Συνολικό κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€");
+                System.out.println(shoppingCart.get(i)+" x "+ i.getTitle() + " Κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€");
             }
-            System.out.println("Συνολικό κόστος καλαθιού: "+ getTotal()+"€");
-            System.out.println("Ολοκλήρωση παραγγελίας (0)");
+            System.out.println("\nΣυνολικό κόστος καλαθιού: "+ getTotal()+"€");
+            System.out.println("\nΟλοκλήρωση παραγγελίας (0)");
             int x=scanner.nextInt();
             if (x==0){
                 confirmOrder();
@@ -126,9 +126,10 @@ public class Customer extends User implements Serializable {
         System.out.println(product.getDetails());
         System.out.println("Προσθήκη στο καλάθι (1)");
         int x=scanner.nextInt();
-        if (x==0){
+        if (x==1){
             System.out.println("Εισάγετε τα τεμάχια");
             int qty= scanner.nextInt();
+            String spare=scanner.nextLine();
             addToShoppingCart(product,qty);
         }
 
