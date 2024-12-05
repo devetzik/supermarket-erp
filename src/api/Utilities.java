@@ -1,3 +1,7 @@
+package api;
+
+import api.User;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -50,7 +54,7 @@ public class Utilities {
         BufferedWriter writer=new BufferedWriter(new FileWriter("tmp.txt",true));
         String line;
         while ((line= reader.readLine())!=null){
-            if (!line.contains(product.title)){
+            if (!line.contains(product.title) ){
                 writer.append(line+"\n");
             }
         }
@@ -70,7 +74,7 @@ public class Utilities {
 
     public void productsWriter(Product product) throws IOException {
         BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
-        writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+product.getQty());
+        writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+product.getQty()+"\n");
         writer.close();
     }
 
@@ -109,7 +113,7 @@ public class Utilities {
                 writer.append(order.pr[i][1] + "@");
             }
         }
-        writer.append(";"+order.datetime+";"+(order.getTotal()));
+        writer.append(";"+order.datetime+";"+(order.getTotal())+"\n");
         writer.close();
     }
 
