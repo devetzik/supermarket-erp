@@ -103,12 +103,14 @@ public class Customer extends User implements Serializable {
         Order order = new Order(currentUser.getUsername(), pr, LocalDate.now().toString(), getTotal());
         util.orderWriter(order);
 
+
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
 
             util.productsRemover(i);
             util.productsWriter(newP);
+            shoppingCart.clear();
 
         }
     }
