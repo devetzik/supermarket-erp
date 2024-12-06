@@ -9,9 +9,6 @@ public class Product implements Serializable {
     double price;
     int qty;
 
-    public ArrayList<Product> products;
-
-
     public Product(String title, String description, String category, String subcategory, double price, int qty){
         this.title=title;
         this.description=description;
@@ -20,9 +17,6 @@ public class Product implements Serializable {
         this.price=price;
         this.qty=qty;
     }
-
-
-
 
 
     // Setters για τα χαρακτηριστικά του προϊόντος

@@ -8,17 +8,15 @@ public abstract class User implements Serializable {
 
     Utilities util=new Utilities();
     private String username, password;
-    User currnentUser;
+
     String [][] cat= util.catLoader();
-    ArrayList<Customer> customers= new ArrayList<>();
-    ArrayList <Administrator> admins= new ArrayList<>();
     ArrayList<Product> products=util.productsLoader();
 
 
 
     // Κατασκευαστής αντικειμένου api.User
 
-    public User(String username, String password) throws IOException, ClassNotFoundException {
+    public User(String username, String password) throws IOException {
         this.username=username;
         this.password=password;
     }

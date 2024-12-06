@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
-
     String fName, lName;
     HashMap<Product, Integer> shoppingCart = new HashMap();
     ArrayList<Order> orderHistory;
@@ -52,12 +51,10 @@ public class Customer extends User implements Serializable {
             flag=false;
             System.out.println("Μη έγκυρη ποσότητα προϊόντος, εισάγετε τιμή >0");
         }
-
         if (posotita> product.getQty()){
             flag=false;
             System.out.println("Δεν υπάρχει αρκετό απόθεμα, μέγιστη ποσότητα: " + product.getQty());
         }
-
         if (flag){
             shoppingCart.put(product, posotita);
             System.out.println("Επιτυχής προσθήκη στο καλάθι");
@@ -93,7 +90,6 @@ public class Customer extends User implements Serializable {
     //Ολοκλήρωση παραγγελίας, εγγραφή στο ιστορικό και αφαίρεση αποθέματος
 
     public void confirmOrder(User currentUser) throws IOException, ClassNotFoundException {
-
         int k=0;
         for (Product i: shoppingCart.keySet()){
             pr[k][0]=i.getTitle();
@@ -103,7 +99,6 @@ public class Customer extends User implements Serializable {
         Order order = new Order(currentUser.getUsername(), pr, LocalDate.now().toString(), getTotal());
         util.orderWriter(order);
 
-
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
@@ -111,7 +106,6 @@ public class Customer extends User implements Serializable {
             util.productsRemover(i);
             util.productsWriter(newP);
             shoppingCart.clear();
-
         }
     }
 
@@ -156,9 +150,8 @@ public class Customer extends User implements Serializable {
         if (x==1){
             System.out.println("Εισάγετε τα τεμάχια");
             int qty= scanner.nextInt();
-            String spare=scanner.nextLine();
+            //String spare=scanner.nextLine();
             addToShoppingCart(product,qty);
         }
-
     }
 }
