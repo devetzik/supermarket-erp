@@ -1,7 +1,6 @@
 package api;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Product implements Serializable {
 
@@ -67,6 +66,8 @@ public class Product implements Serializable {
     public int getQty(){
         return qty;
     }
+
+    public String getUnit(){return unit;}
 
 
     public String getDetails(){

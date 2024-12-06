@@ -9,13 +9,12 @@ import java.util.Scanner;
 public class Customer extends User implements Serializable {
     String fName, lName;
     HashMap<Product, Integer> shoppingCart = new HashMap<>();
-    ArrayList<Order> orderHistory;
     String[][] pr =new String[products.size()][products.size()];
     double total=0;
 
     // Κατασκευαστής του αντικειμένου api.Customer
 
-    public Customer(String username, String password, String fName, String lName) throws IOException{
+    public Customer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
         super(username, password);
         this.fName=fName;
         this.lName=lName;
@@ -31,7 +30,7 @@ public class Customer extends User implements Serializable {
         }else {
             int j=0;
             for (Product i : shoppingCart.keySet()) {
-                System.out.println(shoppingCart.get(i)+" x "+ i.getTitle() + " Κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€" + "("+j+")");
+                System.out.println(shoppingCart.get(i)+" x "+i.getUnit()+" "+ i.getTitle() + " Κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€" + "("+j+")");
                 j++;
             }
             System.out.println("\nΣυνολικό κόστος καλαθιού: "+ getTotal()+"€");
@@ -130,8 +129,7 @@ public class Customer extends User implements Serializable {
     public void viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
         ArrayList<Order> tmp=new ArrayList<>();
         boolean flag=false;
-        orderHistory=util.orderHistoryLoader();
-
+        ArrayList<Order> orderHistory=util.orderHistoryLoader();
         for (Order i : orderHistory) {
             if (i.username.equals(customer.getUsername())) {
                 flag = true;
@@ -165,7 +163,6 @@ public class Customer extends User implements Serializable {
         if (x==1){
             System.out.println("Εισάγετε τα τεμάχια");
             int qty= scanner.nextInt();
-            //String spare=scanner.nextLine();
             addToShoppingCart(product,qty);
         }
     }
