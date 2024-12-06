@@ -8,13 +8,12 @@ public abstract class User implements Serializable {
 
     Utilities util=new Utilities();
     private String username, password;
-
     String [][] cat= util.catLoader();
     ArrayList<Product> products=util.productsLoader();
 
 
 
-    // Κατασκευαστής αντικειμένου api.User
+    // Κατασκευαστής αντικειμένου User
 
     public User(String username, String password) throws IOException {
         this.username=username;

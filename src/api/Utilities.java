@@ -119,7 +119,7 @@ public class Utilities {
         ArrayList<Order> orderHistory = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("orderhistory.txt"));
         String line;
-        String[] s = new String[5];
+        String[] s ;
         String[][] pr = new String[50][50];
         String[] qty;
         String[] prod;
@@ -128,11 +128,9 @@ public class Utilities {
             prod = s[1].split("@");
             qty = s[2].split("@");
             for (int i = 0; i < prod.length; i++) {
-                //System.out.println(prod[i] + qty[i]);
                 pr[i][0] = prod[i];
                 pr[i][1] = qty[i];
             }
-            //System.out.println(pr[0][0] + pr[0][1]);
             orderHistory.add(new Order(s[0],pr,s[3], Double.parseDouble(s[4])));
         }
         return orderHistory;

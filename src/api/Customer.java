@@ -1,6 +1,7 @@
 package api;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class Customer extends User implements Serializable {
         }else {
             int j=0;
             for (Product i : shoppingCart.keySet()) {
-                System.out.println(shoppingCart.get(i)+" x "+i.getUnit()+" "+ i.getTitle() + " Κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€" + "("+j+")");
+                System.out.println(shoppingCart.get(i)+" x "+i.getUnit()+" "+ i.getTitle() + " Κόστος: " + shoppingCart.get(i) * i.getPrice() + "€" + "("+j+")");
                 j++;
             }
             System.out.println("\nΣυνολικό κόστος καλαθιού: "+ getTotal()+"€");
@@ -61,8 +62,12 @@ public class Customer extends User implements Serializable {
                     int newQty= scanner.nextInt();
                     for (Product i: shoppingCart.keySet()){
                         if (d==j){
-                            shoppingCart.replace(i,newQty);
-                            System.out.println("Επιτυχής αλλαγή ποσότητας");
+                            if (newQty>i.qty){
+                                System.out.println("Δεν υπάρχει διαθέσιμο απόθεμα, διαλέξτε μια ποσότητα <"+ i.qty);
+                            }else {
+                                shoppingCart.replace(i, newQty);
+                                System.out.println("Επιτυχής αλλαγή ποσότητας");
+                            }
                         }
                     }
                 }

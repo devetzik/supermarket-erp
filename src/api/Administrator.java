@@ -6,15 +6,15 @@ import java.util.Scanner;
 
 public class Administrator extends User implements Serializable {
     Utilities util=new Utilities();
-    ArrayList<Product> products;
-    ArrayList<Order> orderHistory;
+    ArrayList<Product> products=util.productsLoader();
+    ArrayList<Order> orderHistory=util.orderHistoryLoader();
     HashMap<String, Integer> sales;
     String [][] cat= util.catLoader();
 
 
     // Κατασκευαστής για το αντικείμενο Administrator
 
-    public Administrator(String username, String password) throws IOException{
+    public Administrator(String username, String password) throws IOException, ClassNotFoundException {
         super(username,password);
     }
 
@@ -62,7 +62,6 @@ public class Administrator extends User implements Serializable {
     public void editProduct(Product product) throws IOException {
         Product newP= product;
         Scanner scanner=new Scanner(System.in);
-        products=util.productsLoader();
         System.out.println("Επεξεργασία τίτλου (1)\nΕπεξεργασία περιγραφής (2)\nΑλλαγή κατηγορίας (3)\nΑλλαγή Υποκατηγορίας (4)\nΑλλαγή τιμής (5)\nΑλλαγή ποσότητας αποθέματος (6)");
         int x= scanner.nextInt();
         String line;
@@ -135,7 +134,6 @@ public class Administrator extends User implements Serializable {
 
     public void adminStats() throws IOException {
         Scanner scanner= new Scanner(System.in);
-        products=util.productsLoader();
         System.out.println("Επιλέξτε λειτουργία:\nΠροϊόντα με εξαντλημένο απόθεμα (1)\nΠροϊόντα που εμφανίστηκαν στις περισσότερες παραγγελίες (2)");
         int x=scanner.nextInt();
         if (x==1){
@@ -153,12 +151,16 @@ public class Administrator extends User implements Serializable {
                     System.out.println(j.getTitle());
             }
         } else if (x==2) {
-            for (Order i : orderHistory){
-                for (int j=0;j<i.pr.length;j++){
-                    if (sales.containsKey(i.pr[j][0])){
-                        sales.put(i.pr[j][0], sales.get(i.pr[j][0]+1));
-                    }else {
-                        sales.put(i.pr[j][0],1);
+            if (orderHistory.isEmpty()){
+                System.out.println("Δεν υπάρχουν δεδομένα");
+            }else {
+                for (Order i : orderHistory) {
+                    for (int j = 0; j < i.pr.length; j++) {
+                        if (sales.containsKey(i.pr[j][0])) {
+                            sales.put(i.pr[j][0], sales.get(i.pr[j][0] + 1));
+                        } else {
+                            sales.put(i.pr[j][0], 1);
+                        }
                     }
                 }
             }
