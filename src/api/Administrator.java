@@ -43,9 +43,16 @@ public class Administrator extends User implements Serializable {
         }
         int y= scanner.nextInt();
         String subcategory=cat[x][y];
+        String unit;
+        if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
+            unit="kg";
+        }
+        else {
+            unit="τεμάχια";
+        }
         System.out.println("Εισάγετε την τιμή του προϊόντος");
         double price=scanner.nextDouble();
-        System.out.println("Εισάγετε την διαθέσιμη ποσότητα του προϊόντος");
+        System.out.println("Εισάγετε την διαθέσιμη ποσότητα του προϊόντος σε "+unit);
         int qty=scanner.nextInt();
 
         if (title.isBlank() || description.isBlank() || category.isBlank() || subcategory.isBlank() || price<0 || qty<0){
