@@ -8,15 +8,14 @@ import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
     String fName, lName;
-    HashMap<Product, Integer> shoppingCart = new HashMap();
+    HashMap<Product, Integer> shoppingCart = new HashMap<>();
     ArrayList<Order> orderHistory;
-    String pr[][]=new String[products.size()][products.size()];
-
+    String[][] pr =new String[products.size()][products.size()];
     double total=0;
 
     // Κατασκευαστής του αντικειμένου api.Customer
 
-    public Customer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
+    public Customer(String username, String password, String fName, String lName) throws IOException{
         super(username, password);
         this.fName=fName;
         this.lName=lName;
@@ -25,19 +24,49 @@ public class Customer extends User implements Serializable {
 
     // Τρέχουσα κατάσταση του καλαθιού
 
-    public void viewShoppingCart(User currentUser) throws IOException, ClassNotFoundException {
+    public void viewShoppingCart(User currentUser) throws IOException{
         Scanner scanner=new Scanner(System.in);
         if (shoppingCart.isEmpty()){
             System.out.println("Το καλάθι είναι άδειο");
         }else {
+            int j=0;
             for (Product i : shoppingCart.keySet()) {
-                System.out.println(shoppingCart.get(i)+" x "+ i.getTitle() + " Κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€");
+                System.out.println(shoppingCart.get(i)+" x "+ i.getTitle() + " Κόστος: " + (shoppingCart.get(i) * i.getPrice()) + "€" + "("+j+")");
+                j++;
             }
             System.out.println("\nΣυνολικό κόστος καλαθιού: "+ getTotal()+"€");
-            System.out.println("\nΟλοκλήρωση παραγγελίας (0)");
+            System.out.println("\nΟλοκλήρωση παραγγελίας (0) / Επεξεργασία καλαθιού (1)");
             int x=scanner.nextInt();
             if (x==0){
                 confirmOrder(currentUser);
+            } else if (x==1) {
+                System.out.println("Διαγραφή προϊόντος από το καλάθι (0) / Αλλαγή επιλεγμένης ποσότητας (1)");
+                x=scanner.nextInt();
+                if (x==0){
+                    System.out.println("Επιλέξτε προϊόν προς διαγραφή");
+                    int d=scanner.nextInt();
+                    j=0;
+                    for (Product i: shoppingCart.keySet()){
+                        if (d==j){
+                            shoppingCart.remove(i);
+                            System.out.println("Επιτυχής διαγραφή προϊόντος");
+                            break;
+                        }
+                        j++;
+                    }
+                }else if (x==1){
+                    System.out.println("Επιλέξτε προϊόν");
+                    int d=scanner.nextInt();
+                    j=0;
+                    System.out.println("Εισάγετε την νέα ποσότητα");
+                    int newQty= scanner.nextInt();
+                    for (Product i: shoppingCart.keySet()){
+                        if (d==j){
+                            shoppingCart.replace(i,newQty);
+                            System.out.println("Επιτυχής αλλαγή ποσότητας");
+                        }
+                    }
+                }
             }
         }
     }
@@ -62,20 +91,6 @@ public class Customer extends User implements Serializable {
     }
 
 
-    // Μέθοδος για την αλλαγή της ποσότητας ενός προϊόντος του καλαθιού
-
-    public void changeProductQuantity(Product product, int posotita){
-        shoppingCart.replace(product, posotita);
-    }
-
-
-    // Μέθοδος για την αφαίρεση ενός προϊόντος από το καλάθι
-
-    public void removeFromShoppingCart(Product product){
-        shoppingCart.remove(product);
-    }
-
-
     // Μέθοδος για τον υπολογισμό του συνολικού κόστους του καλαθιού
 
     public double getTotal(){
@@ -89,7 +104,7 @@ public class Customer extends User implements Serializable {
 
     //Ολοκλήρωση παραγγελίας, εγγραφή στο ιστορικό και αφαίρεση αποθέματος
 
-    public void confirmOrder(User currentUser) throws IOException, ClassNotFoundException {
+    public void confirmOrder(User currentUser) throws IOException{
         int k=0;
         for (Product i: shoppingCart.keySet()){
             pr[k][0]=i.getTitle();

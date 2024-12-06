@@ -1,7 +1,5 @@
 package api;
 
-import api.User;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -245,15 +243,17 @@ public class Utilities {
             if (username.equals(i.getUsername())) {
                 System.out.println("Το username χρησιμοποιείται");
                 flag = false;
+                break;
             }
         }
 
         // Έλεγχος ύπαρξης του username στη λίστα των admins
 
         for (Administrator i : admins) {
-            if (username == i.getUsername()) {
+            if (username.equals(i.getUsername())) {
                 System.out.println("Το username χρησιμοποιείται");
                 flag = false;
+                break;
             }
         }
 
@@ -266,7 +266,6 @@ public class Utilities {
             System.out.println("Επιτυχής εγγραφή χρήστη");
         }
     }
-
 }
 
 

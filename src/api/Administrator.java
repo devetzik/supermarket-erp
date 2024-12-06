@@ -1,34 +1,22 @@
 package api;
-
-import api.Order;
-import api.Product;
-import api.User;
-import api.Utilities;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Administrator extends User implements Serializable {
-
     Utilities util=new Utilities();
     ArrayList<Product> products;
-
     ArrayList<Order> orderHistory;
-    HashMap<Product, Integer> sales;
+    HashMap<String, Integer> sales;
     String [][] cat= util.catLoader();
 
 
+    // Κατασκευαστής για το αντικείμενο Administrator
 
-    // Κατασκευαστής για το αντικείμενο api.Administrator
-
-    public Administrator(String username, String password) throws IOException, ClassNotFoundException {
+    public Administrator(String username, String password) throws IOException{
         super(username,password);
     }
-
-
-
 
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
@@ -40,7 +28,6 @@ public class Administrator extends User implements Serializable {
         System.out.println("Εισάγετε την περιγραφή του προϊόντος");
         String description=scanner.nextLine();
         System.out.println("Επιλέξτε την κατηγορία του προϊόντος");
-
         for (int x=0; x< cat.length; x++){
             if (cat[x][0]!=null) {
                 System.out.println(cat[x][0] + "(" + x + ")");
@@ -61,7 +48,6 @@ public class Administrator extends User implements Serializable {
         System.out.println("Εισάγετε την διαθέσιμη ποσότητα του προϊόντος");
         int qty=scanner.nextInt();
 
-
         if (title.isBlank() || description.isBlank() || category.isBlank() || subcategory.isBlank() || price<0 || qty<0){
             System.out.println("Λανθασμένη εισαγωγή");
         }
@@ -73,9 +59,6 @@ public class Administrator extends User implements Serializable {
     }
 
 
-
-
-
     public void editProduct(Product product) throws IOException {
         Product newP= product;
         Scanner scanner=new Scanner(System.in);
@@ -85,7 +68,6 @@ public class Administrator extends User implements Serializable {
         String line;
         double newPrice;
         int newQty;
-
         if (x==1){
             System.out.println("Εισάγετε τον νέο τίτλο");
             line=scanner.nextLine();
@@ -145,7 +127,6 @@ public class Administrator extends User implements Serializable {
             newP.setQty(newQty);
             System.out.println("Επιτυχής αλλαγή ποσότητας αποθέματος");
         }
-
         util.productsWriter(newP);
         util.productsRemover(product);
         System.out.println(newP.getDetails());
@@ -173,8 +154,12 @@ public class Administrator extends User implements Serializable {
             }
         } else if (x==2) {
             for (Order i : orderHistory){
-                for (Product p : i.getShoppingCart().keySet()){
-                    sales.put(p, sales.get(p)+1);
+                for (int j=0;j<i.pr.length;j++){
+                    if (sales.containsKey(i.pr[j][0])){
+                        sales.put(i.pr[j][0], sales.get(i.pr[j][0]+1));
+                    }else {
+                        sales.put(i.pr[j][0],1);
+                    }
                 }
             }
         }
