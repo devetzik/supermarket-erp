@@ -21,6 +21,9 @@ public abstract class User implements Serializable {
     }
 
 
+
+
+
     // Μέθοδος για την αναζήτηση προϊόντων
 
     public void productSearch(User currnentUser) throws IOException {

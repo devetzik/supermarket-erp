@@ -19,31 +19,36 @@ public class Main implements Serializable {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         Utilities util = new Utilities();
-        User currnentUser = null;
+
         Scanner scanner = new Scanner(System.in);
 
         login test=new login();
         test.log();
 
+        User currnentUser = util.getCurrentUser();
 
 
 
 
 
 
-        while (currnentUser == null) {
+
+        /*while (currnentUser == null) {
             System.out.println("Είσοδος χρήστη (1) / Εγγραφή νέου χρήστη(2) / Τερματισμός προγράμματος (3)");
             int x = scanner.nextInt();
             if (x == 1) {
                 //LOGIN
-                currnentUser = util.login();
+                //currnentUser = util.login();
             } else if (x == 2) {
                 //ADD CUSTOMER
-                util.addCustomer();
+                //util.addCustomer();
             } else if (x==3) {
                 System.exit(0);
             }
 
+
+         */
+        int x;
 
             //USER IS ADMIN
 
@@ -109,5 +114,4 @@ public class Main implements Serializable {
             }
         }
          */
-    }
 }

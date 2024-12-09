@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Utilities {
     ArrayList<Administrator> admins = new ArrayList<>();
     ArrayList<Customer> customers = new ArrayList<>();
+    User currentUser;
 
     public ArrayList<Administrator> adminLoader() throws IOException, ClassNotFoundException {
         ArrayList<Administrator> admins = new ArrayList<>();
@@ -137,111 +138,61 @@ public class Utilities {
     }
 
 
-    public User login() throws IOException, ClassNotFoundException {
-        User currnentUser = null;
+    public int loginCheck(String username, String password) throws IOException, ClassNotFoundException {
         admins = adminLoader();
         customers = custLoader();
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Εισάγετε το όνομα χρήστη:");
-        String username = scanner.nextLine();
-        System.out.println("Εισάγετε τον κωδικό:");
-        String password = scanner.nextLine();
-
-        //Έλεγχος για τη σωστή συμπλήρωση των πεδίων
-
-        if (username.isBlank() || password.isBlank()) {
-            System.out.println("Συμπληρώστε τα πεδία");
+        if (username.isBlank() || password.isBlank()){
+            return 3;
         }
-
-        //Έλεγχος για το είδος χρήστη (admin/customer)
-
-        boolean isCust = false, isAdmin = false;
 
         for (Customer i : customers) {
             if (username.equals(i.getUsername())) {
                 if (password.equals(i.getPassword())) {
-                    isCust = true;
-                    System.out.println("Καλωσήρθατε " + username + "\n");
-                    currnentUser = i;
-                    break;
+                    currentUser=i;
+                    return 0;
                 } else {
-                    while (!password.equals(i.getPassword())) {
-                        System.out.println("Λάθος password, προσπαθήστε ξανά");
-                        password = scanner.nextLine();
-                        if (password.equals(i.getPassword())) {
-                            isAdmin = true;
-                            currnentUser = i;
-                            System.out.println("Καλωσήρθατε " + username + "\n");
-                            break;
-                        }
-                    }
+                    return 1;
                 }
             }
         }
 
-        if (!isCust) {
-            for (Administrator i : admins) {
-                if (username.equals(i.getUsername())) {
-                    if (password.equals(i.getPassword())) {
-                        isAdmin = true;
-                        currnentUser = i;
-                        System.out.println("Καλωσήρθατε " + username + "\n");
-                        break;
-                    } else {
-                        while (!password.equals(i.getPassword())) {
-                            System.out.println("Λάθος password, προσπαθήστε ξανά");
-                            password = scanner.nextLine();
-                            if (password.equals(i.getPassword())) {
-                                isAdmin = true;
-                                currnentUser = i;
-                                System.out.println("Καλωσήρθατε " + username + "\n");
-                                break;
-                            }
-                        }
-                    }
+        for (Administrator i : admins) {
+            if (username.equals(i.getUsername())) {
+                if (password.equals(i.getPassword())) {
+                    currentUser = i;
+                    return 0;
+                } else {
+                    return 1;
                 }
             }
-        }
 
-        if (!isAdmin && !isCust) {
-            System.out.println("Δεν βρέθηκε χρήστης με το συγκεκριμένο username");
         }
-        return currnentUser;
+        return 2;
     }
 
 
-    public void addCustomer() throws IOException, ClassNotFoundException {
-        String username, password, fName, lName;
+    public int addCustomer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
         admins = adminLoader();
         customers = custLoader();
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Εισάγετε το όνομα χρήστη");
-        username = scanner.nextLine();
-        System.out.println("Εισάγετε τον κωδικό");
-        password = scanner.nextLine();
-        System.out.println("Εισάγετε το μικρό σας όνομα");
-        fName = scanner.nextLine();
-        System.out.println("Εισάγετε το επώνυμό σας");
-        lName = scanner.nextLine();
 
         boolean flag = true;
 
         // Έλεγχος για κενά πεδία κατά το registration
 
         if (fName.isBlank() || lName.isBlank() || username.isBlank() || password.isBlank()) {
-            System.out.println("Συμπληρώστε τα κενά πεδία");
-            flag = false;
+            return 3;
+        }
+
+        if ((fName.matches(".*\\d.*")) || lName.matches(".*\\d.*")){
+            return 4;
         }
 
         // Έλεγχος ύπαρξης του username στη λίστα των customers
 
         for (Customer i : customers) {
             if (username.equals(i.getUsername())) {
-                System.out.println("Το username χρησιμοποιείται");
-                flag = false;
-                break;
+                return 1;
             }
         }
 
@@ -249,21 +200,25 @@ public class Utilities {
 
         for (Administrator i : admins) {
             if (username.equals(i.getUsername())) {
-                System.out.println("Το username χρησιμοποιείται");
-                flag = false;
-                break;
+                return 1;
             }
         }
 
         // Προσθήκη του νέου πελάτη στη λίστα των customers
 
-        if (flag) {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("customers.txt", true));
-            writer.append("\n" + username + ";" + password + ";" + fName + ";" + lName);
-            writer.close();
-            System.out.println("Επιτυχής εγγραφή χρήστη");
-        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter("customers.txt", true));
+        writer.append("\n" + username + ";" + password + ";" + fName + ";" + lName);
+        writer.close();
+
+        return 0;
     }
+
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
+
 }
+
 
 

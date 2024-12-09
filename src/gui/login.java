@@ -1,17 +1,27 @@
 package gui;
 
+import api.Administrator;
+import api.User;
+import api.Utilities;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Arrays;
 
-public class login{
+public class login implements ActionListener {
 
+    Utilities util=new Utilities();
     public login(){};
+    private int a;
     private JLabel usernameLabel,passwordLabel,welcomeLabel, loginLabel, signupLabel, fNameLabel,lNameLabel, unLabel, pwLabel;
-    private JTextField usernameText, unText, fNText, lNText;
-    private JPasswordField passwordText, pwText;
+    private static JTextField usernameText, passwordText, unText, fNText, lNText;
+    private JPasswordField  pwText;
     private JButton button, signupButton;
-    private JLabel success;
+    private static JLabel result;
 
 
 
@@ -19,6 +29,9 @@ public class login{
     JFrame frame = new JFrame();
     JPanel panel= new JPanel(null);
     JPanel signupPanel= new JPanel(null);
+
+    JFrame resultWindow=new JFrame();
+    JPanel resultPanel=new JPanel(null);
 
     public void log(){
         frame.setSize(1280,720);
@@ -29,8 +42,11 @@ public class login{
         frame.setLayout(null);
         frame.add(panel);
         frame.add(signupPanel);
-        //frame.setResizable(false);
-        //frame.setBackground(Color.cyan);
+        frame.getContentPane().setBackground(Color.lightGray);
+
+
+
+
 
 
 
@@ -39,16 +55,12 @@ public class login{
 
         signupPanel.setBounds(680,200,500,400);
         signupPanel.setBackground(Color.red);
-        //panel.setSize(300,350);
-        //panel.setPreferredSize(new Dimension(300,350));
-        //panel.setVisible(true);
+
 
 
         welcomeLabel=new JLabel("Καλωσήρθατε στο eshop του Supermarket");
-        welcomeLabel.setFont(new Font("Serif", Font.BOLD, 26 ));
+        welcomeLabel.setFont(new Font("Serif", Font.BOLD, 30 ));
         welcomeLabel.setBounds(360,30,600,90);
-        //welcomeLabel.setBackground(Color.orange);
-        //welcomeLabel.setVisible(true);
         frame.add(welcomeLabel);
 
         loginLabel=new JLabel("Είσοδος");
@@ -70,10 +82,14 @@ public class login{
         passwordText = new JPasswordField();
         passwordText.setBounds(160,205,165,20);
         panel.add(passwordText);
+        passwordText.addActionListener(new login());
 
         button=new JButton("Login");
         button.setBounds(185,260,100,25);
+        button.addActionListener(new login());
         panel.add(button);
+
+
 
 
         signupLabel=new JLabel("Εγγραφή");
@@ -121,10 +137,110 @@ public class login{
         signupButton.setBounds(185,300,100,25);
         signupPanel.add(signupButton);
 
+        signupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username=unText.getText();
+                String password= pwText.getText();
+                String fName=fNText.getText();
+                String lName=lNText.getText();
+
+                JButton ok=new JButton("OK");
+                result=new JLabel();
+                result.setFont(new Font("Times New Roman", Font.BOLD,18));
+                result.setBounds(10,10,480,40);
+                resultPanel.add(result);
+
+                try {
+                    a=util.addCustomer(username,password,fName,lName);
+                } catch (IOException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                if (a==0){
+                    result.setText("Επιτυχής εγγραφή");
+                } else if (a==1) {
+                    result.setText("Το username χρησιμοποιείται");
+                } else if (a==3) {
+                    result.setText("Συμπληρώστε τα κενά πεδία");
+                } else if (a==4) {
+                    result.setText("Το όνομα και το επίθετο δεν μπορούν να περιέχουν αριθμούς");
+                }
+
+                resultWindow.setSize(500,200);
+                resultWindow.setLocationRelativeTo(null);
+                resultWindow.setLayout(null);
+                resultWindow.add(resultPanel);
+
+                resultPanel.setBounds(10,10,490,195);
+
+
+                ok.setBounds(200,90,100,40);
+                resultPanel.add(ok);
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        resultWindow.setVisible(false);
+                        result.setText("");
+                    }
+                });
+
+                resultWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                resultWindow.setVisible(true);
+            }
+        });
+
         frame.setVisible(true);
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String username=usernameText.getText();
+        String password=passwordText.getText();
+        JButton ok=new JButton("OK");
+        result=new JLabel();
+        result.setFont(new Font("Times New Roman", Font.BOLD,18));
+        result.setBounds(10,10,480,40);
+        resultPanel.add(result);
+
+        try {
+            a=util.loginCheck(username,password);
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        if (a==0){
+            result.setText("Καλωσήρθατε "+username);
+        } else if (a==1) {
+            result.setText("Λάθος password, προσπαθήστε ξανά");
+        } else if (a==2) {
+            result.setText("Δεν βρέθηκε χρήστης με αυτό το username");
+        } else if (a==3) {
+            result.setText("Συμπληρώστε τα κενά πεδία");
+        }
+
+        resultWindow.setSize(500,200);
+        resultWindow.setLocationRelativeTo(null);
+        resultWindow.setLayout(null);
+        resultWindow.add(resultPanel);
+
+        resultPanel.setBounds(10,10,490,195);
+
+
+        ok.setBounds(200,90,100,40);
+        resultPanel.add(ok);
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resultWindow.setVisible(false);
+                result.setText("");
+            }
+        });
+
+        resultWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        resultWindow.setVisible(true);
+    }
 }
 
 
