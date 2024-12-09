@@ -31,10 +31,10 @@ public class Customer extends User implements Serializable {
         }else {
             int j=0;
             for (Product i : shoppingCart.keySet()) {
-                System.out.println(shoppingCart.get(i)+" x "+i.getUnit()+" "+ i.getTitle() + " Κόστος: " + shoppingCart.get(i) * i.getPrice() + "€" + "("+j+")");
+                System.out.println(shoppingCart.get(i)+" x "+i.getUnit()+" "+ i.getTitle() + " Κόστος: " + String.format("%.2f", shoppingCart.get(i) * i.getPrice()) + "€" + "("+j+")");
                 j++;
             }
-            System.out.println("\nΣυνολικό κόστος καλαθιού: "+ getTotal()+"€");
+            System.out.println("\nΣυνολικό κόστος καλαθιού: "+ String.format("%.2f",getTotal() )+"€");
             System.out.println("\nΟλοκλήρωση παραγγελίας (0) / Επεξεργασία καλαθιού (1)");
             int x=scanner.nextInt();
             if (x==0){

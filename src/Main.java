@@ -2,7 +2,9 @@ import api.Administrator;
 import api.Customer;
 import api.User;
 import api.Utilities;
+import gui.login;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Scanner;
 
@@ -19,6 +21,15 @@ public class Main implements Serializable {
         Utilities util = new Utilities();
         User currnentUser = null;
         Scanner scanner = new Scanner(System.in);
+
+        login test=new login();
+        test.log();
+
+
+
+
+
+
 
         while (currnentUser == null) {
             System.out.println("Είσοδος χρήστη (1) / Εγγραφή νέου χρήστη(2) / Τερματισμός προγράμματος (3)");
