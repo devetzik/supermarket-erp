@@ -1,8 +1,6 @@
 package gui;
 
 import api.Customer;
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -28,9 +26,6 @@ public class CustomerFrame {
         });
 
 
-
-
-
         username.setText(customer.getUsername());
         username.setFont(new Font("Serif",Font.BOLD,16));
 
@@ -42,19 +37,8 @@ public class CustomerFrame {
         userInfo.add(cartButton);
         userInfo.add(logoutButton);
 
-
-
         custFrame.add(userInfo,BorderLayout.WEST);
-
-
-
-
-
-
-
 
         custFrame.setVisible(true);
     }
-
-
 }
