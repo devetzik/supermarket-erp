@@ -11,6 +11,9 @@ import java.awt.event.WindowEvent;
 public class CustomerFrame {
     private static JFrame custFrame=new JFrame("Supermarket e-shop Customer Console");
     private static JLabel username=new JLabel();
+    private static JButton logoutButton=new JButton("Έξοδος");
+    private static JButton cartButton=new JButton("Καλάθι");
+    private static JPanel userInfo=new JPanel();
 
     public CustomerFrame(Customer customer){
         custFrame.setSize(1280,720);
@@ -31,7 +34,17 @@ public class CustomerFrame {
         username.setText(customer.getUsername());
         username.setFont(new Font("Serif",Font.BOLD,16));
 
-        custFrame.add(username,BorderLayout.NORTH);
+        cartButton.setPreferredSize(new Dimension(90,30));
+        logoutButton.setPreferredSize(new Dimension(90,30));
+
+        userInfo.setPreferredSize(new Dimension(100,900));
+        userInfo.add(username);
+        userInfo.add(cartButton);
+        userInfo.add(logoutButton);
+
+
+
+        custFrame.add(userInfo,BorderLayout.WEST);
 
 
 
