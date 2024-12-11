@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final before gui">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="login/signup gui works">
+      <change afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/LoginFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/LoginResultDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/SignUpDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/SignUpResultDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/TODELETE.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/login.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1733500397616</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="login/signup gui works">
+      <created>1733786030339</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1733786030339</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -284,7 +296,8 @@
     <MESSAGE value="before shoppingcarttraits" />
     <MESSAGE value="shoppingcart traits done" />
     <MESSAGE value="final before gui" />
-    <option name="LAST_COMMIT_MESSAGE" value="final before gui" />
+    <MESSAGE value="login/signup gui works" />
+    <option name="LAST_COMMIT_MESSAGE" value="login/signup gui works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

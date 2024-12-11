@@ -2,9 +2,12 @@ import api.Administrator;
 import api.Customer;
 import api.User;
 import api.Utilities;
-import gui.login;
+import gui.*;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Scanner;
 
@@ -16,75 +19,73 @@ import java.util.Scanner;
  */
 public class Main implements Serializable {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    static JFrame frame;
+    private static JPanel panel=new JPanel();
+    private static JPanel signupPanel=new JPanel();
+    private static JPanel loginPanel=new JPanel();
+    private static JPanel eastPanel=new JPanel();
+    private static JPanel westPanel=new JPanel();
+    private static final JLabel welcome=new JLabel("Καλωσήρθατε στο e-shop του Supermarket",SwingConstants.CENTER);
+    private static final JLabel loginLabel=new JLabel("\nΕίσοδος",SwingConstants.CENTER);
+    private static final JLabel usernameLabel=new JLabel("Username");
+    private static final JLabel passwordLabel=new JLabel("Password ");
+    private static JTextField usernameTextfield=new JTextField();
+    private static JPasswordField passwordField=new JPasswordField();
+    private static JButton loginButton=new JButton("Είσοδος");
+    private static JButton signupButton=new JButton("Εγγραφή");
+    private static JLabel signupLabel=new JLabel("Δεν έχετε λογαριασμό;");
+    static Utilities util = new Utilities();
+    static User currnentUser;
+    public Main(){
 
-        Utilities util = new Utilities();
+
+
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        new LoginFrame();
+
+
+
 
         Scanner scanner = new Scanner(System.in);
-
-        login test=new login();
-        test.log();
-
-        User currnentUser = util.getCurrentUser();
-
-
-
-
-
-
-
-        /*while (currnentUser == null) {
-            System.out.println("Είσοδος χρήστη (1) / Εγγραφή νέου χρήστη(2) / Τερματισμός προγράμματος (3)");
-            int x = scanner.nextInt();
-            if (x == 1) {
-                //LOGIN
-                //currnentUser = util.login();
-            } else if (x == 2) {
-                //ADD CUSTOMER
-                //util.addCustomer();
-            } else if (x==3) {
-                System.exit(0);
-            }
-
-
-         */
         int x;
 
             //USER IS ADMIN
 
-            while (currnentUser instanceof Administrator) {
-                Administrator admin = (Administrator) currnentUser;
-                System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΑναζήτηση προϊόντος (2)\nΣτατιστικά προϊόντων (3)\nΑποσύνδεση χρήστη(4)");
-                x = scanner.nextInt();
-                if (x == 1) {
-                    admin.addProduct();
-                } else if (x == 2) {
-                    admin.productSearch(admin);
-                } else if (x == 3) {
-                    admin.adminStats();
-                } else if (x == 4) {
-                    currnentUser = null;
-                }
+        while (currnentUser instanceof Administrator) {
+            Administrator admin = (Administrator) currnentUser;
+            System.out.println("Επιλέξτε λειτουργία:\nΚαταχώρηση νέου προϊόντος (1)\nΑναζήτηση προϊόντος (2)\nΣτατιστικά προϊόντων (3)\nΑποσύνδεση χρήστη(4)");
+            x = scanner.nextInt();
+            if (x == 1) {
+                admin.addProduct();
+            } else if (x == 2) {
+                admin.productSearch(admin);
+            } else if (x == 3) {
+                admin.adminStats();
+            } else if (x == 4) {
+                currnentUser = null;
             }
+        }
 
 
             //USER IS CUSTOMER
 
-            while (currnentUser instanceof Customer) {
-                Customer customer = (Customer) currnentUser;
-                System.out.println("Επιλέξτε λειτουργία:\nΠροβολή Ιστορικού Παραγγελιών (1)\nΑναζήτηση προϊόντος (2)\nΠροβολή καλαθιού (3)\nΑποσύνδεση χρήστη(4)");
-                x = scanner.nextInt();
-                if (x == 1) {
-                    customer.viewOrderHistory(customer);
-                } else if (x == 2) {
-                    customer.productSearch(customer);
-                } else if (x == 3) {
-                    customer.viewShoppingCart(customer);
-                } else if (x == 4) {
-                    currnentUser = null;
-                }
+        while (currnentUser instanceof Customer) {
+            Customer customer = (Customer) currnentUser;
+            System.out.println("Επιλέξτε λειτουργία:\nΠροβολή Ιστορικού Παραγγελιών (1)\nΑναζήτηση προϊόντος (2)\nΠροβολή καλαθιού (3)\nΑποσύνδεση χρήστη(4)");
+            x = scanner.nextInt();
+            if (x == 1) {
+                customer.viewOrderHistory(customer);
+            } else if (x == 2) {
+                customer.productSearch(customer);
+            } else if (x == 3) {
+                customer.viewShoppingCart(customer);
+            } else if (x == 4) {
+                currnentUser = null;
             }
         }
+    }
 
 
         /*

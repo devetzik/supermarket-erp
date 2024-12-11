@@ -213,7 +213,17 @@ public class Utilities {
         return 0;
     }
 
-    public User getCurrentUser(){
+    public User getCurrentUser(String username){
+        for (Customer i: customers){
+            if (i.getUsername().equals(username)){
+                return i;
+            }
+        }
+        for (Administrator i: admins){
+            if (i.getUsername().equals(username)){
+                return i;
+            }
+        }
         return currentUser;
     }
 
