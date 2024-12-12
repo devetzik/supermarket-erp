@@ -77,8 +77,7 @@ public class SignUpDialog {
                     usernameTextField.setText("");
                     passwordField.setText("");
                 }
-                SignUpResultDialog dialog;
-                dialog=new SignUpResultDialog(b);
+                new SignUpResultDialog(b);
             }
         });
 

@@ -85,8 +85,7 @@ public class LoginFrame {
                 } catch (IOException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
-                LoginResultDialog dialog;
-                dialog=new LoginResultDialog(a);
+                new LoginResultDialog(a);
             }
         });
 

@@ -132,4 +132,45 @@ public abstract class User implements Serializable {
     public String getPassword(){
         return password;
     }
+    public String[] getCategories(){
+        int counter=0;
+        for (int i=0; i<cat.length;i++){
+            if (cat[i][0]!=null){
+                counter++;
+            }
+        }
+        String[] categories=new String[counter+1];
+        categories[0]="Όλες οι κατηγορίες";
+        for (int i=0;i<counter;i++){
+            categories[i+1]=cat[i][0];
+        }
+        return categories;
+    }
+
+    public String[] getSubcategories(String category){
+        int counter=0;
+        for (int i=0; i< cat.length;i++){
+            if (cat[i][0]!=null) {
+                if (cat[i][0].equals(category)) {
+                    for (int j = 1; j < cat[i].length; j++) {
+                        if (cat[i][j]!=null) {
+                            counter++;
+                        }
+                    }
+                }
+            }
+        }
+        String[] subcategories=new String[counter+1];
+        subcategories[0]="Όλες οι υποκατηγορίες";
+        for (int i=0; i< cat.length;i++){
+            if (cat[i][0]!=null){
+                if (cat[i][0].equals(category)) {
+                    for (int j = 0; j < counter; j++) {
+                        subcategories[j + 1] = cat[i][j + 1];
+                    }
+                }
+            }
+        }
+        return subcategories;
+    }
 }
