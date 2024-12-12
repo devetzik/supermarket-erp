@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+import static gui.LoginFrame.frame;
 import static gui.LoginFrame.util;
 
 public class CustomerFrame {
@@ -44,7 +45,7 @@ public class CustomerFrame {
         custFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new LoginFrame();
+                frame.setVisible(true);
             }
         });
 
@@ -56,9 +57,17 @@ public class CustomerFrame {
         lName.setFont(new Font("Serif",Font.BOLD,16));
 
         cartButton.setPreferredSize(new Dimension(100,40));
-        logoutButton.setPreferredSize(new Dimension(100,40));
         historyButton.setPreferredSize(new Dimension(100,40));
         productsButton.setPreferredSize(new Dimension(100,40));
+        logoutButton.setPreferredSize(new Dimension(100,40));
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                custFrame.dispose();
+                frame.setVisible(true);
+            }
+        });
+
 
         userInfo.setPreferredSize(new Dimension(130,900));
         sparePanel.setPreferredSize(new Dimension(120,50));

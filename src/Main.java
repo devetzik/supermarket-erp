@@ -18,30 +18,8 @@ import java.util.Scanner;
  * ************* ΜΗ ΣΒΗΣΕΤΕ ΑΥΤΗ ΤΗΝ ΚΛΑΣΗ ************
  */
 public class Main implements Serializable {
-
-    static JFrame frame;
-    private static JPanel panel=new JPanel();
-    private static JPanel signupPanel=new JPanel();
-    private static JPanel loginPanel=new JPanel();
-    private static JPanel eastPanel=new JPanel();
-    private static JPanel westPanel=new JPanel();
-    private static final JLabel welcome=new JLabel("Καλωσήρθατε στο e-shop του Supermarket",SwingConstants.CENTER);
-    private static final JLabel loginLabel=new JLabel("\nΕίσοδος",SwingConstants.CENTER);
-    private static final JLabel usernameLabel=new JLabel("Username");
-    private static final JLabel passwordLabel=new JLabel("Password ");
-    private static JTextField usernameTextfield=new JTextField();
-    private static JPasswordField passwordField=new JPasswordField();
-    private static JButton loginButton=new JButton("Είσοδος");
-    private static JButton signupButton=new JButton("Εγγραφή");
-    private static JLabel signupLabel=new JLabel("Δεν έχετε λογαριασμό;");
-    static Utilities util = new Utilities();
     static User currnentUser;
-    public Main(){
-
-
-
-    }
-
+    
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         new LoginFrame();
 

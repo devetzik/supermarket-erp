@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class SignUpDialog {
     private Utilities util=new Utilities();
-    private static JDialog dialog=new JDialog();
+    static JDialog dialog=new JDialog();
     private static JButton ok=new JButton("Εγγραφή");
     private static JPanel labelsPanel=new JPanel();
     private static JPanel textFieldsPanel=new JPanel();
@@ -31,10 +31,8 @@ public class SignUpDialog {
     private static JTextField usernameTextField=new JTextField();
     private static JPasswordField passwordField=new JPasswordField();
 
-
-
-
     public SignUpDialog(){
+
         dialog.setSize(370,450);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setTitle("Φόρμα εγγραφής νέου χρήστη");
@@ -102,6 +100,7 @@ public class SignUpDialog {
                 lNameTextField.setText("");
                 usernameTextField.setText("");
                 passwordField.setText("");
+                dialog.dispose();
             }
         });
 

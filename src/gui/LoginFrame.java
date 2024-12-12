@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import static gui.SignUpDialog.dialog;
+
 public class LoginFrame {
     static JFrame frame;
     private static JPanel panel=new JPanel();
@@ -29,7 +31,6 @@ public class LoginFrame {
     private static JLabel signupLabel=new JLabel("Δεν έχετε λογαριασμό;");
     static Utilities util = new Utilities();
     static User currnentUser;
-
     public LoginFrame(){
         frame=new JFrame();
         frame.setTitle("Supermarket e-shop");
@@ -76,11 +77,10 @@ public class LoginFrame {
                         passwordField.setText("");
                         currnentUser= util.getCurrentUser(username);
                         if (currnentUser instanceof Administrator){
-                            new AdminFrame();
+                            new AdminFrame((Administrator) currnentUser);
                         }else
                             new CustomerFrame((Customer) currnentUser);
-                        //frame.setVisible(false);
-                        frame.dispose();
+                        frame.setVisible(false);
                     }
                 } catch (IOException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
@@ -103,11 +103,10 @@ public class LoginFrame {
                         passwordField.setText("");
                         currnentUser= util.getCurrentUser(username);
                         if (currnentUser instanceof Administrator){
-                            new AdminFrame();
+                            new AdminFrame((Administrator) currnentUser);
                         }else
                             new CustomerFrame((Customer) currnentUser);
-                        //frame.setVisible(false);
-                        frame.dispose();
+                        frame.setVisible(false);
                     }
                 } catch (IOException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
@@ -149,15 +148,5 @@ public class LoginFrame {
         frame.add(westPanel,BorderLayout.WEST);
 
         frame.setVisible(true);
-
-
-
-
-
-
-
-
-
-
     }
 }
