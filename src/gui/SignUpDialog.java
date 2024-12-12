@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class SignUpDialog {
@@ -68,7 +70,15 @@ public class SignUpDialog {
                 } catch (IOException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
-                new SignUpResultDialog(b);
+                if (b==0){
+                    dialog.dispose();
+                    fNameTextField.setText("");
+                    lNameTextField.setText("");
+                    usernameTextField.setText("");
+                    passwordField.setText("");
+                }
+                SignUpResultDialog dialog;
+                dialog=new SignUpResultDialog(b);
             }
         });
 
@@ -85,6 +95,16 @@ public class SignUpDialog {
         dialog.add(passwordField);
         dialog.add(spare2);
         dialog.add(ok);
+
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                fNameTextField.setText("");
+                lNameTextField.setText("");
+                usernameTextField.setText("");
+                passwordField.setText("");
+            }
+        });
 
         dialog.setVisible(true);
     }

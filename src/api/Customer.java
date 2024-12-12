@@ -171,4 +171,12 @@ public class Customer extends User implements Serializable {
             addToShoppingCart(product,qty);
         }
     }
+
+    public String getfName(){
+        return fName;
+    }
+
+    public String getlName(){
+        return lName;
+    }
 }

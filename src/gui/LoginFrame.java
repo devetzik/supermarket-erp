@@ -62,6 +62,34 @@ public class LoginFrame {
         loginPanel.add(loginButton);
         loginPanel.setBackground(Color.orange);
 
+        passwordField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int a;
+                String username = usernameTextfield.getText();
+                String password = passwordField.getText();
+
+                try {
+                    a = util.loginCheck(username, password);
+                    if (a==0){
+                        usernameTextfield.setText("");
+                        passwordField.setText("");
+                        currnentUser= util.getCurrentUser(username);
+                        if (currnentUser instanceof Administrator){
+                            new AdminFrame();
+                        }else
+                            new CustomerFrame((Customer) currnentUser);
+                        //frame.setVisible(false);
+                        frame.dispose();
+                    }
+                } catch (IOException | ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+                LoginResultDialog dialog;
+                dialog=new LoginResultDialog(a);
+            }
+        });
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,7 +107,8 @@ public class LoginFrame {
                             new AdminFrame();
                         }else
                             new CustomerFrame((Customer) currnentUser);
-                        frame.setVisible(false);
+                        //frame.setVisible(false);
+                        frame.dispose();
                     }
                 } catch (IOException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
