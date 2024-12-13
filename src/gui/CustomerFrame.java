@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static gui.LoginFrame.frame;
 import static gui.LoginFrame.util;
@@ -116,6 +117,68 @@ public class CustomerFrame {
         searchTextField.setPreferredSize(new Dimension(200,25));
         searchButton.setPreferredSize(new Dimension(100,25));
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                detailsPanel.setBackground(Color.GRAY);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
+                addToCartButton.setVisible(false);
+
+                String title = searchTextField.getText();
+                String category = categoryBox.getSelectedItem().toString();
+                String subcategory = subcategoryBox.getSelectedItem().toString();
+                ArrayList<String> searchResults;
+                try {
+                    searchResults = customer.productSearch(title, category, subcategory);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                String [] sR= searchResults.toArray(new String[0]);
+
+                productsList = new JList<>(sR);
+                productsList.setFont(new Font("Serif",Font.BOLD,16));
+
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                productsList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        addToCartButton.setVisible(true);
+                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                        if (productsList.getValueIsAdjusting()) {
+
+                            String selectedProduct = productsList.getSelectedValue();
+                            Product product = customer.getProduct(selectedProduct);
+
+                            productTitle.setText(product.getTitle());
+                            productDetails.setText(product.getDescription());
+                            productCategory.setText("Κατηγορία: "+product.getCategory());
+                            productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
+                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                            }
+                            else {
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                            }
+                        }
+                    }
+                });
+
+
+            }
+        });
+
 
         categories= customer.getCategories();
         categoryBox=new JComboBox<>(categories);
@@ -154,6 +217,7 @@ public class CustomerFrame {
 
 
         productsList=new JList<>(customer.getProductsNames());
+        productsList.setFont(new Font("Serif",Font.BOLD,16));
 
         scrollPane.setPreferredSize(new Dimension(400,custFrame.getHeight()-200));
 
@@ -186,6 +250,7 @@ public class CustomerFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 addToCartButton.setVisible(true);
+                detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                 if (productsList.getValueIsAdjusting()) {
 
@@ -210,6 +275,8 @@ public class CustomerFrame {
 
 
         spareLabel.setPreferredSize(new Dimension(500,100));
+
+        detailsPanel.setBackground(Color.GRAY);
 
         detailsPanel.add(productTitle);
         detailsPanel.add(productDetails);

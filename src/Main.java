@@ -19,13 +19,14 @@ import java.util.Scanner;
  */
 public class Main implements Serializable {
     static User currnentUser;
-    
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         new LoginFrame();
 
 
 
 
+        /*
         Scanner scanner = new Scanner(System.in);
         int x;
 
@@ -65,6 +66,8 @@ public class Main implements Serializable {
         }
     }
 
+         */
+
 
         /*
 
@@ -93,4 +96,5 @@ public class Main implements Serializable {
             }
         }
          */
+    }
 }
