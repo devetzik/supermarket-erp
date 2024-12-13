@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
     String title, description, category, subcategory, unit;
-    double price;
-    int qty;
+    double price,qty;
 
-    public Product(String title, String description, String category, String subcategory, double price, int qty){
+
+    public Product(String title, String description, String category, String subcategory, double price, double qty){
         this.title=title;
         this.description=description;
         this.category=category;
@@ -38,7 +38,7 @@ public class Product implements Serializable {
         this.price=price;
     }
 
-    public void setQty(int qty){
+    public void setQty(double qty){
         this.qty=qty;
     }
 
@@ -63,16 +63,24 @@ public class Product implements Serializable {
         return price;
     }
 
-    public int getQty(){
+    public double getQty(){
         return qty;
     }
 
-    public String getUnit(){return unit;}
+    public String getUnit(){
+        if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
+            unit=" kg";
+        }
+        else {
+            unit = " τεμάχια";
+        }
+        return unit;
+    }
 
 
     public String getDetails(){
         if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
-            unit="kg";
+            unit=" kg";
         }
         else {
             unit=" τεμάχια";

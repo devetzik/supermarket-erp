@@ -22,15 +22,16 @@ public class CustomerFrame {
     private static JLabel fName=new JLabel();
     private static JLabel lName=new JLabel();
     private static final JLabel searchLabel=new JLabel("Αναζήτηση προϊόντος:          ");
-    private static final JLabel titleLabel=new JLabel("Τίτλος");
-    private static final JLabel categoryLabel=new JLabel("Κατηγορία");
-    private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία");
+    private static final JLabel titleLabel=new JLabel("Τίτλος:  ");
+    private static final JLabel categoryLabel=new JLabel("      Κατηγορία:");
+    private static final JLabel subcategoryLabel=new JLabel("     Υποκατηγορία:");
     private static JLabel productTitle=new JLabel();
     private static JLabel productDetails=new JLabel();
     private static JLabel productCategory=new JLabel();
     private static JLabel productSubcategory=new JLabel();
     private static JLabel productPrice=new JLabel();
     private static JLabel productQty=new JLabel();
+    private static JLabel spareLabel=new JLabel();
     private static final JButton logoutButton=new JButton("Έξοδος");
     private static final JButton cartButton=new JButton("Καλάθι");
     private static final JButton historyButton=new JButton("Ιστορικό");
@@ -108,7 +109,9 @@ public class CustomerFrame {
 
         searchLabel.setFont(new Font("Serif",Font.BOLD,14));
         titleLabel.setFont(new Font("Serif",Font.BOLD,14));
+        categoryLabel.setPreferredSize(new Dimension(100,25));
         categoryLabel.setFont(new Font("Serif",Font.BOLD,14));
+        subcategoryLabel.setPreferredSize(new Dimension(120,25));
         subcategoryLabel.setFont(new Font("Serif",Font.BOLD,14));
         searchTextField.setPreferredSize(new Dimension(200,25));
         searchButton.setPreferredSize(new Dimension(100,25));
@@ -151,7 +154,7 @@ public class CustomerFrame {
 
 
         productsList=new JList<>(customer.getProductsNames());
-        //productsList.setPreferredSize(new Dimension(300,custFrame.getHeight()-100));
+
         scrollPane.setPreferredSize(new Dimension(400,custFrame.getHeight()-200));
 
         detailsPanel.setPreferredSize(new Dimension(530,custFrame.getHeight()-200));
@@ -178,9 +181,11 @@ public class CustomerFrame {
 
         scrollPane.setViewportView(productsList);
         productsList.setLayoutOrientation(JList.VERTICAL);
+        addToCartButton.setVisible(false);
         productsList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                addToCartButton.setVisible(true);
 
                 if (productsList.getValueIsAdjusting()) {
 
@@ -193,10 +198,18 @@ public class CustomerFrame {
                     productCategory.setText("Κατηγορία: "+product.getCategory());
                     productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
                     productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
-                    productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty()));
+                    if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                        productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                    }
+                    else {
+                        productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                    }
                 }
             }
         });
+
+
+        spareLabel.setPreferredSize(new Dimension(500,100));
 
         detailsPanel.add(productTitle);
         detailsPanel.add(productDetails);
@@ -204,6 +217,7 @@ public class CustomerFrame {
         detailsPanel.add(productSubcategory);
         detailsPanel.add(productPrice);
         detailsPanel.add(productQty);
+        detailsPanel.add(spareLabel);
         detailsPanel.add(addToCartButton);
 
 
