@@ -173,4 +173,23 @@ public abstract class User implements Serializable {
         }
         return subcategories;
     }
+
+
+    public String[] getProductsNames(){
+        String[] productsNames=new String[products.size()];
+        for (int i=0;i<products.size();i++){
+            productsNames[i]=products.get(i).getTitle();
+        }
+        return productsNames;
+    }
+
+    public Product getProduct(String productTitle){
+        Product product=null;
+        for (Product i:products){
+            if (i.getTitle().equals(productTitle)){
+                product=i;
+            }
+        }
+        return product;
+    }
 }

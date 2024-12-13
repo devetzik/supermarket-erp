@@ -1,7 +1,11 @@
 package gui;
 
 import api.Customer;
+import api.Product;
+
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,24 +21,36 @@ public class CustomerFrame {
     private static JLabel username=new JLabel();
     private static JLabel fName=new JLabel();
     private static JLabel lName=new JLabel();
-    private static final JLabel searchLabel=new JLabel("Αναζήτηση προϊόντος:                        ");
+    private static final JLabel searchLabel=new JLabel("Αναζήτηση προϊόντος:          ");
     private static final JLabel titleLabel=new JLabel("Τίτλος");
     private static final JLabel categoryLabel=new JLabel("Κατηγορία");
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία");
+    private static JLabel productTitle=new JLabel();
+    private static JLabel productDetails=new JLabel();
+    private static JLabel productCategory=new JLabel();
+    private static JLabel productSubcategory=new JLabel();
+    private static JLabel productPrice=new JLabel();
+    private static JLabel productQty=new JLabel();
     private static final JButton logoutButton=new JButton("Έξοδος");
     private static final JButton cartButton=new JButton("Καλάθι");
     private static final JButton historyButton=new JButton("Ιστορικό");
     private static final JButton productsButton=new JButton("Προϊόντα");
     private static final JButton searchButton=new JButton("Αναζήτηση");
+    private static final JButton addToCartButton=new JButton("Προσθήκη στο καλάθι");
     private static JTextField searchTextField=new JTextField();
     private static JPanel userInfo=new JPanel();
     private static JPanel searchPanel=new JPanel();
-    private static JPanel sparePanel=new JPanel();
+    private static final JPanel sparePanel=new JPanel();
     private static final JPanel sparePanel2=new JPanel();
+    private static final JPanel sparePanel3=new JPanel();
+    private static JPanel productsPanel=new JPanel();
+    private static JPanel detailsPanel=new JPanel();
+    private static JList<String> productsList;
     private static JComboBox<String> categoryBox;
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
     private String [] categories;
     private String [] subcategories;
+    private JScrollPane scrollPane=new JScrollPane();
 
 
     public CustomerFrame(Customer customer){
@@ -46,6 +62,9 @@ public class CustomerFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 frame.setVisible(true);
+                scrollPane.setVisible(false);
+                searchPanel.setVisible(false);
+                categoryBox.setVisible(false);
             }
         });
 
@@ -60,17 +79,23 @@ public class CustomerFrame {
         historyButton.setPreferredSize(new Dimension(100,40));
         productsButton.setPreferredSize(new Dimension(100,40));
         logoutButton.setPreferredSize(new Dimension(100,40));
+        addToCartButton.setPreferredSize(new Dimension(180,50));
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 custFrame.dispose();
                 frame.setVisible(true);
+                scrollPane.setVisible(false);
+                searchPanel.setVisible(false);
+                categoryBox.setVisible(false);
             }
         });
 
 
         userInfo.setPreferredSize(new Dimension(130,900));
         sparePanel.setPreferredSize(new Dimension(120,50));
+        userInfo.setBackground(Color.orange);
+        sparePanel.setBackground(Color.orange);
 
         userInfo.add(fName);
         userInfo.add(lName);
@@ -122,8 +147,84 @@ public class CustomerFrame {
         searchPanel.add(subcategoryBox);
         searchPanel.add(searchButton);
 
+        searchPanel.setBackground(Color.orange);
+
+
+        productsList=new JList<>(customer.getProductsNames());
+        //productsList.setPreferredSize(new Dimension(300,custFrame.getHeight()-100));
+        scrollPane.setPreferredSize(new Dimension(400,custFrame.getHeight()-200));
+
+        detailsPanel.setPreferredSize(new Dimension(530,custFrame.getHeight()-200));
+
+        productTitle.setPreferredSize(new Dimension(500,60));
+        productTitle.setFont(new Font("Serif",Font.BOLD,22));
+        productDetails.setPreferredSize(new Dimension(500,60));
+        productDetails.setFont(new Font("Serif",Font.BOLD,18));
+        productCategory.setPreferredSize(new Dimension(500,30));
+        productCategory.setFont(new Font("Serif",Font.BOLD,18));
+        productSubcategory.setPreferredSize(new Dimension(500,30));
+        productSubcategory.setFont(new Font("Serif",Font.BOLD,18));
+        productPrice.setPreferredSize(new Dimension(500,30));
+        productPrice.setFont(new Font("Serif",Font.BOLD,18));
+        productQty.setPreferredSize(new Dimension(500,30));
+        productQty.setFont(new Font("Serif",Font.BOLD,18));
+
+
+
+        sparePanel2.setPreferredSize(new Dimension(2500,50));
+        sparePanel2.setBackground(Color.GRAY);
+        sparePanel3.setPreferredSize(new Dimension(30,custFrame.getHeight()-200));
+        sparePanel3.setBackground(Color.GRAY);
+
+        scrollPane.setViewportView(productsList);
+        productsList.setLayoutOrientation(JList.VERTICAL);
+        productsList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (productsList.getValueIsAdjusting()) {
+
+                    String selectedProduct = productsList.getSelectedValue();
+
+                    Product product = customer.getProduct(selectedProduct);
+
+                    productTitle.setText(product.getTitle());
+                    productDetails.setText(product.getDescription());
+                    productCategory.setText("Κατηγορία: "+product.getCategory());
+                    productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
+                    productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
+                    productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty()));
+                }
+            }
+        });
+
+        detailsPanel.add(productTitle);
+        detailsPanel.add(productDetails);
+        detailsPanel.add(productCategory);
+        detailsPanel.add(productSubcategory);
+        detailsPanel.add(productPrice);
+        detailsPanel.add(productQty);
+        detailsPanel.add(addToCartButton);
+
+
+        productsPanel.add(sparePanel2);
+        productsPanel.add(scrollPane);
+        productsPanel.add(sparePanel3);
+        productsPanel.add(detailsPanel);
+
+
+
+        productsPanel.setBackground(Color.GRAY);
+
+
+
+
         custFrame.add(userInfo,BorderLayout.WEST);
         custFrame.add(searchPanel,BorderLayout.NORTH);
+        custFrame.add(productsPanel,BorderLayout.CENTER);
+
+        scrollPane.setVisible(true);
+        searchPanel.setVisible(true);
         custFrame.setVisible(true);
     }
 }

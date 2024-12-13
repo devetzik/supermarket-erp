@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import static gui.SignUpDialog.dialog;
-
 public class LoginFrame {
     static JFrame frame;
     private static JPanel panel=new JPanel();

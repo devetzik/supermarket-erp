@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="searchbar ready">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="adminFrame basic ready">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LoginFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/SignUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SignUpDialog.java" afterDir="false" />
@@ -209,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734019366733</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="adminFrame basic ready">
+      <created>1734029740048</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734029740048</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,7 +239,8 @@
     <MESSAGE value="prodremoverfinal...productedit" />
     <MESSAGE value="fixed system.in problems" />
     <MESSAGE value="searchbar ready" />
-    <option name="LAST_COMMIT_MESSAGE" value="searchbar ready" />
+    <MESSAGE value="adminFrame basic ready" />
+    <option name="LAST_COMMIT_MESSAGE" value="adminFrame basic ready" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

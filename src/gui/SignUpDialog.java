@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class SignUpDialog {
     private Utilities util=new Utilities();
-    static JDialog dialog=new JDialog();
+    private static JDialog dialog=new JDialog();
     private static JButton ok=new JButton("Εγγραφή");
     private static JPanel labelsPanel=new JPanel();
     private static JPanel textFieldsPanel=new JPanel();
