@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static gui.LoginFrame.frame;
 import static gui.LoginFrame.util;
@@ -53,9 +54,17 @@ public class CustomerFrame {
     private String [] categories;
     private String [] subcategories;
     private JScrollPane scrollPane=new JScrollPane();
+    private JSpinner qtySpinner;
+    private static final JLabel updateQtyLabel= new JLabel("Επιλεγμένη ποσότητα");
+    private static final JButton updateButton= new JButton("Ενημέρωση");
+    private static final JButton deleteButton=new JButton("Διαγραφή");
 
 
     public CustomerFrame(Customer customer){
+        qtySpinner=new JSpinner(new SpinnerNumberModel(0,0,300,1));
+        deleteButton.setVisible(false);
+        updateButton.setVisible(false);
+        updateQtyLabel.setVisible(false);
         custFrame.setSize(1280,720);
         custFrame.setLocationRelativeTo(null);
         custFrame.getContentPane().setBackground(Color.orange);
@@ -82,6 +91,7 @@ public class CustomerFrame {
         productsButton.setPreferredSize(new Dimension(100,40));
         logoutButton.setPreferredSize(new Dimension(100,40));
         addToCartButton.setPreferredSize(new Dimension(180,50));
+        addToCartButton.setFont(new Font("Serif",Font.BOLD,14));
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,6 +100,150 @@ public class CustomerFrame {
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
+            }
+        });
+
+        addToCartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Product product=customer.getProduct(productsList.getSelectedValue());
+                customer.addToShoppingCart(product,(int)qtySpinner.getValue());
+            }
+        });
+
+        cartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addToCartButton.setVisible(false);
+                qtySpinner.setVisible(false);
+                updateQtyLabel.setVisible(false);
+                updateButton.setVisible(false);
+                deleteButton.setVisible(false);
+                detailsPanel.setBackground(Color.GRAY);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
+
+
+                HashMap<Product,Integer> shoppingCart=customer.getShoppingCart();
+                int i=0;
+                String [] pro=new String[shoppingCart.keySet().size()];
+                for (Product p: shoppingCart.keySet()){
+                    pro[i]=p.getTitle();
+                    i++;
+                }
+                productsList=new JList<>(pro);
+                productsList.setFont(new Font("Serif",Font.BOLD,16));
+
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                productsList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        updateQtyLabel.setVisible(true);
+                        deleteButton.setVisible(true);
+                        updateButton.setVisible(true);
+                        qtySpinner.setValue(shoppingCart.get(customer.getProduct(productsList.getSelectedValue())));
+                        qtySpinner.setVisible(true);
+                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                        if (productsList.getValueIsAdjusting()) {
+
+                            String selectedProduct = productsList.getSelectedValue();
+                            Product product = customer.getProduct(selectedProduct);
+
+                            productTitle.setText(product.getTitle());
+                            productDetails.setText(product.getDescription());
+                            productCategory.setText("Κατηγορία: "+product.getCategory());
+                            productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
+                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                            }
+                            else {
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        productsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteButton.setVisible(false);
+                addToCartButton.setVisible(false);
+                qtySpinner.setVisible(false);
+                updateButton.setVisible(false);
+                updateQtyLabel.setVisible(false);
+                detailsPanel.setBackground(Color.GRAY);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
+
+                String[] products=customer.getProductsNames();
+
+
+
+
+                productsList = new JList<>(products);
+                productsList.setFont(new Font("Serif",Font.BOLD,16));
+
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                productsList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+
+                        if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
+                            qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
+                            updateQtyLabel.setVisible(true);
+                            updateButton.setVisible(true);
+                            deleteButton.setVisible(true);
+                            addToCartButton.setVisible(false);
+                        }
+                        else {
+                            qtySpinner.setValue(0);
+                            addToCartButton.setVisible(true);
+                            updateButton.setVisible(false);
+                            updateQtyLabel.setVisible(false);
+                            deleteButton.setVisible(false);
+                        }
+                        qtySpinner.setVisible(true);
+                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                        if (productsList.getValueIsAdjusting()) {
+
+                            String selectedProduct = productsList.getSelectedValue();
+                            Product product = customer.getProduct(selectedProduct);
+
+                            productTitle.setText(product.getTitle());
+                            productDetails.setText(product.getDescription());
+                            productCategory.setText("Κατηγορία: "+product.getCategory());
+                            productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
+                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                            }
+                            else {
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -120,6 +274,11 @@ public class CustomerFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                deleteButton.setVisible(false);
+                addToCartButton.setVisible(false);
+                qtySpinner.setVisible(false);
+                updateButton.setVisible(false);
+                updateQtyLabel.setVisible(false);
                 detailsPanel.setBackground(Color.GRAY);
 
                 productTitle.setText("");
@@ -128,7 +287,7 @@ public class CustomerFrame {
                 productSubcategory.setText("");
                 productPrice.setText("");
                 productQty.setText("");
-                addToCartButton.setVisible(false);
+
 
                 String title = searchTextField.getText();
                 String category = categoryBox.getSelectedItem().toString();
@@ -152,7 +311,22 @@ public class CustomerFrame {
                 productsList.addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
-                        addToCartButton.setVisible(true);
+
+                        if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
+                            qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
+                            updateQtyLabel.setVisible(true);
+                            updateButton.setVisible(true);
+                            deleteButton.setVisible(true);
+                            addToCartButton.setVisible(false);
+                        }
+                        else {
+                            qtySpinner.setValue(0);
+                            addToCartButton.setVisible(true);
+                            updateButton.setVisible(false);
+                            deleteButton.setVisible(false);
+                            updateQtyLabel.setVisible(false);
+                        }
+                        qtySpinner.setVisible(true);
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                         if (productsList.getValueIsAdjusting()) {
@@ -246,11 +420,30 @@ public class CustomerFrame {
         scrollPane.setViewportView(productsList);
         productsList.setLayoutOrientation(JList.VERTICAL);
         addToCartButton.setVisible(false);
+        qtySpinner.setVisible(false);
         productsList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 addToCartButton.setVisible(true);
+                updateQtyLabel.setVisible(true);
+
+                qtySpinner.setVisible(true);
                 detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
+                    qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
+                    updateQtyLabel.setVisible(true);
+                    addToCartButton.setVisible(false);
+                    updateButton.setVisible(true);
+                    deleteButton.setVisible(true);
+                }
+                else {
+                    qtySpinner.setValue(0);
+                    addToCartButton.setVisible(true);
+                    updateQtyLabel.setVisible(false);
+                    updateButton.setVisible(false);
+                    deleteButton.setVisible(false);
+                }
 
                 if (productsList.getValueIsAdjusting()) {
 
@@ -278,6 +471,22 @@ public class CustomerFrame {
 
         detailsPanel.setBackground(Color.GRAY);
 
+        qtySpinner.setPreferredSize(new Dimension(60,50));
+        qtySpinner.setFont(new Font("Serif",Font.BOLD,20));
+
+        updateQtyLabel.setFont(new Font("Serif",Font.BOLD,16));
+        updateButton.setPreferredSize(new Dimension(130,50));
+        updateButton.setFont(new Font("Serif",Font.BOLD,16));
+        deleteButton.setPreferredSize(new Dimension(130,50));
+        deleteButton.setFont(new Font("Serif",Font.BOLD,16));
+
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                customer.updateCartQty(productsList.getSelectedValue(),(int)qtySpinner.getValue());
+            }
+        });
+
         detailsPanel.add(productTitle);
         detailsPanel.add(productDetails);
         detailsPanel.add(productCategory);
@@ -285,7 +494,11 @@ public class CustomerFrame {
         detailsPanel.add(productPrice);
         detailsPanel.add(productQty);
         detailsPanel.add(spareLabel);
+        detailsPanel.add(updateQtyLabel);
         detailsPanel.add(addToCartButton);
+        detailsPanel.add(qtySpinner);
+        detailsPanel.add(updateButton);
+        detailsPanel.add(deleteButton);
 
 
         productsPanel.add(sparePanel2);

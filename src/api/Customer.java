@@ -179,4 +179,16 @@ public class Customer extends User implements Serializable {
     public String getlName(){
         return lName;
     }
+
+    public HashMap<Product,Integer> getShoppingCart(){
+        return shoppingCart;
+    }
+     public void updateCartQty(String title, int qty){
+        for (Product p: shoppingCart.keySet()){
+            if (p.title.equals(title)){
+                shoppingCart.put(p,qty);
+                break;
+            }
+        }
+     }
 }
