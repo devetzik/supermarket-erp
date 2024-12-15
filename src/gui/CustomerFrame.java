@@ -44,9 +44,11 @@ public class CustomerFrame {
     private static final JButton productsButton=new JButton("Προϊόντα");
     private static final JButton searchButton=new JButton("Αναζήτηση");
     private static final JButton addToCartButton=new JButton("Προσθήκη στο καλάθι");
+    private static final JButton confirmOrderButton=new JButton("Ολοκλήρωση παραγγελίας");
     private static JTextField searchTextField=new JTextField();
     private static JPanel userInfo=new JPanel();
     private static JPanel searchPanel=new JPanel();
+    private static JPanel southPanel=new JPanel();
     private static final JPanel sparePanel=new JPanel();
     private static final JPanel sparePanel2=new JPanel();
     private static final JPanel sparePanel3=new JPanel();
@@ -74,6 +76,7 @@ public class CustomerFrame {
         qtySpinner=new JSpinner(new SpinnerNumberModel(0,0,300,1));
         deleteButton.setVisible(false);
         updateButton.setVisible(false);
+        confirmOrderButton.setVisible(false);
         localCostLabel.setVisible(false);
         totalCostLabel.setVisible(false);
         updateQtyLabel.setVisible(false);
@@ -154,6 +157,7 @@ public class CustomerFrame {
                 detailsPanel.setVisible(true);
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
+
                 if (cust.getShoppingCart().isEmpty()) {
                     new EmptyCartDialog();
                 } else {
@@ -166,6 +170,7 @@ public class CustomerFrame {
                     unit.setVisible(false);
                     localCostLabel.setVisible(false);
                     totalCostLabel.setVisible(true);
+                    confirmOrderButton.setVisible(true);
                     detailsPanel.setBackground(Color.GRAY);
 
                     productTitle.setText("");
@@ -243,6 +248,7 @@ public class CustomerFrame {
                 unit.setVisible(false);
                 localCostLabel.setVisible(false);
                 totalCostLabel.setVisible(false);
+                confirmOrderButton.setVisible(false);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
@@ -353,6 +359,7 @@ public class CustomerFrame {
                 unit.setVisible(false);
                 localCostLabel.setVisible(false);
                 totalCostLabel.setVisible(false);
+                confirmOrderButton.setVisible(false);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
@@ -584,6 +591,10 @@ public class CustomerFrame {
 
         localCostLabel.setFont(new Font("Serif",Font.BOLD,20));
         totalCostLabel.setFont(new Font("Serif",Font.BOLD,26));
+        totalCostLabel.setPreferredSize(new Dimension(600,50));
+
+        confirmOrderButton.setPreferredSize(new Dimension(220,40));
+        confirmOrderButton.setFont(new Font("Serif",Font.BOLD,16));
 
         updateButton.addActionListener(new ActionListener() {
             @Override
@@ -592,6 +603,7 @@ public class CustomerFrame {
                     cust.removeFromCart(productsList.getSelectedValue());
                     if (cust.getShoppingCart().isEmpty()){
                         new EmptyCartDialog();
+                        confirmOrderButton.setVisible(false);
                     }
                 }else {
                     cust.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
@@ -677,11 +689,23 @@ public class CustomerFrame {
                 productPrice.setText("");
                 productQty.setText("");
                 if (shoppingCart.isEmpty()){
+                    confirmOrderButton.setVisible(false);
                     new EmptyCartDialog();
                 }
             }
         });
 
+
+        confirmOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    cust.confirmOrder(cust);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
 
 
@@ -714,13 +738,16 @@ public class CustomerFrame {
 
         productsPanel.setBackground(Color.GRAY);
 
+        southPanel.add(totalCostLabel);
+        southPanel.add(confirmOrderButton);
+        southPanel.setBackground(Color.orange);
 
 
 
         custFrame.add(userInfo,BorderLayout.WEST);
         custFrame.add(searchPanel,BorderLayout.NORTH);
         custFrame.add(productsPanel,BorderLayout.CENTER);
-        custFrame.add(totalCostLabel,BorderLayout.SOUTH);
+        custFrame.add(southPanel,BorderLayout.SOUTH);
 
         scrollPane.setVisible(true);
         searchPanel.setVisible(true);
