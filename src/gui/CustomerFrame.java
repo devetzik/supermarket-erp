@@ -35,6 +35,7 @@ public class CustomerFrame {
     private static JLabel productQty=new JLabel();
     private static JLabel spareLabel=new JLabel();
     private static JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
+    private static JLabel unit=new JLabel();
     private static final JButton logoutButton=new JButton("Έξοδος");
     private static final JButton cartButton=new JButton("Καλάθι");
     private static final JButton historyButton=new JButton("Ιστορικό");
@@ -47,8 +48,8 @@ public class CustomerFrame {
     private static final JPanel sparePanel=new JPanel();
     private static final JPanel sparePanel2=new JPanel();
     private static final JPanel sparePanel3=new JPanel();
-    private static JPanel productsPanel=new JPanel();
-    private static JPanel detailsPanel=new JPanel();
+    private static final JPanel productsPanel=new JPanel();
+    private static final JPanel detailsPanel=new JPanel();
     private static JList<String> productsList;
     private static JComboBox<String> categoryBox;
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
@@ -59,9 +60,14 @@ public class CustomerFrame {
     private static final JLabel updateQtyLabel= new JLabel("Επιλεγμένη ποσότητα");
     private static final JButton updateButton= new JButton("Ενημέρωση");
     private static final JButton deleteButton=new JButton("Διαγραφή");
-
+    private static HashMap<Product,Integer> shoppingCart;
+    private static String[] pro;
+    private static Customer cust;
 
     public CustomerFrame(Customer customer){
+
+
+        cust =customer;
         scrollPane=new JScrollPane();
         qtySpinner=new JSpinner(new SpinnerNumberModel(0,0,300,1));
         deleteButton.setVisible(false);
@@ -89,11 +95,11 @@ public class CustomerFrame {
             }
         });
 
-        username.setText("("+customer.getUsername()+")");
+        username.setText("("+cust.getUsername()+")");
         username.setFont(new Font("Serif",Font.BOLD,16));
-        fName.setText(customer.getfName());
+        fName.setText(cust.getfName());
         fName.setFont(new Font("Serif",Font.BOLD,16));
-        lName.setText(customer.getlName());
+        lName.setText(cust.getlName());
         lName.setFont(new Font("Serif",Font.BOLD,16));
 
         cartButton.setPreferredSize(new Dimension(100,40));
@@ -118,14 +124,15 @@ public class CustomerFrame {
                 productSubcategory.setText("");
                 productPrice.setText("");
                 productQty.setText("");
+                //shoppingCart.clear();
             }
         });
 
         addToCartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Product product=customer.getProduct(productsList.getSelectedValue());
-                customer.addToShoppingCart(product,(int)qtySpinner.getValue());
+                Product product=cust.getProduct(productsList.getSelectedValue());
+                cust.addToShoppingCart(product,(int)qtySpinner.getValue());
             }
         });
 
@@ -135,7 +142,7 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 detailsPanel.setVisible(true);
 
-                if (customer.getShoppingCart().isEmpty()) {
+                if (cust.getShoppingCart().isEmpty()) {
                     new EmptyCartDialog();
                 } else {
                     upLabel.setText("Το καλάθι μου");
@@ -144,6 +151,7 @@ public class CustomerFrame {
                     updateQtyLabel.setVisible(false);
                     updateButton.setVisible(false);
                     deleteButton.setVisible(false);
+                    unit.setVisible(false);
                     detailsPanel.setBackground(Color.GRAY);
 
                     productTitle.setText("");
@@ -154,7 +162,7 @@ public class CustomerFrame {
                     productQty.setText("");
 
 
-                    HashMap<Product, Integer> shoppingCart = customer.getShoppingCart();
+                    HashMap<Product, Integer> shoppingCart = cust.getShoppingCart();
                     int i = 0;
                     String[] pro = new String[shoppingCart.keySet().size()];
                     for (Product p : shoppingCart.keySet()) {
@@ -171,19 +179,23 @@ public class CustomerFrame {
                     productsList.addListSelectionListener(new ListSelectionListener() {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
-
-
+                            unit.setVisible(true);
                             updateQtyLabel.setVisible(true);
                             deleteButton.setVisible(true);
                             updateButton.setVisible(true);
-                            qtySpinner.setValue(shoppingCart.get(customer.getProduct(productsList.getSelectedValue())));
+                            qtySpinner.setValue(shoppingCart.get(cust.getProduct(productsList.getSelectedValue())));
                             qtySpinner.setVisible(true);
                             detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                             if (productsList.getValueIsAdjusting()) {
 
                                 String selectedProduct = productsList.getSelectedValue();
-                                Product product = customer.getProduct(selectedProduct);
+                                Product product = cust.getProduct(selectedProduct);
+                                if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                    unit.setText("kg");
+                                }else {
+                                    unit.setText("τμχ.");
+                                }
 
                                 productTitle.setText(product.getTitle());
                                 productDetails.setText(product.getDescription());
@@ -211,6 +223,7 @@ public class CustomerFrame {
                 qtySpinner.setVisible(false);
                 updateButton.setVisible(false);
                 updateQtyLabel.setVisible(false);
+                unit.setVisible(false);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
@@ -221,7 +234,7 @@ public class CustomerFrame {
                 productPrice.setText("");
                 productQty.setText("");
 
-                String[] products=customer.getProductsNames();
+                String[] products=cust.getProductsNames();
 
 
 
@@ -237,8 +250,8 @@ public class CustomerFrame {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
 
-                        if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
-                            qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
+                        if (cust.getShoppingCart().keySet().contains(cust.getProduct(productsList.getSelectedValue()))){
+                            qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
                             //deleteButton.setVisible(true);
@@ -252,12 +265,18 @@ public class CustomerFrame {
                             deleteButton.setVisible(false);
                         }
                         qtySpinner.setVisible(true);
+                        unit.setVisible(true);
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                         if (productsList.getValueIsAdjusting()) {
 
                             String selectedProduct = productsList.getSelectedValue();
-                            Product product = customer.getProduct(selectedProduct);
+                            Product product = cust.getProduct(selectedProduct);
+                            if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                unit.setText("kg");
+                            }else {
+                                unit.setText("τμχ.");
+                            }
 
                             productTitle.setText(product.getTitle());
                             productDetails.setText(product.getDescription());
@@ -309,6 +328,7 @@ public class CustomerFrame {
                 qtySpinner.setVisible(false);
                 updateButton.setVisible(false);
                 updateQtyLabel.setVisible(false);
+                unit.setVisible(false);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
@@ -326,7 +346,7 @@ public class CustomerFrame {
                 String subcategory = subcategoryBox.getSelectedItem().toString();
                 ArrayList<String> searchResults;
                 try {
-                    searchResults = customer.productSearch(title, category, subcategory);
+                    searchResults = cust.productSearch(title, category, subcategory);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -344,8 +364,8 @@ public class CustomerFrame {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
 
-                        if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
-                            qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
+                        if (cust.getShoppingCart().keySet().contains(cust.getProduct(productsList.getSelectedValue()))){
+                            qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
                             //deleteButton.setVisible(true);
@@ -359,12 +379,19 @@ public class CustomerFrame {
                             updateQtyLabel.setVisible(false);
                         }
                         qtySpinner.setVisible(true);
+                        unit.setVisible(true);
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                         if (productsList.getValueIsAdjusting()) {
 
                             String selectedProduct = productsList.getSelectedValue();
-                            Product product = customer.getProduct(selectedProduct);
+                            Product product = cust.getProduct(selectedProduct);
+
+                            if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                unit.setText("kg");
+                            }else {
+                                unit.setText("τμχ.");
+                            }
 
                             productTitle.setText(product.getTitle());
                             productDetails.setText(product.getDescription());
@@ -386,7 +413,7 @@ public class CustomerFrame {
         });
 
 
-        categories= customer.getCategories();
+        categories= cust.getCategories();
         categoryBox=new JComboBox<>(categories);
 
         categoryBox.setPreferredSize(new Dimension(200,25));
@@ -398,7 +425,7 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    subcategories= customer.getSubcategories(categoryBox.getSelectedItem().toString());
+                    subcategories= cust.getSubcategories(categoryBox.getSelectedItem().toString());
 
                     for (String i:subcategories){
                         subcategoryBox.addItem(i);
@@ -422,7 +449,7 @@ public class CustomerFrame {
         searchPanel.setBackground(Color.orange);
 
 
-        productsList=new JList<>(customer.getProductsNames());
+        productsList=new JList<>(cust.getProductsNames());
         productsList.setFont(new Font("Serif",Font.BOLD,16));
 
         scrollPane.setPreferredSize(new Dimension(400,custFrame.getHeight()-200));
@@ -460,13 +487,14 @@ public class CustomerFrame {
                 updateQtyLabel.setVisible(true);
 
 
+                unit.setVisible(true);
 
                 qtySpinner.setVisible(true);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.LIGHT_GRAY);
 
-                if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
-                    qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
+                if (cust.getShoppingCart().keySet().contains(cust.getProduct(productsList.getSelectedValue()))){
+                    qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                     updateQtyLabel.setVisible(true);
                     addToCartButton.setVisible(false);
                     updateButton.setVisible(true);
@@ -484,7 +512,12 @@ public class CustomerFrame {
 
                     String selectedProduct = productsList.getSelectedValue();
 
-                    Product product = customer.getProduct(selectedProduct);
+                    Product product = cust.getProduct(selectedProduct);
+                    if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                        unit.setText("kg");
+                    }else {
+                        unit.setText("τμχ.");
+                    }
 
                     productTitle.setText(product.getTitle());
                     productDetails.setText(product.getDescription());
@@ -506,25 +539,29 @@ public class CustomerFrame {
 
         detailsPanel.setBackground(Color.GRAY);
 
-        qtySpinner.setPreferredSize(new Dimension(60,50));
+        qtySpinner.setPreferredSize(new Dimension(60,40));
         qtySpinner.setFont(new Font("Serif",Font.BOLD,20));
 
+        unit.setVisible(false);
+        unit.setFont(new Font("Serif",Font.BOLD,16));
+        unit.setPreferredSize(new Dimension(40,40));
+
         updateQtyLabel.setFont(new Font("Serif",Font.BOLD,16));
-        updateButton.setPreferredSize(new Dimension(130,50));
+        updateButton.setPreferredSize(new Dimension(120,50));
         updateButton.setFont(new Font("Serif",Font.BOLD,16));
-        deleteButton.setPreferredSize(new Dimension(130,50));
+        deleteButton.setPreferredSize(new Dimension(120,50));
         deleteButton.setFont(new Font("Serif",Font.BOLD,16));
 
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((int)qtySpinner.getValue()==0){
-                    customer.removeFromCart(productsList.getSelectedValue());
-                    if (customer.getShoppingCart().isEmpty()){
+                    cust.removeFromCart(productsList.getSelectedValue());
+                    if (cust.getShoppingCart().isEmpty()){
                         new EmptyCartDialog();
                     }
                 }else {
-                    customer.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
+                    cust.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
                 }
             }
         });
@@ -532,11 +569,11 @@ public class CustomerFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                customer.removeFromCart(productsList.getSelectedValue());
+                cust.removeFromCart(productsList.getSelectedValue());
 
-                HashMap<Product, Integer> shoppingCart = customer.getShoppingCart();
+                shoppingCart = cust.getShoppingCart();
                 int i = 0;
-                String[] pro = new String[shoppingCart.keySet().size()];
+                pro = new String[shoppingCart.keySet().size()];
                 for (Product p : shoppingCart.keySet()) {
                     pro[i] = p.getTitle();
                     i++;
@@ -553,6 +590,7 @@ public class CustomerFrame {
                     qtySpinner.setVisible(false);
                     updateQtyLabel.setVisible(false);
                     updateButton.setVisible(false);
+                    unit.setVisible(false);
                     deleteButton.setVisible(false);
                     detailsPanel.setBackground(Color.GRAY);
 
@@ -581,6 +619,7 @@ public class CustomerFrame {
         detailsPanel.add(updateQtyLabel);
         detailsPanel.add(addToCartButton);
         detailsPanel.add(qtySpinner);
+        detailsPanel.add(unit);
         detailsPanel.add(updateButton);
         detailsPanel.add(deleteButton);
 

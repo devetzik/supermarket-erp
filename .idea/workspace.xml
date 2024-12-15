@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="fixes logout/relogin issues">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="lib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +49,12 @@
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Deve\IdeaProjects\mymarket-3708\src\api" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="api" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="" />
@@ -190,42 +197,98 @@
       <option name="project" value="LOCAL" />
       <updated>1733252352722</updated>
     </task>
-    <task id="LOCAL-00016" summary="fixed system.in problems">
-      <created>1733413273323</created>
+    <task id="LOCAL-00016" summary="orderhistory final">
+      <created>1733425663982</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1733413273323</updated>
+      <updated>1733425663982</updated>
     </task>
-    <task id="LOCAL-00017" summary="searchbar ready">
-      <created>1734019366733</created>
+    <task id="LOCAL-00017" summary="orderhistory final&#10;fixed '\n' in files">
+      <created>1733429411631</created>
       <option name="number" value="00017" />
       <option name="presentableId" value="LOCAL-00017" />
       <option name="project" value="LOCAL" />
-      <updated>1734019366733</updated>
+      <updated>1733429411631</updated>
     </task>
-    <task id="LOCAL-00018" summary="adminFrame basic ready">
-      <created>1734029740048</created>
+    <task id="LOCAL-00018" summary="orderhistory final&#10;fixed '\n' in files&#10;cart_clearing">
+      <created>1733429566295</created>
       <option name="number" value="00018" />
       <option name="presentableId" value="LOCAL-00018" />
       <option name="project" value="LOCAL" />
-      <updated>1734029740048</updated>
+      <updated>1733429566295</updated>
     </task>
-    <task id="LOCAL-00019" summary="cart works-delete">
-      <created>1734200303871</created>
+    <task id="LOCAL-00019" summary="orderhistory final&#10;fixed '\n' in files&#10;cart_clearing">
+      <created>1733429575854</created>
       <option name="number" value="00019" />
       <option name="presentableId" value="LOCAL-00019" />
       <option name="project" value="LOCAL" />
-      <updated>1734200303871</updated>
+      <updated>1733429575854</updated>
     </task>
-    <task id="LOCAL-00020" summary="fixes logout/relogin issues">
-      <created>1734228493754</created>
+    <task id="LOCAL-00020" summary="before shoppingcarttraits">
+      <created>1733479243407</created>
       <option name="number" value="00020" />
       <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1734228493754</updated>
+      <updated>1733479243407</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="shoppingcart traits done">
+      <created>1733483047552</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1733483047552</updated>
+    </task>
+    <task id="LOCAL-00022" summary="shoppingcart traits done">
+      <created>1733484664868</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1733484664868</updated>
+    </task>
+    <task id="LOCAL-00023" summary="final before gui">
+      <created>1733500397616</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1733500397616</updated>
+    </task>
+    <task id="LOCAL-00024" summary="login/signup gui works">
+      <created>1733786030339</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1733786030339</updated>
+    </task>
+    <task id="LOCAL-00025" summary="login/signup gui final/started customer console">
+      <created>1733931783965</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1733931783965</updated>
+    </task>
+    <task id="LOCAL-00026" summary="login/signup gui final/started customer console">
+      <created>1733933383639</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1733933383639</updated>
+    </task>
+    <task id="LOCAL-00027" summary="login/signup gui final/started customer console">
+      <created>1733933736543</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1733933736543</updated>
+    </task>
+    <task id="LOCAL-00028" summary="lib">
+      <created>1734098691559</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1734098691559</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,12 +310,16 @@
     <MESSAGE value="login perfect" />
     <MESSAGE value="admin functions" />
     <MESSAGE value="prodremoverfinal...productedit" />
-    <MESSAGE value="fixed system.in problems" />
-    <MESSAGE value="searchbar ready" />
-    <MESSAGE value="adminFrame basic ready" />
-    <MESSAGE value="cart works-delete" />
-    <MESSAGE value="fixes logout/relogin issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes logout/relogin issues" />
+    <MESSAGE value="orderhistory final" />
+    <MESSAGE value="orderhistory final&#10;fixed '\n' in files" />
+    <MESSAGE value="orderhistory final&#10;fixed '\n' in files&#10;cart_clearing" />
+    <MESSAGE value="before shoppingcarttraits" />
+    <MESSAGE value="shoppingcart traits done" />
+    <MESSAGE value="final before gui" />
+    <MESSAGE value="login/signup gui works" />
+    <MESSAGE value="login/signup gui final/started customer console" />
+    <MESSAGE value="lib" />
+    <option name="LAST_COMMIT_MESSAGE" value="lib" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

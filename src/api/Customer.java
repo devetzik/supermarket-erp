@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
     String fName, lName;
-    HashMap<Product, Integer> shoppingCart = new HashMap<>();
+    private HashMap<Product, Integer> shoppingCart = new HashMap<>();
     String[][] pr =new String[products.size()][products.size()];
     double total=0;
 
@@ -190,10 +190,21 @@ public class Customer extends User implements Serializable {
 
 
      public void removeFromCart(String title){
+        HashMap<Product,Integer> sctmp=new HashMap<>();
         for (Product p:shoppingCart.keySet()){
-            if (p.title.equals(title)){
+            sctmp.put(p,shoppingCart.get(p));
+        }
+
+        //shoppingCart.clear();
+
+        for (Product p: sctmp.keySet()){
+            if (p.title.equals(title)) {
                 shoppingCart.remove(p);
             }
         }
+
+
+
+
     }
 }
