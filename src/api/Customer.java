@@ -80,10 +80,6 @@ public class Customer extends User implements Serializable {
 
     public void addToShoppingCart(Product product, int posotita){
         boolean flag=true;
-        if (posotita<0){
-            flag=false;
-            System.out.println("Μη έγκυρη ποσότητα προϊόντος, εισάγετε τιμή >0");
-        }
         if (posotita> product.getQty()){
             flag=false;
             System.out.println("Δεν υπάρχει αρκετό απόθεμα, μέγιστη ποσότητα: " + product.getQty());
@@ -191,4 +187,13 @@ public class Customer extends User implements Serializable {
             }
         }
      }
+
+
+     public void removeFromCart(String title){
+        for (Product p:shoppingCart.keySet()){
+            if (p.title.equals(title)){
+                shoppingCart.remove(p);
+            }
+        }
+    }
 }

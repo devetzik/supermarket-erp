@@ -34,6 +34,7 @@ public class CustomerFrame {
     private static JLabel productPrice=new JLabel();
     private static JLabel productQty=new JLabel();
     private static JLabel spareLabel=new JLabel();
+    private static JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
     private static final JButton logoutButton=new JButton("Έξοδος");
     private static final JButton cartButton=new JButton("Καλάθι");
     private static final JButton historyButton=new JButton("Ιστορικό");
@@ -53,14 +54,15 @@ public class CustomerFrame {
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
     private String [] categories;
     private String [] subcategories;
-    private JScrollPane scrollPane=new JScrollPane();
-    private JSpinner qtySpinner;
+    private static JScrollPane scrollPane;
+    private static JSpinner qtySpinner;
     private static final JLabel updateQtyLabel= new JLabel("Επιλεγμένη ποσότητα");
     private static final JButton updateButton= new JButton("Ενημέρωση");
     private static final JButton deleteButton=new JButton("Διαγραφή");
 
 
     public CustomerFrame(Customer customer){
+        scrollPane=new JScrollPane();
         qtySpinner=new JSpinner(new SpinnerNumberModel(0,0,300,1));
         deleteButton.setVisible(false);
         updateButton.setVisible(false);
@@ -69,6 +71,7 @@ public class CustomerFrame {
         custFrame.setLocationRelativeTo(null);
         custFrame.getContentPane().setBackground(Color.orange);
         custFrame.setLayout(new BorderLayout());
+        custFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         custFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -76,6 +79,13 @@ public class CustomerFrame {
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
+                qtySpinner.setVisible(false);
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
             }
         });
 
@@ -95,11 +105,19 @@ public class CustomerFrame {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                custFrame.dispose();
+                custFrame.setVisible(false);
                 frame.setVisible(true);
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
+                //detailsPanel.setVisible(false);
+                qtySpinner.setVisible(false);
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
             }
         });
 
@@ -111,78 +129,89 @@ public class CustomerFrame {
             }
         });
 
+        upLabel.setFont(new Font("Serif",Font.BOLD,22));
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addToCartButton.setVisible(false);
-                qtySpinner.setVisible(false);
-                updateQtyLabel.setVisible(false);
-                updateButton.setVisible(false);
-                deleteButton.setVisible(false);
-                detailsPanel.setBackground(Color.GRAY);
+                detailsPanel.setVisible(true);
 
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
+                if (customer.getShoppingCart().isEmpty()) {
+                    new EmptyCartDialog();
+                } else {
+                    upLabel.setText("Το καλάθι μου");
+                    addToCartButton.setVisible(false);
+                    qtySpinner.setVisible(false);
+                    updateQtyLabel.setVisible(false);
+                    updateButton.setVisible(false);
+                    deleteButton.setVisible(false);
+                    detailsPanel.setBackground(Color.GRAY);
 
-
-                HashMap<Product,Integer> shoppingCart=customer.getShoppingCart();
-                int i=0;
-                String [] pro=new String[shoppingCart.keySet().size()];
-                for (Product p: shoppingCart.keySet()){
-                    pro[i]=p.getTitle();
-                    i++;
-                }
-                productsList=new JList<>(pro);
-                productsList.setFont(new Font("Serif",Font.BOLD,16));
+                    productTitle.setText("");
+                    productDetails.setText("");
+                    productCategory.setText("");
+                    productSubcategory.setText("");
+                    productPrice.setText("");
+                    productQty.setText("");
 
 
-                scrollPane.setViewportView(productsList);
-                productsList.setLayoutOrientation(JList.VERTICAL);
+                    HashMap<Product, Integer> shoppingCart = customer.getShoppingCart();
+                    int i = 0;
+                    String[] pro = new String[shoppingCart.keySet().size()];
+                    for (Product p : shoppingCart.keySet()) {
+                        pro[i] = p.getTitle();
+                        i++;
+                    }
+                    productsList = new JList<>(pro);
+                    productsList.setFont(new Font("Serif", Font.BOLD, 16));
 
-                productsList.addListSelectionListener(new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        updateQtyLabel.setVisible(true);
-                        deleteButton.setVisible(true);
-                        updateButton.setVisible(true);
-                        qtySpinner.setValue(shoppingCart.get(customer.getProduct(productsList.getSelectedValue())));
-                        qtySpinner.setVisible(true);
-                        detailsPanel.setBackground(Color.LIGHT_GRAY);
 
-                        if (productsList.getValueIsAdjusting()) {
+                    scrollPane.setViewportView(productsList);
+                    productsList.setLayoutOrientation(JList.VERTICAL);
 
-                            String selectedProduct = productsList.getSelectedValue();
-                            Product product = customer.getProduct(selectedProduct);
+                    productsList.addListSelectionListener(new ListSelectionListener() {
+                        @Override
+                        public void valueChanged(ListSelectionEvent e) {
 
-                            productTitle.setText(product.getTitle());
-                            productDetails.setText(product.getDescription());
-                            productCategory.setText("Κατηγορία: "+product.getCategory());
-                            productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
-                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
-                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
-                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
-                            }
-                            else {
-                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+
+                            updateQtyLabel.setVisible(true);
+                            deleteButton.setVisible(true);
+                            updateButton.setVisible(true);
+                            qtySpinner.setValue(shoppingCart.get(customer.getProduct(productsList.getSelectedValue())));
+                            qtySpinner.setVisible(true);
+                            detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                            if (productsList.getValueIsAdjusting()) {
+
+                                String selectedProduct = productsList.getSelectedValue();
+                                Product product = customer.getProduct(selectedProduct);
+
+                                productTitle.setText(product.getTitle());
+                                productDetails.setText(product.getDescription());
+                                productCategory.setText("Κατηγορία: " + product.getCategory());
+                                productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
+                                productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                                if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                                } else {
+                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
         productsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                upLabel.setText("Όλα τα προϊόντα");
                 deleteButton.setVisible(false);
                 addToCartButton.setVisible(false);
                 qtySpinner.setVisible(false);
                 updateButton.setVisible(false);
                 updateQtyLabel.setVisible(false);
+                detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
                 productTitle.setText("");
@@ -274,12 +303,15 @@ public class CustomerFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                upLabel.setText("Αποτελέσματα αναζήτησης");
                 deleteButton.setVisible(false);
                 addToCartButton.setVisible(false);
                 qtySpinner.setVisible(false);
                 updateButton.setVisible(false);
                 updateQtyLabel.setVisible(false);
+                detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
+
 
                 productTitle.setText("");
                 productDetails.setText("");
@@ -427,7 +459,10 @@ public class CustomerFrame {
                 addToCartButton.setVisible(true);
                 updateQtyLabel.setVisible(true);
 
+
+
                 qtySpinner.setVisible(true);
+                detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                 if (customer.getShoppingCart().keySet().contains(customer.getProduct(productsList.getSelectedValue()))){
@@ -483,9 +518,24 @@ public class CustomerFrame {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                customer.updateCartQty(productsList.getSelectedValue(),(int)qtySpinner.getValue());
+                if ((int)qtySpinner.getValue()==0){
+                    customer.removeFromCart(productsList.getSelectedValue());
+                }else {
+                    customer.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
+                }
             }
         });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                customer.removeFromCart(productsList.getSelectedValue());
+            }
+        });
+
+
+
+
 
         detailsPanel.add(productTitle);
         detailsPanel.add(productDetails);
@@ -501,10 +551,13 @@ public class CustomerFrame {
         detailsPanel.add(deleteButton);
 
 
+        sparePanel2.add(upLabel);
         productsPanel.add(sparePanel2);
         productsPanel.add(scrollPane);
         productsPanel.add(sparePanel3);
         productsPanel.add(detailsPanel);
+
+
 
 
 

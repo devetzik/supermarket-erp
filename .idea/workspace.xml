@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="product panel">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="cart works-delete">
+      <change afterPath="$PROJECT_DIR$/src/gui/EmptyCartDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
@@ -212,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734029740048</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="cart works-delete">
+      <created>1734200303871</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1734200303871</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -237,7 +245,8 @@
     <MESSAGE value="fixed system.in problems" />
     <MESSAGE value="searchbar ready" />
     <MESSAGE value="adminFrame basic ready" />
-    <option name="LAST_COMMIT_MESSAGE" value="adminFrame basic ready" />
+    <MESSAGE value="cart works-delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="cart works-delete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
