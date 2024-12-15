@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="lib">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="fixed proddelete exception">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -288,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734098691559</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fixed proddelete exception">
+      <created>1734283319827</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1734283319827</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -319,7 +325,8 @@
     <MESSAGE value="login/signup gui works" />
     <MESSAGE value="login/signup gui final/started customer console" />
     <MESSAGE value="lib" />
-    <option name="LAST_COMMIT_MESSAGE" value="lib" />
+    <MESSAGE value="fixed proddelete exception" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed proddelete exception" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
