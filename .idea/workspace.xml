@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="full fixes b4 totalcost">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="full fixes b4 totalcost, +adc button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
@@ -301,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734286445906</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="full fixes b4 totalcost, +adc button">
+      <created>1734288439056</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1734288439056</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -334,7 +341,8 @@
     <MESSAGE value="lib" />
     <MESSAGE value="fixed proddelete exception" />
     <MESSAGE value="full fixes b4 totalcost" />
-    <option name="LAST_COMMIT_MESSAGE" value="full fixes b4 totalcost" />
+    <MESSAGE value="full fixes b4 totalcost, +adc button" />
+    <option name="LAST_COMMIT_MESSAGE" value="full fixes b4 totalcost, +adc button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

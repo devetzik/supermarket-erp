@@ -37,7 +37,7 @@ public class CustomerFrame {
     private static JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
     private static JLabel unit=new JLabel();
     private static JLabel localCostLabel=new JLabel();
-    private static JLabel totalCostLabel=new JLabel();
+    private static JLabel totalCostLabel=new JLabel("",SwingConstants.CENTER);
     private static final JButton logoutButton=new JButton("Έξοδος");
     private static final JButton cartButton=new JButton("Καλάθι");
     private static final JButton historyButton=new JButton("Ιστορικό");
@@ -75,6 +75,7 @@ public class CustomerFrame {
         deleteButton.setVisible(false);
         updateButton.setVisible(false);
         localCostLabel.setVisible(false);
+        totalCostLabel.setVisible(false);
         updateQtyLabel.setVisible(false);
         custFrame.setSize(1280,720);
         custFrame.setLocationRelativeTo(null);
@@ -151,6 +152,7 @@ public class CustomerFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 detailsPanel.setVisible(true);
+                totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
                 if (cust.getShoppingCart().isEmpty()) {
                     new EmptyCartDialog();
@@ -163,6 +165,7 @@ public class CustomerFrame {
                     deleteButton.setVisible(false);
                     unit.setVisible(false);
                     localCostLabel.setVisible(false);
+                    totalCostLabel.setVisible(true);
                     detailsPanel.setBackground(Color.GRAY);
 
                     productTitle.setText("");
@@ -239,6 +242,7 @@ public class CustomerFrame {
                 updateQtyLabel.setVisible(false);
                 unit.setVisible(false);
                 localCostLabel.setVisible(false);
+                totalCostLabel.setVisible(false);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
@@ -348,6 +352,7 @@ public class CustomerFrame {
                 updateQtyLabel.setVisible(false);
                 unit.setVisible(false);
                 localCostLabel.setVisible(false);
+                totalCostLabel.setVisible(false);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.GRAY);
 
@@ -578,6 +583,7 @@ public class CustomerFrame {
         deleteButton.setFont(new Font("Serif",Font.BOLD,16));
 
         localCostLabel.setFont(new Font("Serif",Font.BOLD,20));
+        totalCostLabel.setFont(new Font("Serif",Font.BOLD,26));
 
         updateButton.addActionListener(new ActionListener() {
             @Override
@@ -590,6 +596,8 @@ public class CustomerFrame {
                 }else {
                     cust.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
                     localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
+
                 }
             }
         });
@@ -598,6 +606,8 @@ public class CustomerFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cust.removeFromCart(productsList.getSelectedValue());
+                totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
+
 
                 shoppingCart = cust.getShoppingCart();
                 int i = 0;
@@ -710,6 +720,7 @@ public class CustomerFrame {
         custFrame.add(userInfo,BorderLayout.WEST);
         custFrame.add(searchPanel,BorderLayout.NORTH);
         custFrame.add(productsPanel,BorderLayout.CENTER);
+        custFrame.add(totalCostLabel,BorderLayout.SOUTH);
 
         scrollPane.setVisible(true);
         searchPanel.setVisible(true);
