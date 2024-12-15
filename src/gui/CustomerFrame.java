@@ -704,6 +704,93 @@ public class CustomerFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+
+                upLabel.setText("Όλα τα προϊόντα");
+                deleteButton.setVisible(false);
+                addToCartButton.setVisible(false);
+                qtySpinner.setVisible(false);
+                updateButton.setVisible(false);
+                updateQtyLabel.setVisible(false);
+                unit.setVisible(false);
+                localCostLabel.setVisible(false);
+                totalCostLabel.setVisible(false);
+                confirmOrderButton.setVisible(false);
+                detailsPanel.setVisible(true);
+                detailsPanel.setBackground(Color.GRAY);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
+
+                String[] products=cust.getProductsNames();
+
+
+
+
+                productsList = new JList<>(products);
+                productsList.setFont(new Font("Serif",Font.BOLD,16));
+
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                productsList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+
+                        if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
+                            qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
+                            updateQtyLabel.setVisible(true);
+                            updateButton.setVisible(true);
+                            //deleteButton.setVisible(true);
+                            addToCartButton.setVisible(false);
+                            localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                            localCostLabel.setVisible(true);
+                        }
+                        else {
+                            qtySpinner.setValue(0);
+                            addToCartButton.setVisible(true);
+                            updateButton.setVisible(false);
+                            updateQtyLabel.setVisible(false);
+                            deleteButton.setVisible(false);
+                            localCostLabel.setVisible(false);
+                        }
+                        qtySpinner.setVisible(true);
+                        unit.setVisible(true);
+                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                        if (productsList.getValueIsAdjusting()) {
+
+                            String selectedProduct = productsList.getSelectedValue();
+                            Product product = cust.getProduct(selectedProduct);
+                            if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                unit.setText("kg");
+                            }else {
+                                unit.setText("τμχ.");
+                            }
+
+                            productTitle.setText(product.getTitle());
+                            productDetails.setText(product.getDescription());
+                            productCategory.setText("Κατηγορία: "+product.getCategory());
+                            productSubcategory.setText("Υποκατηγορία: "+product.getSubcategory());
+                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                            }
+                            else {
+                                productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                            }
+                        }
+                    }
+                });
+
+
+
+
+                new OrderConfirmedDialog();
             }
         });
 

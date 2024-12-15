@@ -40,7 +40,7 @@ public class Utilities {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] s = line.split(";");
-            products.add(new Product(s[0], s[1], s[2], s[3], Double.parseDouble(s[4]), Integer.parseInt(s[5])));
+            products.add(new Product(s[0], s[1], s[2], s[3], Double.parseDouble(s[4]), Double.parseDouble(s[5])));
         }
         reader.close();
         return products;
