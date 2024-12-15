@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="cart works-delete">
-      <change afterPath="$PROJECT_DIR$/src/gui/EmptyCartDialog.java" afterDir="false" />
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="fixes logout/relogin issues">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -220,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734200303871</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fixes logout/relogin issues">
+      <created>1734228493754</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734228493754</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -246,7 +251,8 @@
     <MESSAGE value="searchbar ready" />
     <MESSAGE value="adminFrame basic ready" />
     <MESSAGE value="cart works-delete" />
-    <option name="LAST_COMMIT_MESSAGE" value="cart works-delete" />
+    <MESSAGE value="fixes logout/relogin issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes logout/relogin issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

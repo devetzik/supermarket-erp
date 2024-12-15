@@ -241,7 +241,7 @@ public class CustomerFrame {
                             qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
-                            deleteButton.setVisible(true);
+                            //deleteButton.setVisible(true);
                             addToCartButton.setVisible(false);
                         }
                         else {
@@ -348,7 +348,7 @@ public class CustomerFrame {
                             qtySpinner.setValue(customer.getShoppingCart().get(customer.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
-                            deleteButton.setVisible(true);
+                            //deleteButton.setVisible(true);
                             addToCartButton.setVisible(false);
                         }
                         else {
@@ -470,7 +470,7 @@ public class CustomerFrame {
                     updateQtyLabel.setVisible(true);
                     addToCartButton.setVisible(false);
                     updateButton.setVisible(true);
-                    deleteButton.setVisible(true);
+                    //deleteButton.setVisible(true);
                 }
                 else {
                     qtySpinner.setValue(0);
@@ -520,6 +520,9 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 if ((int)qtySpinner.getValue()==0){
                     customer.removeFromCart(productsList.getSelectedValue());
+                    if (customer.getShoppingCart().isEmpty()){
+                        new EmptyCartDialog();
+                    }
                 }else {
                     customer.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
                 }
@@ -530,6 +533,37 @@ public class CustomerFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customer.removeFromCart(productsList.getSelectedValue());
+
+                HashMap<Product, Integer> shoppingCart = customer.getShoppingCart();
+                int i = 0;
+                String[] pro = new String[shoppingCart.keySet().size()];
+                for (Product p : shoppingCart.keySet()) {
+                    pro[i] = p.getTitle();
+                    i++;
+                }
+                productsList = new JList<>(pro);
+                productsList.setFont(new Font("Serif", Font.BOLD, 16));
+
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                if (shoppingCart.isEmpty()){
+                    addToCartButton.setVisible(false);
+                    qtySpinner.setVisible(false);
+                    updateQtyLabel.setVisible(false);
+                    updateButton.setVisible(false);
+                    deleteButton.setVisible(false);
+                    detailsPanel.setBackground(Color.GRAY);
+
+                    productTitle.setText("");
+                    productDetails.setText("");
+                    productCategory.setText("");
+                    productSubcategory.setText("");
+                    productPrice.setText("");
+                    productQty.setText("");
+                    new EmptyCartDialog();
+                }
             }
         });
 
