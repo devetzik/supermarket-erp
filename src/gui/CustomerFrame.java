@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static gui.LoginFrame.frame;
-import static gui.LoginFrame.util;
+
 
 public class CustomerFrame {
     private static final JFrame custFrame=new JFrame("Supermarket e-shop Customer Console");
@@ -136,6 +136,13 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 Product product=cust.getProduct(productsList.getSelectedValue());
                 cust.addToShoppingCart(product,(int)qtySpinner.getValue());
+
+                addToCartButton.setVisible(false);
+                updateQtyLabel.setVisible(true);
+                updateButton.setVisible(true);
+                localCostLabel.setVisible(true);
+                localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+
             }
         });
 
@@ -258,7 +265,7 @@ public class CustomerFrame {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
 
-                        if (cust.getShoppingCart().keySet().contains(cust.getProduct(productsList.getSelectedValue()))){
+                        if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
                             qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
@@ -376,7 +383,7 @@ public class CustomerFrame {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
 
-                        if (cust.getShoppingCart().keySet().contains(cust.getProduct(productsList.getSelectedValue()))){
+                        if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
                             qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
@@ -508,7 +515,7 @@ public class CustomerFrame {
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.LIGHT_GRAY);
 
-                if (cust.getShoppingCart().keySet().contains(cust.getProduct(productsList.getSelectedValue()))){
+                if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
                     qtySpinner.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                     updateQtyLabel.setVisible(true);
                     addToCartButton.setVisible(false);
