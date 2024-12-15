@@ -16,4 +16,6 @@ public class Order{
     public double getTotal(){
         return total;
     }
+
+    public String getDatetime() {return datetime;}
 }

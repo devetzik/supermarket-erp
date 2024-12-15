@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="added confirm">
-      <change afterPath="$PROJECT_DIR$/src/gui/OrderConfirmedDialog.java" afterDir="false" />
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="added confirm works">
+      <change afterPath="$PROJECT_DIR$/src/gui/NoHistoryFoundDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/NoSearchResultsDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/orderhistory.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -326,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734297406518</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="added confirm works">
+      <created>1734299084714</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1734299084714</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -362,7 +371,8 @@
     <MESSAGE value="full fixes b4 totalcost, +adc button" />
     <MESSAGE value="+totalcost" />
     <MESSAGE value="added confirm" />
-    <option name="LAST_COMMIT_MESSAGE" value="added confirm" />
+    <MESSAGE value="added confirm works" />
+    <option name="LAST_COMMIT_MESSAGE" value="added confirm works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

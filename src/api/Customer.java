@@ -128,7 +128,7 @@ public class Customer extends User implements Serializable {
 
     // Μέθοδος για την προσπέλαση του ιστορικού παραγγελιών
 
-    public void viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
+    public ArrayList viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
         ArrayList<Order> tmp=new ArrayList<>();
         boolean flag=false;
         ArrayList<Order> orderHistory=util.orderHistoryLoader();
@@ -154,6 +154,7 @@ public class Customer extends User implements Serializable {
         if (!flag){
             System.out.println("Δεν βρέθηκε ιστορικό παραγγελιών για τον χρήστη "+customer.getUsername());
         }
+        return tmp;
     }
 
     @Override
