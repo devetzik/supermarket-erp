@@ -4,18 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="fixes logout/relogin issues">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="desktop fixes">
+      <change afterPath="$PROJECT_DIR$/src/gui/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/QtyTooMuchDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/orderhistory.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products.txt" beforeDir="false" afterPath="$PROJECT_DIR$/products.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LoginFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/LoginResultDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LoginResultDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/SignUpResultDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SignUpResultDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +68,7 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="gui.Main" />
       <module name="MyMarket" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -234,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734228493754</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="desktop fixes">
+      <created>1734369256609</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1734369256609</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -250,7 +261,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="nn" />
-    <MESSAGE value="desktop fixes" />
     <MESSAGE value="file_interaction_first" />
     <MESSAGE value="initialized kinda" />
     <MESSAGE value="login perfect" />
@@ -261,7 +271,8 @@
     <MESSAGE value="adminFrame basic ready" />
     <MESSAGE value="cart works-delete" />
     <MESSAGE value="fixes logout/relogin issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes logout/relogin issues" />
+    <MESSAGE value="desktop fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="desktop fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

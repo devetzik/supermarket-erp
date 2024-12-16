@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import static gui.LoginFrame.frame;
+
 
 public class AdminFrame {
 
@@ -46,7 +46,7 @@ public class AdminFrame {
         adminFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                frame.setVisible(true);
+                new LoginFrame();
             }
         });
 
@@ -64,7 +64,7 @@ public class AdminFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adminFrame.dispose();
-                frame.setVisible(true);
+                new LoginFrame();
             }
         });
 

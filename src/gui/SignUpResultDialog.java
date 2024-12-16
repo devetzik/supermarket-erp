@@ -6,10 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpResultDialog {
-    JDialog resultDialog=new JDialog();
-    JLabel resultLabel=new JLabel();
-    JButton ok=new JButton();
-    JPanel resultPanel=new JPanel();
+    private static JDialog resultDialog=new JDialog();
+    private static JLabel resultLabel=new JLabel();
+    private static JButton ok=new JButton();
+    private static JPanel resultPanel=new JPanel();
 
     public SignUpResultDialog(int result){
         if (result==0){

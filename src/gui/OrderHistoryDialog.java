@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class OrderHistoryDialog {
-    private ArrayList<Order> orderHistory=new ArrayList<>();
+    private static ArrayList<Order> orderHistory=new ArrayList<>();
     private String [] str;
     private static JDialog dialog=new JDialog();
     private static final JLabel orderLabel=new JLabel("Παραγγελία #     ",SwingConstants.LEFT);

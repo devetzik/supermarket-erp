@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 
 public class LoginResultDialog {
 
-    private JDialog loginResultDialog=new JDialog();
-    private JPanel resultPanel=new JPanel();
-    private JLabel resultLabel=new JLabel();
-    private JButton ok=new JButton();
+    private static JDialog loginResultDialog=new JDialog();
+    private static JPanel resultPanel=new JPanel();
+    private static JLabel resultLabel=new JLabel();
+    private static JButton ok=new JButton();
     public LoginResultDialog(int result){
         if (result==0){
             resultLabel.setText("Καλωσήρθατε");

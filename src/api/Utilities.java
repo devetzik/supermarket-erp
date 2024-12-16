@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utilities {
-    ArrayList<Administrator> admins = new ArrayList<>();
-    ArrayList<Customer> customers = new ArrayList<>();
-    User currentUser;
+    private static ArrayList<Administrator> admins = new ArrayList<>();
+    private static ArrayList<Customer> customers = new ArrayList<>();
+    private User currentUser;
 
     public ArrayList<Administrator> adminLoader() throws IOException, ClassNotFoundException {
         ArrayList<Administrator> admins = new ArrayList<>();
@@ -100,6 +100,7 @@ public class Utilities {
 
     public void orderWriter(Order order) throws IOException {
         BufferedWriter writer=new BufferedWriter(new FileWriter("orderhistory.txt",true));
+        if (order.getTotal()!=0){
         writer.append(order.getUsername()+";");
         for (int i=0;i<order.getPr().length;i++){
             if (order.getPr()[i][0]!=null) {
@@ -112,7 +113,8 @@ public class Utilities {
                 writer.append(order.getPr()[i][1] + "@");
             }
         }
-        writer.append(";"+order.getDatetime()+";"+(order.getTotal())+"\n");
+            writer.append(";" + order.getDatetime() + ";" + (order.getTotal()) + "\n");
+        }
         writer.close();
     }
 

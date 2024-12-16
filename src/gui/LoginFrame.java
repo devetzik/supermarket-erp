@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginFrame {
-    static JFrame frame;
+    private static JFrame frame;
     private static JPanel panel=new JPanel();
     private static JPanel signupPanel=new JPanel();
     private static JPanel loginPanel=new JPanel();
@@ -27,8 +27,8 @@ public class LoginFrame {
     private static JButton loginButton=new JButton("Είσοδος");
     private static JButton signupButton=new JButton("Εγγραφή");
     private static JLabel signupLabel=new JLabel("Δεν έχετε λογαριασμό;");
-    static Utilities util = new Utilities();
-    static User currnentUser;
+    private static Utilities util = new Utilities();
+    private static User currnentUser;
     public LoginFrame(){
         frame=new JFrame();
         frame.setTitle("Supermarket e-shop");

@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Customer extends User implements Serializable {
     private String fName, lName;
     private static HashMap<Product, Integer> shoppingCart = new HashMap<>();
+    private ArrayList<Product> products= util.productsLoader();
     private String[][] pr =new String[products.size()][products.size()];
 
     // Κατασκευαστής του αντικειμένου api.Customer
@@ -78,15 +79,7 @@ public class Customer extends User implements Serializable {
     // Μέθοδος για την προσθήκη προϊόντος στο καλάθι, με έλεγχο έγκυρης εκχώρησης και διαθεσιμότητας
 
     public void addToShoppingCart(Product product, int posotita){
-        boolean flag=true;
-        if (posotita> product.getQty()){
-            flag=false;
-            System.out.println("Δεν υπάρχει αρκετό απόθεμα, μέγιστη ποσότητα: " + product.getQty());
-        }
-        if (flag){
-            shoppingCart.put(product, posotita);
-            System.out.println("Επιτυχής προσθήκη στο καλάθι");
-        }
+        shoppingCart.put(product, posotita);
     }
 
 
@@ -130,7 +123,7 @@ public class Customer extends User implements Serializable {
     public ArrayList viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
         ArrayList<Order> tmp=new ArrayList<>();
         boolean flag=false;
-        ArrayList<Order> orderHistory=util.orderHistoryLoader();
+        ArrayList<Order> orderHistory=util. orderHistoryLoader();
         for (Order i : orderHistory) {
             if (i.getUsername().equals(customer.getUsername())) {
                 flag = true;

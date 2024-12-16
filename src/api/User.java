@@ -8,8 +8,8 @@ public abstract class User implements Serializable {
 
     Utilities util = new Utilities();
     private String username, password;
-    String[][] cat = util.catLoader();
-    ArrayList<Product> products = util.productsLoader();
+    private String[][] cat = util.catLoader();
+    private ArrayList<Product> products = util.productsLoader();
 
 
     // Κατασκευαστής αντικειμένου User
