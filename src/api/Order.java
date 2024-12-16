@@ -18,4 +18,6 @@ public class Order{
     }
 
     public String getDatetime() {return datetime;}
+
+    public String[][] getPr(){return pr;}
 }
