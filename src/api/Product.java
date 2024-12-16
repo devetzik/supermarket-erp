@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    String title, description, category, subcategory, unit;
-    double price,qty;
+    private String title, description, category, subcategory, unit;
+    private double price,qty;
 
 
     public Product(String title, String description, String category, String subcategory, double price, double qty){
@@ -69,10 +69,10 @@ public class Product implements Serializable {
 
     public String getUnit(){
         if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
-            unit=" kg";
+            unit=" kg  ";
         }
         else {
-            unit = " τεμάχια";
+            unit = " τμχ.";
         }
         return unit;
     }

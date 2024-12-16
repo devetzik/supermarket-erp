@@ -1,7 +1,4 @@
-import api.Administrator;
-import api.Customer;
-import api.User;
-import api.Utilities;
+import api.*;
 import gui.*;
 
 import javax.swing.*;
@@ -9,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -19,9 +17,29 @@ import java.util.Scanner;
  */
 public class Main implements Serializable {
     static User currnentUser;
+    private static ArrayList<Order> orders=new ArrayList<>();
+    private static Utilities util=new Utilities();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         new LoginFrame();
+
+
+
+
+
+
+
+
+
+        /*
+        orders=util.orderHistoryLoader();
+        for (Order i: orders){
+            for (int j=0;j<i.getPr().length;j++){
+                System.out.println(i.getPr()[j][0]);
+            }
+        }
+
+         */
 
 
 

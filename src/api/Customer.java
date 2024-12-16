@@ -8,10 +8,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
-    String fName, lName;
+    private String fName, lName;
     private static HashMap<Product, Integer> shoppingCart = new HashMap<>();
-    String[][] pr =new String[products.size()][products.size()];
-    double total=0;
+    private String[][] pr =new String[products.size()][products.size()];
 
     // Κατασκευαστής του αντικειμένου api.Customer
 
@@ -62,8 +61,8 @@ public class Customer extends User implements Serializable {
                     int newQty= scanner.nextInt();
                     for (Product i: shoppingCart.keySet()){
                         if (d==j){
-                            if (newQty>i.qty){
-                                System.out.println("Δεν υπάρχει διαθέσιμο απόθεμα, διαλέξτε μια ποσότητα <"+ i.qty);
+                            if (newQty>i.getQty()){
+                                System.out.println("Δεν υπάρχει διαθέσιμο απόθεμα, διαλέξτε μια ποσότητα <"+ i.getQty());
                             }else {
                                 shoppingCart.replace(i, newQty);
                                 System.out.println("Επιτυχής αλλαγή ποσότητας");
@@ -94,9 +93,9 @@ public class Customer extends User implements Serializable {
     // Μέθοδος για τον υπολογισμό του συνολικού κόστους του καλαθιού
 
     public double getTotal(){
-        total=0;
+        double total = 0;
         for (Product i : shoppingCart.keySet()){
-            total+=(i.getPrice() * shoppingCart.get(i));
+            total +=(i.getPrice() * shoppingCart.get(i));
         }
         return total;
     }
@@ -133,7 +132,7 @@ public class Customer extends User implements Serializable {
         boolean flag=false;
         ArrayList<Order> orderHistory=util.orderHistoryLoader();
         for (Order i : orderHistory) {
-            if (i.username.equals(customer.getUsername())) {
+            if (i.getUsername().equals(customer.getUsername())) {
                 flag = true;
                 tmp.add(i);
             }
@@ -141,11 +140,11 @@ public class Customer extends User implements Serializable {
         if (flag){
             System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
             for (Order i : tmp){
-                System.out.println("Ημερομηνία παραγγελίας: "+i.datetime);
+                System.out.println("Ημερομηνία παραγγελίας: "+i.getDatetime());
                 System.out.println("Προϊόντα και ποσότητες παραγγελίας: \n");
-                for (int j=0; j< i.pr.length;j++){
-                    if (i.pr[j][0] != null) {
-                        System.out.println(i.pr[j][1] + " x " + i.pr[j][0]);
+                for (int j=0; j< i.getPr().length;j++){
+                    if (i.getPr()[j][0] != null) {
+                        System.out.println(i.getPr()[j][1] + " x " + i.getPr()[j][0]);
                     }
                 }
                 System.out.println("Συνολικό κόστος: "+i.getTotal()+"€\n");
@@ -183,7 +182,7 @@ public class Customer extends User implements Serializable {
     }
      public void updateCartQty(String title, int qty){
         for (Product p: shoppingCart.keySet()){
-            if (p.title.equals(title)){
+            if (p.getTitle().equals(title)){
                 shoppingCart.put(p,qty);
                 break;
             }
@@ -200,7 +199,7 @@ public class Customer extends User implements Serializable {
         //shoppingCart.clear();
 
         for (Product p: sctmp.keySet()){
-            if (p.title.equals(title)) {
+            if (p.getTitle().equals(title)) {
                 shoppingCart.remove(p);
             }
         }

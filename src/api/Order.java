@@ -1,9 +1,9 @@
 package api;
 
 public class Order{
-    String username,datetime;
-    String[][] pr;
-    double total;
+    private String username,datetime;
+    private String[][] pr;
+    private double total;
 
     public Order(String username, String[][] pr, String dateTime, double total){
         this.username=username;
@@ -15,6 +15,10 @@ public class Order{
 
     public double getTotal(){
         return total;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getDatetime() {return datetime;}

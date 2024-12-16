@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Administrator extends User implements Serializable {
-    Utilities util=new Utilities();
-    ArrayList<Product> products=util.productsLoader();
-    ArrayList<Order> orderHistory=util.orderHistoryLoader();
-    HashMap<String, Integer> sales;
-    String [][] cat= util.catLoader();
+    private Utilities util=new Utilities();
+    private ArrayList<Product> products=util.productsLoader();
+    private ArrayList<Order> orderHistory=util.orderHistoryLoader();
+    private HashMap<String, Integer> sales;
+    private String [][] cat= util.catLoader();
 
 
     // Κατασκευαστής για το αντικείμενο Administrator
@@ -162,11 +162,11 @@ public class Administrator extends User implements Serializable {
                 System.out.println("Δεν υπάρχουν δεδομένα");
             }else {
                 for (Order i : orderHistory) {
-                    for (int j = 0; j < i.pr.length; j++) {
-                        if (sales.containsKey(i.pr[j][0])) {
-                            sales.put(i.pr[j][0], sales.get(i.pr[j][0] + 1));
+                    for (int j = 0; j < i.getPr().length; j++) {
+                        if (sales.containsKey(i.getPr()[j][0])) {
+                            sales.put(i.getPr()[j][0], sales.get(i.getPr()[j][0] + 1));
                         } else {
-                            sales.put(i.pr[j][0], 1);
+                            sales.put(i.getPr()[j][0], 1);
                         }
                     }
                 }

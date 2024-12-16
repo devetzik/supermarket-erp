@@ -53,7 +53,7 @@ public class Utilities {
         BufferedWriter writer=new BufferedWriter(new FileWriter("tmp.txt",true));
         String line;
         while ((line= reader.readLine())!=null){
-            if (!line.contains(product.title) ){
+            if (!line.contains(product.getTitle()) ){
                 writer.append(line+"\n");
             }
         }
@@ -100,19 +100,19 @@ public class Utilities {
 
     public void orderWriter(Order order) throws IOException {
         BufferedWriter writer=new BufferedWriter(new FileWriter("orderhistory.txt",true));
-        writer.append(order.username+";");
-        for (int i=0;i<order.pr.length;i++){
-            if (order.pr[i][0]!=null) {
-                writer.append(order.pr[i][0] + "@");
+        writer.append(order.getUsername()+";");
+        for (int i=0;i<order.getPr().length;i++){
+            if (order.getPr()[i][0]!=null) {
+                writer.append(order.getPr()[i][0] + "@");
             }
         }
         writer.append(";");
-        for (int i=0;i<order.pr.length;i++){
-            if (order.pr[i][1]!=null) {
-                writer.append(order.pr[i][1] + "@");
+        for (int i=0;i<order.getPr().length;i++){
+            if (order.getPr()[i][1]!=null) {
+                writer.append(order.getPr()[i][1] + "@");
             }
         }
-        writer.append(";"+order.datetime+";"+(order.getTotal())+"\n");
+        writer.append(";"+order.getDatetime()+";"+(order.getTotal())+"\n");
         writer.close();
     }
 
@@ -121,10 +121,11 @@ public class Utilities {
         BufferedReader reader = new BufferedReader(new FileReader("orderhistory.txt"));
         String line;
         String[] s ;
-        String[][] pr = new String[50][50];
+
         String[] qty;
         String[] prod;
         while ((line = reader.readLine()) != null) {
+            String[][] pr = new String[50][2];
             s = line.split(";");
             prod = s[1].split("@");
             qty = s[2].split("@");

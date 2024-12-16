@@ -48,13 +48,13 @@ public abstract class User implements Serializable {
             }
         } else if (!title.isBlank() && !category.equals("Όλες οι κατηγορίες") && subcategory.equals("Όλες οι υποκατηγορίες")) {
             for (Product p : products) {
-                if (p.getCategory().equals(category) && p.title.contains(title)) {
+                if (p.getCategory().equals(category) && p.getTitle().contains(title)) {
                     searchResults.add(p.getTitle());
                 }
             }
         }else if (!title.isBlank() && !category.equals("Όλες οι κατηγορίες") && !subcategory.equals("Όλες οι υποκατηγορίες")){
             for (Product p : products) {
-                if (p.getSubcategory().equals(subcategory) && p.title.contains(title)) {
+                if (p.getSubcategory().equals(subcategory) && p.getTitle().contains(title)) {
                     searchResults.add(p.getTitle());
                 }
             }
