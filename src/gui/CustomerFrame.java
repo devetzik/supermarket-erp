@@ -62,7 +62,6 @@ public class CustomerFrame {
     private static final JLabel updateQtyLabel= new JLabel("Επιλεγμένη ποσότητα");
     private static final JButton updateButton= new JButton("Ενημέρωση");
     private static final JButton deleteButton=new JButton("Διαγραφή");
-    private static HashMap<Product,Double> shoppingCart;
     private static String[] pro;
     private static Customer cust;
 
@@ -71,7 +70,6 @@ public class CustomerFrame {
 
     public CustomerFrame(Customer customer){
         cust =customer;
-        //shoppingCart = cust.getShoppingCart();
         scrollPane=new JScrollPane();
         deleteButton.setVisible(false);
         updateButton.setVisible(false);
@@ -88,8 +86,6 @@ public class CustomerFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                //custThread.interrupt();
-                //custFrame.dispose();
                 frame.setVisible(true);
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
@@ -101,7 +97,7 @@ public class CustomerFrame {
                 productSubcategory.setText("");
                 productPrice.setText("");
                 productQty.setText("");
-                //shoppingCart.clear();
+                cust.getShoppingCart().clear();
             }
         });
 
@@ -123,11 +119,9 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(true);
                 custFrame.dispose();
-                //custThread.interrupt();
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
-                //detailsPanel.setVisible(false);
                 qtySpinner.setVisible(false);
                 productTitle.setText("");
                 productDetails.setText("");
@@ -135,7 +129,7 @@ public class CustomerFrame {
                 productSubcategory.setText("");
                 productPrice.setText("");
                 productQty.setText("");
-                //shoppingCart.clear();
+                cust.getShoppingCart().clear();
             }
         });
 
@@ -152,7 +146,12 @@ public class CustomerFrame {
                     updateQtyLabel.setVisible(true);
                     updateButton.setVisible(true);
                     localCostLabel.setVisible(true);
-                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                        localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    }
+                    else {
+                        localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    }
                 }
             }
         });
@@ -163,7 +162,6 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 detailsPanel.setVisible(true);
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
-
 
                 if (cust.getShoppingCart().isEmpty()) {
                     new EmptyCartDialog();
@@ -187,7 +185,6 @@ public class CustomerFrame {
                     productPrice.setText("");
                     productQty.setText("");
 
-
                     HashMap<Product, Double> shoppingCart = cust.getShoppingCart();
                     int i = 0;
                     String[] pro = new String[shoppingCart.keySet().size()];
@@ -197,7 +194,6 @@ public class CustomerFrame {
                     }
                     productsList = new JList<>(pro);
                     productsList.setFont(new Font("Serif", Font.BOLD, 16));
-
 
                     scrollPane.setViewportView(productsList);
                     productsList.setLayoutOrientation(JList.VERTICAL);
@@ -211,14 +207,10 @@ public class CustomerFrame {
                             updateQtyLabel.setVisible(true);
                             deleteButton.setVisible(true);
                             updateButton.setVisible(true);
-                            //qtySpinner.getModel().setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             qtySpinner.setVisible(true);
                             detailsPanel.setBackground(Color.LIGHT_GRAY);
 
-                            localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
-
                             if (productsList.getValueIsAdjusting()) {
-
                                 String selectedProduct = productsList.getSelectedValue();
                                 Product product = cust.getProduct(selectedProduct);
                                 if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
@@ -230,16 +222,18 @@ public class CustomerFrame {
                                     qtySpinner.setModel(intModel);
                                     intModel.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                                 }
-
                                 productTitle.setText(product.getTitle());
                                 productDetails.setText(product.getDescription());
                                 productCategory.setText("Κατηγορία: " + product.getCategory());
                                 productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
                                 productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
-                                if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
-                                } else {
-                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                    productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                                    localCostLabel.setText("Κόστος: "+ String.format("%1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                                }
+                                else {
+                                    productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                                    localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                                 }
                             }
                         }
@@ -273,10 +267,8 @@ public class CustomerFrame {
 
                 String[] products=cust.getProductsNames();
 
-
                 productsList = new JList<>(products);
                 productsList.setFont(new Font("Serif",Font.BOLD,16));
-
 
                 scrollPane.setViewportView(productsList);
                 productsList.setLayoutOrientation(JList.VERTICAL);
@@ -284,18 +276,13 @@ public class CustomerFrame {
                 productsList.addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
-
                         if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
-                            //qtySpinner.getModel().setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
-                            //deleteButton.setVisible(true);
                             addToCartButton.setVisible(false);
-                            localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             localCostLabel.setVisible(true);
                         }
                         else {
-                            //qtySpinner.getModel().setValue(0);
                             addToCartButton.setVisible(true);
                             updateButton.setVisible(false);
                             updateQtyLabel.setVisible(false);
@@ -307,7 +294,6 @@ public class CustomerFrame {
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                         if (productsList.getValueIsAdjusting()) {
-
                             String selectedProduct = productsList.getSelectedValue();
                             Product product = cust.getProduct(selectedProduct);
                             if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
@@ -327,7 +313,6 @@ public class CustomerFrame {
                                     intModel.setValue(0.0);
                                 }
                             }
-
                             productTitle.setText(product.getTitle());
                             productDetails.setText(product.getDescription());
                             productCategory.setText("Κατηγορία: "+product.getCategory());
@@ -335,9 +320,11 @@ public class CustomerFrame {
                             productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
                             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
                                 productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                                localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
                             else {
                                 productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                                localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
                         }
                     }
@@ -364,9 +351,6 @@ public class CustomerFrame {
             }
         });
 
-
-
-
         userInfo.setPreferredSize(new Dimension(130,900));
         sparePanel.setPreferredSize(new Dimension(120,50));
         userInfo.setBackground(Color.orange);
@@ -389,11 +373,9 @@ public class CustomerFrame {
         subcategoryLabel.setFont(new Font("Serif",Font.BOLD,14));
         searchTextField.setPreferredSize(new Dimension(200,25));
         searchButton.setPreferredSize(new Dimension(100,25));
-
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String title = searchTextField.getText();
                 String category = categoryBox.getSelectedItem().toString();
                 String subcategory = subcategoryBox.getSelectedItem().toString();
@@ -420,7 +402,6 @@ public class CustomerFrame {
                     detailsPanel.setVisible(true);
                     detailsPanel.setBackground(Color.GRAY);
 
-
                     productTitle.setText("");
                     productDetails.setText("");
                     productCategory.setText("");
@@ -428,30 +409,22 @@ public class CustomerFrame {
                     productPrice.setText("");
                     productQty.setText("");
 
-
                     String[] sR = searchResults.toArray(new String[0]);
 
                     productsList = new JList<>(sR);
                     productsList.setFont(new Font("Serif", Font.BOLD, 16));
 
-
                     scrollPane.setViewportView(productsList);
                     productsList.setLayoutOrientation(JList.VERTICAL);
-
                     productsList.addListSelectionListener(new ListSelectionListener() {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
-
                             if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))) {
-                                //qtySpinner.getModel().setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                                 updateQtyLabel.setVisible(true);
                                 updateButton.setVisible(true);
-                                localCostLabel.setText("Κόστος: " + qtySpinner.getValue() + " × " + cust.getProduct(productsList.getSelectedValue()).getPrice() + " = " + String.format("%.2f", (double) qtySpinner.getValue() * (cust.getProduct(productsList.getSelectedValue()).getPrice())) + "€");
                                 localCostLabel.setVisible(true);
-                                //deleteButton.setVisible(true);
                                 addToCartButton.setVisible(false);
                             } else {
-                                //qtySpinner.getModel().setValue(0);
                                 addToCartButton.setVisible(true);
                                 updateButton.setVisible(false);
                                 deleteButton.setVisible(false);
@@ -484,16 +457,18 @@ public class CustomerFrame {
                                         intModel.setValue(0.0);
                                     }
                                 }
-
                                 productTitle.setText(product.getTitle());
                                 productDetails.setText(product.getDescription());
                                 productCategory.setText("Κατηγορία: " + product.getCategory());
                                 productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
                                 productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
-                                if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
-                                } else {
-                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                                    productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                                    localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                                }
+                                else {
+                                    productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                                    localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                                 }
                             }
                         }
@@ -501,7 +476,6 @@ public class CustomerFrame {
                 }
             }
         });
-
 
         categories= cust.getCategories();
         categoryBox=new JComboBox<>(categories);
@@ -526,7 +500,6 @@ public class CustomerFrame {
             }
         });
 
-
         searchPanel.add(searchLabel);
         searchPanel.add(titleLabel);
         searchPanel.add(searchTextField);
@@ -537,7 +510,6 @@ public class CustomerFrame {
         searchPanel.add(searchButton);
 
         searchPanel.setBackground(Color.orange);
-
 
         productsList=new JList<>(cust.getProductsNames());
         productsList.setFont(new Font("Serif",Font.BOLD,16));
@@ -559,8 +531,6 @@ public class CustomerFrame {
         productQty.setPreferredSize(new Dimension(500,30));
         productQty.setFont(new Font("Serif",Font.BOLD,18));
 
-
-
         sparePanel2.setPreferredSize(new Dimension(2500,50));
         sparePanel2.setBackground(Color.GRAY);
         sparePanel3.setPreferredSize(new Dimension(30,custFrame.getHeight()-200));
@@ -576,7 +546,6 @@ public class CustomerFrame {
                 addToCartButton.setVisible(true);
                 updateQtyLabel.setVisible(true);
 
-
                 unit.setVisible(true);
 
                 qtySpinner.setVisible(true);
@@ -584,16 +553,12 @@ public class CustomerFrame {
                 detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                 if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
-                    //qtySpinner.getModel().setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                     updateQtyLabel.setVisible(true);
                     addToCartButton.setVisible(false);
                     updateButton.setVisible(true);
-                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                     localCostLabel.setVisible(true);
-                    //deleteButton.setVisible(true);
                 }
                 else {
-                    //qtySpinner.getModel().setValue(0);
                     addToCartButton.setVisible(true);
                     updateQtyLabel.setVisible(false);
                     updateButton.setVisible(false);
@@ -631,9 +596,11 @@ public class CustomerFrame {
                     productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
                     if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
                         productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                        localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                     }
                     else {
                         productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                        localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                     }
                 }
             }
@@ -682,7 +649,12 @@ public class CustomerFrame {
                     new QtyTooMuchDialog(product);
                 } else {
                     cust.updateCartQty(productsList.getSelectedValue(), (double)qtySpinner.getValue());
-                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+                        localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    }
+                    else {
+                        localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    }
                     totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
                 }
             }
@@ -695,7 +667,6 @@ public class CustomerFrame {
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
 
-                //shoppingCart = cust.getShoppingCart();
                 int i = 0;
                 pro = new String[cust.getShoppingCart().keySet().size()];
                 for (Product p : cust.getShoppingCart().keySet()) {
@@ -717,9 +688,7 @@ public class CustomerFrame {
                         updateQtyLabel.setVisible(true);
                         deleteButton.setVisible(true);
                         updateButton.setVisible(true);
-                        //qtySpinner.getModel().setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                         qtySpinner.setVisible(true);
-                        localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
                         if (productsList.getValueIsAdjusting()) {
 
@@ -743,9 +712,11 @@ public class CustomerFrame {
                             productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
                             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
                                 productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                                localCostLabel.setText("Κόστος: "+ String.format("%.1f", (double)qtySpinner.getValue()) +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
                             else {
                                 productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                                localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
                         }
                     }
@@ -772,7 +743,6 @@ public class CustomerFrame {
                 }
             }
         });
-
 
         confirmOrderButton.addActionListener(new ActionListener() {
             @Override
@@ -805,12 +775,8 @@ public class CustomerFrame {
 
                 String[] products=cust.getProductsNames();
 
-
-
-
                 productsList = new JList<>(products);
                 productsList.setFont(new Font("Serif",Font.BOLD,16));
-
 
                 scrollPane.setViewportView(productsList);
                 productsList.setLayoutOrientation(JList.VERTICAL);
@@ -820,16 +786,12 @@ public class CustomerFrame {
                     public void valueChanged(ListSelectionEvent e) {
 
                         if (cust.getShoppingCart().containsKey(cust.getProduct(productsList.getSelectedValue()))){
-                            //qtySpinner.getModel().setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             updateQtyLabel.setVisible(true);
                             updateButton.setVisible(true);
-                            //deleteButton.setVisible(true);
                             addToCartButton.setVisible(false);
-                            localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             localCostLabel.setVisible(true);
                         }
                         else {
-                            //qtySpinner.getModel().setValue(0);
                             addToCartButton.setVisible(true);
                             updateButton.setVisible(false);
                             updateQtyLabel.setVisible(false);
@@ -869,9 +831,11 @@ public class CustomerFrame {
                             productPrice.setText("Τιμή: " + String.valueOf(product.getPrice()+"0")+"€");
                             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
                                 productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
+                                localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
                             else {
                                 productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());
+                                localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
                         }
                     }
@@ -879,9 +843,6 @@ public class CustomerFrame {
                 new OrderConfirmedDialog();
             }
         });
-
-
-
 
         detailsPanel.add(productTitle);
         detailsPanel.add(productDetails);
@@ -898,24 +859,17 @@ public class CustomerFrame {
         detailsPanel.add(deleteButton);
         detailsPanel.add(localCostLabel);
 
-
         sparePanel2.add(upLabel);
         productsPanel.add(sparePanel2);
         productsPanel.add(scrollPane);
         productsPanel.add(sparePanel3);
         productsPanel.add(detailsPanel);
 
-
-
-
-
         productsPanel.setBackground(Color.GRAY);
 
         southPanel.add(totalCostLabel);
         southPanel.add(confirmOrderButton);
         southPanel.setBackground(Color.orange);
-
-
 
         custFrame.add(userInfo,BorderLayout.WEST);
         custFrame.add(searchPanel,BorderLayout.NORTH);

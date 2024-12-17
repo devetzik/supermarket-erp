@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="modified cart/spinner to double&#10;- missing double spinner&#10;perfected search">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="DOUBLE SPINNER WORKS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/orderhistory.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products.txt" beforeDir="false" afterPath="$PROJECT_DIR$/products.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -262,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734456135696</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="DOUBLE SPINNER WORKS">
+      <created>1734467691754</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1734467691754</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -293,7 +298,8 @@
     <MESSAGE value="no double spinner/b4 threading" />
     <MESSAGE value="no double spinner/after threading/modified cart to double" />
     <MESSAGE value="modified cart/spinner to double&#10;- missing double spinner&#10;perfected search" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified cart/spinner to double&#10;- missing double spinner&#10;perfected search" />
+    <MESSAGE value="DOUBLE SPINNER WORKS" />
+    <option name="LAST_COMMIT_MESSAGE" value="DOUBLE SPINNER WORKS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
