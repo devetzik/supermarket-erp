@@ -69,44 +69,13 @@ public class Customer extends User implements Serializable {
 
     public ArrayList viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
         ArrayList<Order> tmp=new ArrayList<>();
-        boolean flag=false;
         ArrayList<Order> orderHistory=util. orderHistoryLoader();
         for (Order i : orderHistory) {
             if (i.getUsername().equals(customer.getUsername())) {
-                flag = true;
                 tmp.add(i);
             }
         }
-        if (flag){
-            System.out.println("Ιστορικό παραγγελιών του χρήστη "+ customer.getUsername());
-            for (Order i : tmp){
-                System.out.println("Ημερομηνία παραγγελίας: "+i.getDatetime());
-                System.out.println("Προϊόντα και ποσότητες παραγγελίας: \n");
-                for (int j=0; j< i.getPr().length;j++){
-                    if (i.getPr()[j][0] != null) {
-                        System.out.println(i.getPr()[j][1] + " x " + i.getPr()[j][0]);
-                    }
-                }
-                System.out.println("Συνολικό κόστος: "+i.getTotal()+"€\n");
-            }
-        }
-        if (!flag){
-            System.out.println("Δεν βρέθηκε ιστορικό παραγγελιών για τον χρήστη "+customer.getUsername());
-        }
         return tmp;
-    }
-
-    @Override
-    public void viewProduct(Product product) {
-        Scanner scanner=new Scanner(System.in);
-        System.out.println(product.getDetails());
-        System.out.println("Προσθήκη στο καλάθι (1)");
-        int x=scanner.nextInt();
-        if (x==1){
-            System.out.println("Εισάγετε τα τεμάχια");
-            int qty= scanner.nextInt();
-            addToShoppingCart(product,qty);
-        }
     }
 
     public String getfName(){

@@ -173,15 +173,4 @@ public class Administrator extends User implements Serializable {
             }
         }
     }
-
-    @Override
-    public void viewProduct(Product product) throws IOException {
-        Scanner scanner=new Scanner(System.in);
-        System.out.println(product.getDetails());
-        System.out.println("Επεξεργασία προϊόντος (0)");
-        int x=scanner.nextInt();
-        if (x==0){
-            editProduct(product);
-        }
-    }
 }

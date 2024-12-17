@@ -42,19 +42,19 @@ public abstract class User implements Serializable {
             }
         } else if (!title.isBlank() && category.equals("Όλες οι κατηγορίες")){
             for (Product p : products) {
-                if (p.getTitle().contains(title)) {
+                if (p.getTitle().contains(title) ||  p.getTitle().toLowerCase().contains(title.toLowerCase()) || p.getTitle().toUpperCase().contains(title.toUpperCase())) {
                     searchResults.add(p.getTitle());
                 }
             }
         } else if (!title.isBlank() && !category.equals("Όλες οι κατηγορίες") && subcategory.equals("Όλες οι υποκατηγορίες")) {
             for (Product p : products) {
-                if (p.getCategory().equals(category) && p.getTitle().contains(title)) {
+                if (p.getCategory().equals(category) && (p.getTitle().contains(title) ||  p.getTitle().toLowerCase().contains(title.toLowerCase()) || p.getTitle().toUpperCase().contains(title.toUpperCase()))) {
                     searchResults.add(p.getTitle());
                 }
             }
         }else if (!title.isBlank() && !category.equals("Όλες οι κατηγορίες") && !subcategory.equals("Όλες οι υποκατηγορίες")){
             for (Product p : products) {
-                if (p.getSubcategory().equals(subcategory) && p.getTitle().contains(title)) {
+                if (p.getSubcategory().equals(subcategory) && (p.getTitle().contains(title) ||  p.getTitle().toLowerCase().contains(title.toLowerCase()) || p.getTitle().toUpperCase().contains(title.toUpperCase()))) {
                     searchResults.add(p.getTitle());
                 }
             }
@@ -63,7 +63,6 @@ public abstract class User implements Serializable {
     }
 
 
-    public abstract void viewProduct(Product product) throws IOException;
 
 
     public String getUsername(){
