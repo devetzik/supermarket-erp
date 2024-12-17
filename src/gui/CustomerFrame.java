@@ -31,8 +31,8 @@ public class CustomerFrame {
     private static JLabel productSubcategory=new JLabel();
     private static JLabel productPrice=new JLabel();
     private static JLabel productQty=new JLabel();
-    private static JLabel spareLabel=new JLabel();
-    private static JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
+    private static final JLabel spareLabel=new JLabel();
+    private static final JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
     private static JLabel unit=new JLabel();
     private static JLabel localCostLabel=new JLabel();
     private static JLabel totalCostLabel=new JLabel("",SwingConstants.CENTER);
@@ -62,7 +62,7 @@ public class CustomerFrame {
     private static final JLabel updateQtyLabel= new JLabel("Επιλεγμένη ποσότητα");
     private static final JButton updateButton= new JButton("Ενημέρωση");
     private static final JButton deleteButton=new JButton("Διαγραφή");
-    private static HashMap<Product,Integer> shoppingCart;
+    private static HashMap<Product,Double> shoppingCart;
     private static String[] pro;
     private static Customer cust;
 
@@ -86,7 +86,8 @@ public class CustomerFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                custFrame.dispose();
+                //custThread.interrupt();
+                //custFrame.dispose();
                 frame.setVisible(true);
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
@@ -120,6 +121,7 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(true);
                 custFrame.dispose();
+                //custThread.interrupt();
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
@@ -184,7 +186,7 @@ public class CustomerFrame {
                     productQty.setText("");
 
 
-                    HashMap<Product, Integer> shoppingCart = cust.getShoppingCart();
+                    HashMap<Product, Double> shoppingCart = cust.getShoppingCart();
                     int i = 0;
                     String[] pro = new String[shoppingCart.keySet().size()];
                     for (Product p : shoppingCart.keySet()) {
@@ -556,7 +558,7 @@ public class CustomerFrame {
                     updateQtyLabel.setVisible(true);
                     addToCartButton.setVisible(false);
                     updateButton.setVisible(true);
-                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(float)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                     localCostLabel.setVisible(true);
                     //deleteButton.setVisible(true);
                 }
@@ -637,8 +639,8 @@ public class CustomerFrame {
                 }else if ((int)qtySpinner.getValue()>product.getQty()){
                     new QtyTooMuchDialog(product);
                 } else {
-                    cust.updateCartQty(productsList.getSelectedValue(), (int) qtySpinner.getValue());
-                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                    cust.updateCartQty(productsList.getSelectedValue(), (double) qtySpinner.getValue());
+                    localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                     totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
                 }
             }
@@ -675,7 +677,7 @@ public class CustomerFrame {
                         updateButton.setVisible(true);
                         qtySpinner.setValue(shoppingCart.get(cust.getProduct(productsList.getSelectedValue())));
                         qtySpinner.setVisible(true);
-                        localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                        localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" × " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
                         if (productsList.getValueIsAdjusting()) {
 
@@ -777,7 +779,7 @@ public class CustomerFrame {
                             updateButton.setVisible(true);
                             //deleteButton.setVisible(true);
                             addToCartButton.setVisible(false);
-                            localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(int)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                            localCostLabel.setText("Κόστος: "+ qtySpinner.getValue() +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             localCostLabel.setVisible(true);
                         }
                         else {

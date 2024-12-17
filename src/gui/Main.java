@@ -37,11 +37,8 @@ public class Main implements Serializable,ActionListener {
     private static JLabel signupLabel = new JLabel("Δεν έχετε λογαριασμό;");
     private static Utilities util = new Utilities();
     private static User currnentUser;
-    private static CustomerFrame cf;
-
 
     public static void main (String[] args) throws IOException, ClassNotFoundException {
-
         frame.setTitle("Supermarket e-shop");
         frame.setSize(900, 600);
         frame.setLayout(new BorderLayout());

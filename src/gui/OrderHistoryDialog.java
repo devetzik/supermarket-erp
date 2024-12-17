@@ -34,7 +34,7 @@ public class OrderHistoryDialog {
         dialog.setResizable(false);
 
         for (int i=0; i<orderHistory.size();i++){
-            str[i]="            #"+(i+1)+ "                        "+ orderHistory.get(i).getDatetime()+"               "+orderHistory.get(i).getTotal()+"€";
+            str[i]="            #"+(i+1)+ "                      "+ orderHistory.get(i).getDatetime()+"               "+orderHistory.get(i).getTotal()+"€";
         }
 
         ordersList=new JList<>(str);

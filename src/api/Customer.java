@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
     private String fName, lName;
-    private static HashMap<Product, Integer> shoppingCart = new HashMap<>();
+    private static HashMap<Product, Double> shoppingCart = new HashMap<>();
     private ArrayList<Product> products= util.productsLoader();
     private String[][] pr =new String[products.size()][products.size()];
 
@@ -22,63 +22,10 @@ public class Customer extends User implements Serializable {
     }
 
 
-    // Τρέχουσα κατάσταση του καλαθιού
-
-    public void viewShoppingCart(User currentUser) throws IOException{
-        Scanner scanner=new Scanner(System.in);
-        if (shoppingCart.isEmpty()){
-            System.out.println("Το καλάθι είναι άδειο");
-        }else {
-            int j=0;
-            for (Product i : shoppingCart.keySet()) {
-                System.out.println(shoppingCart.get(i)+" x "+i.getUnit()+" "+ i.getTitle() + " Κόστος: " + String.format("%.2f", shoppingCart.get(i) * i.getPrice()) + "€" + "("+j+")");
-                j++;
-            }
-            System.out.println("\nΣυνολικό κόστος καλαθιού: "+ String.format("%.2f",getTotal() )+"€");
-            System.out.println("\nΟλοκλήρωση παραγγελίας (0) / Επεξεργασία καλαθιού (1)");
-            int x=scanner.nextInt();
-            if (x==0){
-                confirmOrder(currentUser);
-            } else if (x==1) {
-                System.out.println("Διαγραφή προϊόντος από το καλάθι (0) / Αλλαγή επιλεγμένης ποσότητας (1)");
-                x=scanner.nextInt();
-                if (x==0){
-                    System.out.println("Επιλέξτε προϊόν προς διαγραφή");
-                    int d=scanner.nextInt();
-                    j=0;
-                    for (Product i: shoppingCart.keySet()){
-                        if (d==j){
-                            shoppingCart.remove(i);
-                            System.out.println("Επιτυχής διαγραφή προϊόντος");
-                            break;
-                        }
-                        j++;
-                    }
-                }else if (x==1){
-                    System.out.println("Επιλέξτε προϊόν");
-                    int d=scanner.nextInt();
-                    j=0;
-                    System.out.println("Εισάγετε την νέα ποσότητα");
-                    int newQty= scanner.nextInt();
-                    for (Product i: shoppingCart.keySet()){
-                        if (d==j){
-                            if (newQty>i.getQty()){
-                                System.out.println("Δεν υπάρχει διαθέσιμο απόθεμα, διαλέξτε μια ποσότητα <"+ i.getQty());
-                            }else {
-                                shoppingCart.replace(i, newQty);
-                                System.out.println("Επιτυχής αλλαγή ποσότητας");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
     // Μέθοδος για την προσθήκη προϊόντος στο καλάθι, με έλεγχο έγκυρης εκχώρησης και διαθεσιμότητας
 
-    public void addToShoppingCart(Product product, int posotita){
+    public void addToShoppingCart(Product product, double posotita){
         shoppingCart.put(product, posotita);
     }
 
@@ -170,10 +117,10 @@ public class Customer extends User implements Serializable {
         return lName;
     }
 
-    public HashMap<Product,Integer> getShoppingCart(){
+    public HashMap<Product,Double> getShoppingCart(){
         return shoppingCart;
     }
-     public void updateCartQty(String title, int qty){
+     public void updateCartQty(String title, double qty){
         for (Product p: shoppingCart.keySet()){
             if (p.getTitle().equals(title)){
                 shoppingCart.put(p,qty);
@@ -184,7 +131,7 @@ public class Customer extends User implements Serializable {
 
 
      public void removeFromCart(String title){
-        HashMap<Product,Integer> sctmp=new HashMap<>();
+        HashMap<Product,Double> sctmp=new HashMap<>();
         for (Product p:shoppingCart.keySet()){
             sctmp.put(p,shoppingCart.get(p));
         }
