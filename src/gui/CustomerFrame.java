@@ -67,8 +67,6 @@ public class CustomerFrame {
     private static Customer cust;
 
     public CustomerFrame(Customer customer){
-
-
         cust =customer;
         shoppingCart = cust.getShoppingCart();
         scrollPane=new JScrollPane();
@@ -653,7 +651,7 @@ public class CustomerFrame {
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
 
-
+                shoppingCart = cust.getShoppingCart();
                 int i = 0;
                 pro = new String[shoppingCart.keySet().size()];
                 for (Product p : shoppingCart.keySet()) {

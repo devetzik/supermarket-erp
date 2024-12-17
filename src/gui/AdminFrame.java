@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import static gui.Main.frame;
 
 
 public class AdminFrame {
@@ -35,10 +36,12 @@ public class AdminFrame {
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
     private String [] categories;
     private String [] subcategories;
+    private Administrator administrator;
 
 
 
     public AdminFrame(Administrator admin){
+        administrator=admin;
         adminFrame.setSize(1280,720);
         adminFrame.setLocationRelativeTo(null);
         adminFrame.setLayout(new BorderLayout());
@@ -46,7 +49,8 @@ public class AdminFrame {
         adminFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new LoginFrame();
+                adminFrame.dispose();
+                frame.setVisible(true);
             }
         });
 
@@ -64,7 +68,7 @@ public class AdminFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adminFrame.dispose();
-                new LoginFrame();
+                frame.setVisible(true);
             }
         });
 
@@ -103,7 +107,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    subcategories= admin.getSubcategories(categoryBox.getSelectedItem().toString());
+                    subcategories= administrator.getSubcategories(categoryBox.getSelectedItem().toString());
 
                     for (String i:subcategories){
                         subcategoryBox.addItem(i);
