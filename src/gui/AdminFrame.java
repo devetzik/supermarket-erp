@@ -1,8 +1,11 @@
 package gui;
 
 import api.Administrator;
+import api.Product;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +19,8 @@ public class AdminFrame {
 
     private static JFrame adminFrame=new JFrame("Supermarket e-shop Administrator Console");
     private static JPanel userInfo=new JPanel();
+    private static final JButton editProductButton=new JButton("Επεξεργασία");
+    private static final JButton deleteProductButton=new JButton("Διαγραφή");
     private static final JButton productsButton=new JButton("Προϊόντα");
     private static final JButton logoutButton=new JButton("Έξοδος");
     private static final JButton searchButton=new JButton("Αναζήτηση");
@@ -34,14 +39,33 @@ public class AdminFrame {
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία");
     private static JComboBox<String> categoryBox;
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
-    private String [] categories;
-    private String [] subcategories;
-    private Administrator administrator;
+    private static String [] categories;
+    private static String [] subcategories;
+    private static Administrator admin;
+
+    private static JLabel productTitle=new JLabel();
+    private static JLabel productDetails=new JLabel();
+    private static JLabel productCategory=new JLabel();
+    private static JLabel productSubcategory=new JLabel();
+    private static JLabel productPrice=new JLabel();
+    private static JLabel productQty=new JLabel();
+    private static final JLabel spareLabel=new JLabel();
+    private static final JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
+    private static JLabel unit=new JLabel();
+    private static final JPanel sparePanel3=new JPanel();
+    private static final JPanel detailsPanel=new JPanel();
+    private static final JPanel productsPanel=new JPanel();
+    private static JList<String> productsList;
+    private static JScrollPane scrollPane;
 
 
 
-    public AdminFrame(Administrator admin){
-        administrator=admin;
+    public AdminFrame(Administrator administrator){
+        scrollPane=new JScrollPane();
+        editProductButton.setVisible(false);
+        deleteProductButton.setVisible(false);
+
+        admin=administrator;
         adminFrame.setSize(1280,720);
         adminFrame.setLocationRelativeTo(null);
         adminFrame.setLayout(new BorderLayout());
@@ -79,12 +103,15 @@ public class AdminFrame {
         userInfo.add(username);
         userInfo.add(logoutButton);
         userInfo.add(sparePanel);
+        sparePanel.setBackground(Color.orange);
         userInfo.add(productsButton);
         userInfo.add(addProductButton);
         userInfo.add(sparePanel2);
+        sparePanel2.setBackground(Color.orange);
         userInfo.add(statsLabel);
         userInfo.add(noInventoryButton);
         userInfo.add(mostSoldButton);
+        userInfo.setBackground(Color.orange);
 
 
         searchLabel.setFont(new Font("Serif",Font.BOLD,14));
@@ -127,16 +154,104 @@ public class AdminFrame {
         searchPanel.add(subcategoryLabel);
         searchPanel.add(subcategoryBox);
         searchPanel.add(searchButton);
+        searchPanel.setBackground(Color.orange);
 
 
+        productsList=new JList<>(admin.getProductsNames());
+        productsList.setFont(new Font("Serif",Font.BOLD,16));
 
+        scrollPane.setPreferredSize(new Dimension(400,adminFrame.getHeight()-200));
 
+        detailsPanel.setPreferredSize(new Dimension(530,adminFrame.getHeight()-200));
 
-        adminFrame.add(userInfo,BorderLayout.WEST);
+        productTitle.setPreferredSize(new Dimension(500,60));
+        productTitle.setFont(new Font("Serif",Font.BOLD,22));
+        productDetails.setPreferredSize(new Dimension(500,60));
+        productDetails.setFont(new Font("Serif",Font.BOLD,18));
+        productCategory.setPreferredSize(new Dimension(500,30));
+        productCategory.setFont(new Font("Serif",Font.BOLD,18));
+        productSubcategory.setPreferredSize(new Dimension(500,30));
+        productSubcategory.setFont(new Font("Serif",Font.BOLD,18));
+        productPrice.setPreferredSize(new Dimension(500,30));
+        productPrice.setFont(new Font("Serif",Font.BOLD,18));
+        productQty.setPreferredSize(new Dimension(500,30));
+        productQty.setFont(new Font("Serif",Font.BOLD,18));
+
+        sparePanel2.setPreferredSize(new Dimension(2500,50));
+        sparePanel2.setBackground(Color.GRAY);
+        sparePanel3.setPreferredSize(new Dimension(30,adminFrame.getHeight()-200));
+        sparePanel3.setBackground(Color.GRAY);
+
+        scrollPane.setViewportView(productsList);
+        productsList.setLayoutOrientation(JList.VERTICAL);
+
+        productsList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                editProductButton.setVisible(true);
+                deleteProductButton.setVisible(true);
+                detailsPanel.setVisible(true);
+                detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                if (productsList.getValueIsAdjusting()) {
+
+                    String selectedProduct = productsList.getSelectedValue();
+
+                    Product product = admin.getProduct(selectedProduct);
+                    if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                        unit.setText("kg");
+                    } else {
+                        unit.setText("τμχ.");
+                    }
+
+                    productTitle.setText(product.getTitle());
+                    productDetails.setText(product.getDescription());
+                    productCategory.setText("Κατηγορία: " + product.getCategory());
+                    productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
+                    productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                    if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                        productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                    } else {
+                        productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                    }
+                }
+            }
+        });
+        detailsPanel.setBackground(Color.GRAY);
+
+        spareLabel.setPreferredSize(new Dimension(500,100));
+
+        editProductButton.setPreferredSize(new Dimension(180,50));
+        editProductButton.setFont(new Font("Serif",Font.BOLD,16));
+        deleteProductButton.setPreferredSize(new Dimension(180,50));
+        deleteProductButton.setFont(new Font("Serif",Font.BOLD,16));
+
+        detailsPanel.add(productTitle);
+        detailsPanel.add(productDetails);
+        detailsPanel.add(productCategory);
+        detailsPanel.add(productSubcategory);
+        detailsPanel.add(productPrice);
+        detailsPanel.add(productQty);
+        detailsPanel.add(spareLabel);
+        detailsPanel.add(editProductButton);
+        detailsPanel.add(deleteProductButton);
+
+        sparePanel2.add(upLabel);
+        upLabel.setFont(new Font("Serif",Font.BOLD,22));
+
+        productsPanel.add(sparePanel2);
+        productsPanel.add(scrollPane);
+        productsPanel.add(sparePanel3);
+        productsPanel.add(detailsPanel);
+
+        productsPanel.setBackground(Color.GRAY);
+
+        adminFrame.add(userInfo, BorderLayout.WEST);
         adminFrame.add(searchPanel,BorderLayout.NORTH);
+        adminFrame.add(productsPanel,BorderLayout.CENTER);
+
+        scrollPane.setVisible(true);
+        searchPanel.setVisible(true);
         adminFrame.setVisible(true);
     }
-
-
-
 }

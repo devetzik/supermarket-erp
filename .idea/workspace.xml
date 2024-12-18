@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="orderHistory gui works/loader problem">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="ready b4AdminFrame">
+      <change afterPath="$PROJECT_DIR$/src/gui/EditProductDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/NewProductDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/NoNoInvProductsDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/ProductDeletedDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/orderhistory.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products.txt" beforeDir="false" afterPath="$PROJECT_DIR$/products.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734471292050</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="ready b4AdminFrame">
+      <created>1734529190166</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1734529190166</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -313,7 +321,8 @@
     <MESSAGE value="modified cart/spinner to double&#10;- missing double spinner&#10;perfected search" />
     <MESSAGE value="DOUBLE SPINNER WORKS" />
     <MESSAGE value="CUST FINAL &lt;3" />
-    <option name="LAST_COMMIT_MESSAGE" value="CUST FINAL &lt;3" />
+    <MESSAGE value="ready b4AdminFrame" />
+    <option name="LAST_COMMIT_MESSAGE" value="ready b4AdminFrame" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
