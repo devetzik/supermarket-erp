@@ -229,7 +229,7 @@ public class CustomerFrame {
                                 productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
                                 if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
                                     productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf(product.getQty())+product.getUnit());
-                                    localCostLabel.setText("Κόστος: "+ String.format("%1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                                    localCostLabel.setText("Κόστος: "+ String.format("%.1f",(double)qtySpinner.getValue()) +" x " + cust.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(cust.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                                 }
                                 else {
                                     productQty.setText("Διαθέσιμο απόθεμα: "+String.valueOf((int) product.getQty())+product.getUnit());

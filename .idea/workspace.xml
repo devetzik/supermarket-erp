@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="DOUBLE SPINNER WORKS">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="CUST FINAL &lt;3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/orderhistory.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products.txt" beforeDir="false" afterPath="$PROJECT_DIR$/products.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734467691754</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="CUST FINAL &lt;3">
+      <created>1734471292050</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1734471292050</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,7 +311,8 @@
     <MESSAGE value="no double spinner/after threading/modified cart to double" />
     <MESSAGE value="modified cart/spinner to double&#10;- missing double spinner&#10;perfected search" />
     <MESSAGE value="DOUBLE SPINNER WORKS" />
-    <option name="LAST_COMMIT_MESSAGE" value="DOUBLE SPINNER WORKS" />
+    <MESSAGE value="CUST FINAL &lt;3" />
+    <option name="LAST_COMMIT_MESSAGE" value="CUST FINAL &lt;3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

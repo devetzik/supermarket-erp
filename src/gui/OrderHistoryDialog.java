@@ -34,7 +34,7 @@ public class OrderHistoryDialog {
         dialog.setResizable(false);
 
         for (int i=0; i<orderHistory.size();i++){
-            str[i]="            #"+(i+1)+ "                      "+ orderHistory.get(i).getDatetime()+"               "+orderHistory.get(i).getTotal()+"€";
+            str[i]="              #"+(i+1)+ "                      "+ orderHistory.get(i).getDatetime()+"               "+String.format("%.2f",orderHistory.get(i).getTotal())+"€";
         }
 
         ordersList=new JList<>(str);
@@ -44,7 +44,7 @@ public class OrderHistoryDialog {
         scrollPane.setViewportView(ordersList);
         ordersList.setLayoutOrientation(JList.VERTICAL);
 
-        scrollPane.setPreferredSize(new Dimension(350,400));
+        scrollPane.setPreferredSize(new Dimension(380,400));
 
         viewButton.setFont(new Font("Serif",Font.BOLD,18));
         viewButton.setPreferredSize(new Dimension(120,40));

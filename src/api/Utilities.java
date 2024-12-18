@@ -110,10 +110,10 @@ public class Utilities {
         writer.append(";");
         for (int i=0;i<order.getPr().length;i++){
             if (order.getPr()[i][1]!=null) {
-                writer.append(order.getPr()[i][1] + "@");
+                writer.append(String.format("%.1f",Double.parseDouble(order.getPr()[i][1])) + "@");
             }
         }
-            writer.append(";" + order.getDatetime() + ";" + (order.getTotal()) + "\n");
+            writer.append(";" + order.getDatetime() + ";" + String.format("%.2f",order.getTotal()) + "\n");
         }
         writer.close();
     }

@@ -17,7 +17,7 @@ public class ViewOrderDialog {
     private static final JButton closeButton=new JButton("Κλείσιμο");
     private static final JPanel panel=new JPanel();
     private static final JLabel totalLabel=new JLabel("",SwingConstants.CENTER);
-    private static final JLabel productLabel=new JLabel("          Προϊόν");
+    private static final JLabel productLabel=new JLabel("              Προϊόν");
     private static final JLabel priceLabel=new JLabel("            Τιμή    ");
     private static final JLabel qtyLabel=new JLabel("Ποσότητα       ");
     private static final JLabel localcostLabel=new JLabel("    Κόστος");
@@ -54,9 +54,9 @@ public class ViewOrderDialog {
         for (int i = 0; i< counter; i++){
             Product product=customer.getProduct(pr[i][0]);
             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                str[i] = "          " + pr[i][1] + product.getUnit() + "             " + pr[i][0];
+                str[i] = "           " + String.format("%.1f",Double.parseDouble(pr[i][1])) + product.getUnit() + "             " + pr[i][0];
             }else {
-                str[i] = "          " + String.format("%.0f",Double.parseDouble(pr[i][1])) + product.getUnit() + "               " + pr[i][0];
+                str[i] = "           " + String.format("%.0f",Double.parseDouble(pr[i][1])) + product.getUnit() + "               " + pr[i][0];
             }
         }
 
@@ -84,7 +84,7 @@ public class ViewOrderDialog {
         });
 
         productLabel.setFont(new Font("Serif",Font.BOLD,18));
-        productLabel.setPreferredSize(new Dimension(250,20));
+        productLabel.setPreferredSize(new Dimension(300,20));
         priceLabel.setFont(new Font("Serif",Font.BOLD,18));
         qtyLabel.setFont(new Font("Serif",Font.BOLD,18));
         localcostLabel.setFont(new Font("Serif",Font.BOLD,18));
