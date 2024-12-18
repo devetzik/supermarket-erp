@@ -73,7 +73,7 @@ public class Utilities {
 
     public void productsWriter(Product product) throws IOException {
         BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
-        writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+product.getQty()+"\n");
+        writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+ String.format("%.1f",product.getQty())+"\n");
         writer.close();
     }
 

@@ -10,8 +10,12 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import static gui.Main.frame;
 
@@ -65,8 +69,8 @@ public class CustomerFrame {
     private static String[] pro;
     private static Customer cust;
 
-    private static final SpinnerNumberModel intModel=new SpinnerNumberModel (0,0,500.0,1);
-    private static final SpinnerNumberModel doubleModel= new SpinnerNumberModel(0,0,500.0,0.1);
+    private static final SpinnerNumberModel intModel=new SpinnerNumberModel (0.0,0,500.0,1);
+    private static final SpinnerNumberModel doubleModel= new SpinnerNumberModel(0.0,0,500.0,0.1);
 
     public CustomerFrame(Customer customer){
         cust =customer;
