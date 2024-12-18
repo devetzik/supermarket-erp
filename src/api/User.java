@@ -22,7 +22,7 @@ public abstract class User implements Serializable {
 
     // Μέθοδος για την αναζήτηση προϊόντων
 
-    public ArrayList<String> productSearch(String title, String category, String subcategory) throws IOException {
+    public String [] productSearch(String title, String category, String subcategory) throws IOException {
         ArrayList<String> searchResults = new ArrayList<>();
         if (title.isBlank() && category.equals("Όλες οι κατηγορίες")) {
             for (Product p: products){
@@ -59,7 +59,14 @@ public abstract class User implements Serializable {
                 }
             }
         }
-        return searchResults;
+
+        if (searchResults.isEmpty()){
+            return null;
+        }else {
+            String[] sR = new String[searchResults.size()];
+            sR = searchResults.toArray(new String[0]);
+            return sR;
+        }
     }
 
 

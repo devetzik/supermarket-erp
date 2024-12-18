@@ -57,19 +57,15 @@ public class Administrator extends User implements Serializable {
     }
 
     public void adminStats() throws IOException {
-        Scanner scanner= new Scanner(System.in);
-        System.out.println("Επιλέξτε λειτουργία:\nΠροϊόντα με εξαντλημένο απόθεμα (1)\nΠροϊόντα που εμφανίστηκαν στις περισσότερες παραγγελίες (2)");
-        else if (x==2) {
-            if (orderHistory.isEmpty()){
-                System.out.println("Δεν υπάρχουν δεδομένα");
-            }else {
-                for (Order i : orderHistory) {
-                    for (int j = 0; j < i.getPr().length; j++) {
-                        if (sales.containsKey(i.getPr()[j][0])) {
-                            sales.put(i.getPr()[j][0], sales.get(i.getPr()[j][0] + 1));
-                        } else {
-                            sales.put(i.getPr()[j][0], 1);
-                        }
+        if (orderHistory.isEmpty()){
+            System.out.println("Δεν υπάρχουν δεδομένα");
+        }else {
+            for (Order i : orderHistory) {
+                for (int j = 0; j < i.getPr().length; j++) {
+                    if (sales.containsKey(i.getPr()[j][0])) {
+                        sales.put(i.getPr()[j][0], sales.get(i.getPr()[j][0] + 1));
+                    } else {
+                        sales.put(i.getPr()[j][0], 1);
                     }
                 }
             }

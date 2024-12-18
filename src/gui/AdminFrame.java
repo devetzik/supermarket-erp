@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import static gui.Main.frame;
 
@@ -75,6 +76,16 @@ public class AdminFrame {
             public void windowClosing(WindowEvent e) {
                 adminFrame.dispose();
                 frame.setVisible(true);
+                scrollPane.setVisible(false);
+                searchPanel.setVisible(false);
+                categoryBox.setVisible(false);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
             }
         });
 
@@ -93,6 +104,16 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 adminFrame.dispose();
                 frame.setVisible(true);
+                scrollPane.setVisible(false);
+                searchPanel.setVisible(false);
+                categoryBox.setVisible(false);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
             }
         });
 
@@ -156,11 +177,84 @@ public class AdminFrame {
         searchPanel.add(searchButton);
         searchPanel.setBackground(Color.orange);
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String title = searchTextField.getText();
+                String category = categoryBox.getSelectedItem().toString();
+                String subcategory = subcategoryBox.getSelectedItem().toString();
 
-        productsList=new JList<>(admin.getProductsNames());
-        productsList.setFont(new Font("Serif",Font.BOLD,16));
+                String[] sR = new String[0];
+                try {
+                    sR = admin.productSearch(title, category, subcategory);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
-        scrollPane.setPreferredSize(new Dimension(400,adminFrame.getHeight()-200));
+
+                if (sR == null) {
+                    new NoSearchResultsDialog();
+                } else {
+                    upLabel.setText("Αποτελέσματα αναζήτησης");
+
+                    detailsPanel.setBackground(Color.GRAY);
+
+                    editProductButton.setVisible(false);
+                    deleteProductButton.setVisible(false);
+
+                    productsList = new JList<>(sR);
+                    productsList.setFont(new Font("Serif", Font.BOLD, 16));
+
+                    scrollPane.setViewportView(productsList);
+                    productsList.setLayoutOrientation(JList.VERTICAL);
+
+                    productTitle.setText("");
+                    productDetails.setText("");
+                    productCategory.setText("");
+                    productSubcategory.setText("");
+                    productPrice.setText("");
+                    productQty.setText("");
+
+                    productsList.addListSelectionListener(new ListSelectionListener() {
+                        @Override
+                        public void valueChanged(ListSelectionEvent e) {
+                            editProductButton.setVisible(true);
+                            deleteProductButton.setVisible(true);
+                            detailsPanel.setVisible(true);
+                            detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                            if (productsList.getValueIsAdjusting()) {
+
+                                String selectedProduct = productsList.getSelectedValue();
+
+                                Product product = admin.getProduct(selectedProduct);
+
+                                productTitle.setText(product.getTitle());
+                                productDetails.setText(product.getDescription());
+                                productCategory.setText("Κατηγορία: " + product.getCategory());
+                                productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
+                                productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                                if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                                } else {
+                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+        scrollPane.setPreferredSize(new Dimension(400, adminFrame.getHeight() - 200));
 
         detailsPanel.setPreferredSize(new Dimension(530,adminFrame.getHeight()-200));
 
@@ -181,6 +275,9 @@ public class AdminFrame {
         sparePanel2.setBackground(Color.GRAY);
         sparePanel3.setPreferredSize(new Dimension(30,adminFrame.getHeight()-200));
         sparePanel3.setBackground(Color.GRAY);
+
+        productsList=new JList<>(admin.getProductsNames());
+        productsList.setFont(new Font("Serif",Font.BOLD,16));
 
         scrollPane.setViewportView(productsList);
         productsList.setLayoutOrientation(JList.VERTICAL);
@@ -217,6 +314,66 @@ public class AdminFrame {
                 }
             }
         });
+
+
+        productsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                detailsPanel.setBackground(Color.GRAY);
+
+                editProductButton.setVisible(false);
+                deleteProductButton.setVisible(false);
+
+                productsList=new JList<>(admin.getProductsNames());
+                productsList.setFont(new Font("Serif",Font.BOLD,16));
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                productTitle.setText("");
+                productDetails.setText("");
+                productCategory.setText("");
+                productSubcategory.setText("");
+                productPrice.setText("");
+                productQty.setText("");
+
+                productsList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        editProductButton.setVisible(true);
+                        deleteProductButton.setVisible(true);
+                        detailsPanel.setVisible(true);
+                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+
+                        if (productsList.getValueIsAdjusting()) {
+
+                            String selectedProduct = productsList.getSelectedValue();
+
+                            Product product = admin.getProduct(selectedProduct);
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                                unit.setText("kg");
+                            } else {
+                                unit.setText("τμχ.");
+                            }
+
+                            productTitle.setText(product.getTitle());
+                            productDetails.setText(product.getDescription());
+                            productCategory.setText("Κατηγορία: " + product.getCategory());
+                            productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
+                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                            } else {
+                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+
         detailsPanel.setBackground(Color.GRAY);
 
         spareLabel.setPreferredSize(new Dimension(500,100));

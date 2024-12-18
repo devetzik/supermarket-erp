@@ -123,10 +123,11 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(true);
                 custFrame.dispose();
+                qtySpinner.setVisible(false);
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
-                qtySpinner.setVisible(false);
+
                 productTitle.setText("");
                 productDetails.setText("");
                 productCategory.setText("");
@@ -383,14 +384,16 @@ public class CustomerFrame {
                 String title = searchTextField.getText();
                 String category = categoryBox.getSelectedItem().toString();
                 String subcategory = subcategoryBox.getSelectedItem().toString();
-                ArrayList<String> searchResults;
+
+                String[] sR = new String[0];
                 try {
-                    searchResults = cust.productSearch(title, category, subcategory);
+                    sR = cust.productSearch(title, category, subcategory);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
 
-                if (searchResults.isEmpty()){
+
+                if (sR==null){
                     new NoSearchResultsDialog();
                 }else {
                     upLabel.setText("Αποτελέσματα αναζήτησης");
@@ -413,7 +416,6 @@ public class CustomerFrame {
                     productPrice.setText("");
                     productQty.setText("");
 
-                    String[] sR = searchResults.toArray(new String[0]);
 
                     productsList = new JList<>(sR);
                     productsList.setFont(new Font("Serif", Font.BOLD, 16));
