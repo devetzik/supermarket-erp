@@ -58,12 +58,9 @@ public class AdminFrame {
     private static JList<String> productsList;
     private static JScrollPane scrollPane;
 
-
-
     public AdminFrame(Administrator administrator){
         scrollPane=new JScrollPane();
-        editProductButton.setVisible(false);
-        deleteProductButton.setVisible(false);
+        detailsPanel.setVisible(false);
 
         admin=administrator;
         adminFrame.setSize(1280,720);
@@ -78,13 +75,7 @@ public class AdminFrame {
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
-
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
+                detailsPanel.setVisible(false);
             }
         });
 
@@ -106,13 +97,7 @@ public class AdminFrame {
                 scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
                 categoryBox.setVisible(false);
-
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
+                detailsPanel.setVisible(false);
             }
         });
 
@@ -134,18 +119,15 @@ public class AdminFrame {
         userInfo.add(username);
         userInfo.add(logoutButton);
         userInfo.add(sparePanel);
-        sparePanel.setBackground(Color.orange);
+        sparePanel.setBackground(Color.lightGray);
         userInfo.add(productsButton);
         userInfo.add(addProductButton);
         userInfo.add(sparePanel2);
-        sparePanel2.setBackground(Color.orange);
+        sparePanel2.setBackground(Color.lightGray);
         userInfo.add(statsLabel);
         userInfo.add(noInventoryButton);
         userInfo.add(mostSoldButton);
-        userInfo.setBackground(Color.orange);
-
-
-
+        userInfo.setBackground(Color.lightGray);
 
         searchLabel.setFont(new Font("Serif",Font.BOLD,14));
         titleLabel.setFont(new Font("Serif",Font.BOLD,14));
@@ -153,7 +135,6 @@ public class AdminFrame {
         subcategoryLabel.setFont(new Font("Serif",Font.BOLD,14));
         searchTextField.setPreferredSize(new Dimension(200,25));
         searchButton.setPreferredSize(new Dimension(100,25));
-
 
         categories= admin.getCategories();
         categoryBox=new JComboBox<>(categories);
@@ -167,7 +148,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    subcategories= administrator.getSubcategories(categoryBox.getSelectedItem().toString());
+                    subcategories= admin.getSubcategories(categoryBox.getSelectedItem().toString());
 
                     for (String i:subcategories){
                         subcategoryBox.addItem(i);
@@ -177,7 +158,6 @@ public class AdminFrame {
                 }
             }
         });
-
 
         searchPanel.add(searchLabel);
         searchPanel.add(titleLabel);
@@ -209,10 +189,7 @@ public class AdminFrame {
                 } else {
                     upLabel.setText("Αποτελέσματα αναζήτησης");
 
-                    detailsPanel.setBackground(Color.GRAY);
-
-                    editProductButton.setVisible(false);
-                    deleteProductButton.setVisible(false);
+                    detailsPanel.setVisible(false);
 
                     productsList = new JList<>(sR);
                     productsList.setFont(new Font("Serif", Font.BOLD, 16));
@@ -220,20 +197,10 @@ public class AdminFrame {
                     scrollPane.setViewportView(productsList);
                     productsList.setLayoutOrientation(JList.VERTICAL);
 
-                    productTitle.setText("");
-                    productDetails.setText("");
-                    productCategory.setText("");
-                    productSubcategory.setText("");
-                    productPrice.setText("");
-                    productQty.setText("");
-
                     productsList.addListSelectionListener(new ListSelectionListener() {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
-                            editProductButton.setVisible(true);
-                            deleteProductButton.setVisible(true);
                             detailsPanel.setVisible(true);
-                            detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                             if (productsList.getValueIsAdjusting()) {
 
@@ -258,14 +225,6 @@ public class AdminFrame {
             }
         });
 
-
-
-
-
-
-
-
-
         scrollPane.setPreferredSize(new Dimension(400, adminFrame.getHeight() - 200));
 
         detailsPanel.setPreferredSize(new Dimension(530,adminFrame.getHeight()-200));
@@ -284,9 +243,9 @@ public class AdminFrame {
         productQty.setFont(new Font("Serif",Font.BOLD,18));
 
         sparePanel2.setPreferredSize(new Dimension(2500,50));
-        sparePanel2.setBackground(Color.GRAY);
+        sparePanel2.setBackground(Color.orange);
         sparePanel3.setPreferredSize(new Dimension(30,adminFrame.getHeight()-200));
-        sparePanel3.setBackground(Color.GRAY);
+        sparePanel3.setBackground(Color.orange);
 
         productsList=new JList<>(admin.getProductsNames());
         productsList.setFont(new Font("Serif",Font.BOLD,16));
@@ -297,10 +256,7 @@ public class AdminFrame {
         productsList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                editProductButton.setVisible(true);
-                deleteProductButton.setVisible(true);
                 detailsPanel.setVisible(true);
-                detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                 if (productsList.getValueIsAdjusting()) {
 
@@ -327,15 +283,10 @@ public class AdminFrame {
             }
         });
 
-
         productsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                detailsPanel.setBackground(Color.GRAY);
-
-                editProductButton.setVisible(false);
-                deleteProductButton.setVisible(false);
+                detailsPanel.setVisible(false);
 
                 productsList=new JList<>(admin.getProductsNames());
                 productsList.setFont(new Font("Serif",Font.BOLD,16));
@@ -343,20 +294,10 @@ public class AdminFrame {
                 scrollPane.setViewportView(productsList);
                 productsList.setLayoutOrientation(JList.VERTICAL);
 
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
-
                 productsList.addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
-                        editProductButton.setVisible(true);
-                        deleteProductButton.setVisible(true);
                         detailsPanel.setVisible(true);
-                        detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                         if (productsList.getValueIsAdjusting()) {
 
@@ -385,8 +326,14 @@ public class AdminFrame {
             }
         });
 
+        addProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NewProductDialog(admin);
+            }
+        });
 
-        detailsPanel.setBackground(Color.GRAY);
+        detailsPanel.setBackground(Color.lightGray);
 
         spareLabel.setPreferredSize(new Dimension(500,100));
 
@@ -413,7 +360,7 @@ public class AdminFrame {
         productsPanel.add(sparePanel3);
         productsPanel.add(detailsPanel);
 
-        productsPanel.setBackground(Color.GRAY);
+        productsPanel.setBackground(Color.orange);
 
         adminFrame.add(userInfo, BorderLayout.WEST);
         adminFrame.add(searchPanel,BorderLayout.NORTH);
