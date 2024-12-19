@@ -21,9 +21,17 @@ public class Administrator extends User implements Serializable {
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public void addProduct(String title, String description, String category, String subcategory, double price, double qty) throws IOException {
+    public int addProduct(String title, String description, String category, String subcategory, double price, double qty) throws IOException {
+
+        if (title.isBlank() || description.isBlank() || price==0){
+            return 1;
+        }
+
+
         Product product=new Product(title,description,category,subcategory,price,qty);
         util.productsWriter(product);
+
+        return 0;
     }
 
 
