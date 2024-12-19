@@ -81,6 +81,7 @@ public class CustomerFrame {
         localCostLabel.setVisible(false);
         totalCostLabel.setVisible(false);
         updateQtyLabel.setVisible(false);
+        detailsPanel.setVisible(false);
         custFrame.setSize(1280,720);
         custFrame.setLocationRelativeTo(null);
         custFrame.getContentPane().setBackground(Color.orange);
@@ -165,7 +166,7 @@ public class CustomerFrame {
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                detailsPanel.setVisible(true);
+                detailsPanel.setVisible(false);
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
                 if (cust.getShoppingCart().isEmpty()) {
@@ -179,16 +180,10 @@ public class CustomerFrame {
                     deleteButton.setVisible(false);
                     unit.setVisible(false);
                     localCostLabel.setVisible(false);
+                    detailsPanel.setVisible(false);
                     totalCostLabel.setVisible(true);
                     confirmOrderButton.setVisible(true);
-                    detailsPanel.setBackground(Color.GRAY);
 
-                    productTitle.setText("");
-                    productDetails.setText("");
-                    productCategory.setText("");
-                    productSubcategory.setText("");
-                    productPrice.setText("");
-                    productQty.setText("");
 
                     HashMap<Product, Double> shoppingCart = cust.getShoppingCart();
                     int i = 0;
@@ -213,6 +208,7 @@ public class CustomerFrame {
                             deleteButton.setVisible(true);
                             updateButton.setVisible(true);
                             qtySpinner.setVisible(true);
+                            detailsPanel.setVisible(true);
                             detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                             if (productsList.getValueIsAdjusting()) {
@@ -260,15 +256,7 @@ public class CustomerFrame {
                 localCostLabel.setVisible(false);
                 totalCostLabel.setVisible(false);
                 confirmOrderButton.setVisible(false);
-                detailsPanel.setVisible(true);
-                detailsPanel.setBackground(Color.GRAY);
-
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
+                detailsPanel.setVisible(false);
 
                 String[] products=cust.getProductsNames();
 
@@ -296,6 +284,7 @@ public class CustomerFrame {
                         }
                         qtySpinner.setVisible(true);
                         unit.setVisible(true);
+                        detailsPanel.setVisible(true);
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                         if (productsList.getValueIsAdjusting()) {
@@ -406,15 +395,7 @@ public class CustomerFrame {
                     localCostLabel.setVisible(false);
                     totalCostLabel.setVisible(false);
                     confirmOrderButton.setVisible(false);
-                    detailsPanel.setVisible(true);
-                    detailsPanel.setBackground(Color.GRAY);
-
-                    productTitle.setText("");
-                    productDetails.setText("");
-                    productCategory.setText("");
-                    productSubcategory.setText("");
-                    productPrice.setText("");
-                    productQty.setText("");
+                    detailsPanel.setVisible(false);
 
 
                     productsList = new JList<>(sR);
@@ -439,6 +420,7 @@ public class CustomerFrame {
                             }
                             qtySpinner.setVisible(true);
                             unit.setVisible(true);
+                            detailsPanel.setVisible(true);
                             detailsPanel.setBackground(Color.LIGHT_GRAY);
 
                             if (productsList.getValueIsAdjusting()) {
@@ -538,9 +520,9 @@ public class CustomerFrame {
         productQty.setFont(new Font("Serif",Font.BOLD,18));
 
         sparePanel2.setPreferredSize(new Dimension(2500,50));
-        sparePanel2.setBackground(Color.GRAY);
+        sparePanel2.setBackground(Color.orange);
         sparePanel3.setPreferredSize(new Dimension(30,custFrame.getHeight()-200));
-        sparePanel3.setBackground(Color.GRAY);
+        sparePanel3.setBackground(Color.orange);
 
         scrollPane.setViewportView(productsList);
         productsList.setLayoutOrientation(JList.VERTICAL);
@@ -615,8 +597,6 @@ public class CustomerFrame {
 
         spareLabel.setPreferredSize(new Dimension(500,100));
 
-        detailsPanel.setBackground(Color.GRAY);
-
         qtySpinner.setPreferredSize(new Dimension(60,40));
         qtySpinner.setFont(new Font("Serif",Font.BOLD,20));
 
@@ -670,8 +650,8 @@ public class CustomerFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cust.removeFromCart(productsList.getSelectedValue());
-                totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
+                totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
                 int i = 0;
                 pro = new String[cust.getShoppingCart().keySet().size()];
@@ -695,7 +675,8 @@ public class CustomerFrame {
                         deleteButton.setVisible(true);
                         updateButton.setVisible(true);
                         qtySpinner.setVisible(true);
-                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+                        detailsPanel.setVisible(true);
+
                         if (productsList.getValueIsAdjusting()) {
 
                             String selectedProduct = productsList.getSelectedValue();
@@ -735,14 +716,8 @@ public class CustomerFrame {
                 unit.setVisible(false);
                 localCostLabel.setVisible(false);
                 deleteButton.setVisible(false);
-                detailsPanel.setBackground(Color.GRAY);
+                detailsPanel.setVisible(false);
 
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
                 if (cust.getShoppingCart().isEmpty()){
                     confirmOrderButton.setVisible(false);
                     new EmptyCartDialog();
@@ -769,15 +744,7 @@ public class CustomerFrame {
                 localCostLabel.setVisible(false);
                 totalCostLabel.setVisible(false);
                 confirmOrderButton.setVisible(false);
-                detailsPanel.setVisible(true);
-                detailsPanel.setBackground(Color.GRAY);
-
-                productTitle.setText("");
-                productDetails.setText("");
-                productCategory.setText("");
-                productSubcategory.setText("");
-                productPrice.setText("");
-                productQty.setText("");
+                detailsPanel.setVisible(false);
 
                 String[] products=cust.getProductsNames();
 
@@ -806,7 +773,7 @@ public class CustomerFrame {
                         }
                         qtySpinner.setVisible(true);
                         unit.setVisible(true);
-                        detailsPanel.setBackground(Color.LIGHT_GRAY);
+                        detailsPanel.setVisible(true);
 
                         if (productsList.getValueIsAdjusting()) {
 
@@ -871,7 +838,7 @@ public class CustomerFrame {
         productsPanel.add(sparePanel3);
         productsPanel.add(detailsPanel);
 
-        productsPanel.setBackground(Color.GRAY);
+        productsPanel.setBackground(Color.orange);
 
         southPanel.add(totalCostLabel);
         southPanel.add(confirmOrderButton);
