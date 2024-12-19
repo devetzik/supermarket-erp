@@ -246,14 +246,6 @@ public class CustomerFrame {
         productsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                upLabel.setText("Όλα τα προϊόντα");
-                deleteButton.setVisible(false);
-                addToCartButton.setVisible(false);
-                qtySpinner.setVisible(false);
-                updateButton.setVisible(false);
-                updateQtyLabel.setVisible(false);
-                unit.setVisible(false);
-                localCostLabel.setVisible(false);
                 totalCostLabel.setVisible(false);
                 confirmOrderButton.setVisible(false);
                 detailsPanel.setVisible(false);
@@ -282,8 +274,6 @@ public class CustomerFrame {
                             deleteButton.setVisible(false);
                             localCostLabel.setVisible(false);
                         }
-                        qtySpinner.setVisible(true);
-                        unit.setVisible(true);
                         detailsPanel.setVisible(true);
                         detailsPanel.setBackground(Color.LIGHT_GRAY);
 
@@ -386,13 +376,7 @@ public class CustomerFrame {
                     new NoSearchResultsDialog();
                 }else {
                     upLabel.setText("Αποτελέσματα αναζήτησης");
-                    deleteButton.setVisible(false);
-                    addToCartButton.setVisible(false);
-                    qtySpinner.setVisible(false);
-                    updateButton.setVisible(false);
-                    updateQtyLabel.setVisible(false);
-                    unit.setVisible(false);
-                    localCostLabel.setVisible(false);
+
                     totalCostLabel.setVisible(false);
                     confirmOrderButton.setVisible(false);
                     detailsPanel.setVisible(false);
@@ -418,8 +402,7 @@ public class CustomerFrame {
                                 updateQtyLabel.setVisible(false);
                                 localCostLabel.setVisible(false);
                             }
-                            qtySpinner.setVisible(true);
-                            unit.setVisible(true);
+
                             detailsPanel.setVisible(true);
                             detailsPanel.setBackground(Color.LIGHT_GRAY);
 
@@ -594,7 +577,6 @@ public class CustomerFrame {
             }
         });
 
-
         spareLabel.setPreferredSize(new Dimension(500,100));
 
         qtySpinner.setPreferredSize(new Dimension(60,40));
@@ -661,7 +643,6 @@ public class CustomerFrame {
                 }
                 productsList = new JList<>(pro);
                 productsList.setFont(new Font("Serif", Font.BOLD, 16));
-
 
                 scrollPane.setViewportView(productsList);
                 productsList.setLayoutOrientation(JList.VERTICAL);

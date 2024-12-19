@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="admin ++ search">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="admin ++ noInv&#10;cust changes">
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734549487954</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="admin ++ noInv&#10;cust changes">
+      <created>1734612201964</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1734612201964</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -325,7 +331,8 @@
     <MESSAGE value="CUST FINAL &lt;3" />
     <MESSAGE value="ready b4AdminFrame" />
     <MESSAGE value="admin ++ search" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin ++ search" />
+    <MESSAGE value="admin ++ noInv&#10;cust changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin ++ noInv&#10;cust changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
