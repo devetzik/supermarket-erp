@@ -43,7 +43,6 @@ public class AdminFrame {
     private static String [] categories;
     private static String [] subcategories;
     private static Administrator admin;
-
     private static JLabel productTitle=new JLabel();
     private static JLabel productDetails=new JLabel();
     private static JLabel productCategory=new JLabel();
@@ -117,6 +116,17 @@ public class AdminFrame {
             }
         });
 
+        noInventoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (admin.noInvProducts()==null){
+                    new NoNoInvProductsDialog();
+                }else {
+                    new NoInvProductsDialog(admin.noInvProducts());
+                }
+            }
+        });
+
         userInfo.setPreferredSize(new Dimension(170,900));
         sparePanel.setPreferredSize(new Dimension(160,50));
         sparePanel2.setPreferredSize(new Dimension(160,50));
@@ -133,6 +143,8 @@ public class AdminFrame {
         userInfo.add(noInventoryButton);
         userInfo.add(mostSoldButton);
         userInfo.setBackground(Color.orange);
+
+
 
 
         searchLabel.setFont(new Font("Serif",Font.BOLD,14));

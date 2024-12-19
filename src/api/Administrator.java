@@ -45,10 +45,12 @@ public class Administrator extends User implements Serializable {
             }
         }
         if (counter>0) {
+            int x=-1;
             String[] noInv = new String[counter];
-            for (int i = 0; i < products.size(); i++) {
-                if (products.get(i).getQty() == 0) {
-                    noInv[i] = products.get(i).getTitle();
+            for (Product i: products){
+                if (i.getQty()==0){
+                    x++;
+                    noInv[x]=i.getTitle();
                 }
             }
             return noInv;
