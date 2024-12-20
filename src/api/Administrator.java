@@ -1,5 +1,7 @@
 package api;
+import javax.swing.text.MaskFormatter;
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -21,23 +23,36 @@ public class Administrator extends User implements Serializable {
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public int addProduct(String title, String description, String category, String subcategory, double price, double qty) throws IOException {
+    public int CheckAddProduct(String title, String description, String category, String subcategory, double price, double qty) throws IOException {
         if (title.isBlank() || description.isBlank() || price==0){
             return 1;
         }
 
-        Product product=new Product(title,description,category,subcategory,price,qty);
-        util.productsWriter(product);
+
 
         return 0;
     }
 
+    public void addProduct(String title, String description, String category, String subcategory, double price, double qty){
+        Product product=new Product(title,description,category,subcategory,price,qty);
+        try {
+            util.productsWriter(product);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    public void editProduct(Product product,String title, String description, String category, String subcategory, double price, double qty) throws IOException {
+
+    public int editProduct(Product product,String title, String description, String category, String subcategory, double price, double qty) throws IOException {
+        if (title.isBlank() || description.isBlank() || price==0){
+            return 1;
+        }
+
         Product newP= new Product(title, description, category, subcategory, price, qty);
 
         util.productsWriter(newP);
         util.productsRemover(product);
+        return 0;
     }
 
     public String[] noInvProducts(){
@@ -92,5 +107,16 @@ public class Administrator extends User implements Serializable {
                 ? o2.getKey().compareTo(o1.getKey())
                 : o2.getValue().compareTo(o1.getValue()));
         return list.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> b, LinkedHashMap::new));
+    }
+
+    public static MaskFormatter getMaskFormatter(String format) {
+        MaskFormatter mask = null;
+        try {
+            mask = new MaskFormatter(format);
+            mask.setPlaceholderCharacter('0');
+        }catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return mask;
     }
 }

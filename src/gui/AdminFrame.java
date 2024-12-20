@@ -2,6 +2,7 @@ package gui;
 
 import api.Administrator;
 import api.Product;
+import api.Utilities;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -15,9 +16,8 @@ import java.io.IOException;
 
 import static gui.Main.frame;
 
-
 public class AdminFrame {
-
+    private Utilities util=new Utilities();
     private static JFrame adminFrame=new JFrame("Supermarket e-shop Administrator Console");
     private static JPanel userInfo=new JPanel();
     private static final JButton editProductButton=new JButton("Επεξεργασία");
@@ -226,6 +226,59 @@ public class AdminFrame {
             }
         });
 
+        deleteProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    util.productsRemover(admin.getProduct(productsList.getSelectedValue()));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                admin.setProducts();
+
+                new ProductDeletedDialog();
+
+                detailsPanel.setVisible(false);
+
+                productsList = new JList<>(admin.getProductsNames());
+                productsList.setFont(new Font("Serif", Font.BOLD, 16));
+
+                scrollPane.setViewportView(productsList);
+                productsList.setLayoutOrientation(JList.VERTICAL);
+
+                productsList.addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        detailsPanel.setVisible(true);
+
+                        if (productsList.getValueIsAdjusting()) {
+                            String selectedProduct = productsList.getSelectedValue();
+
+                            Product product = admin.getProduct(selectedProduct);
+
+                            productTitle.setText(product.getTitle());
+                            productDetails.setText(product.getDescription());
+                            productCategory.setText("Κατηγορία: " + product.getCategory());
+                            productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
+                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                            } else {
+                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        editProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EditProductDialog(admin,admin.getProduct(productsList.getSelectedValue()));
+            }
+        });
+
         scrollPane.setPreferredSize(new Dimension(400, adminFrame.getHeight() - 200));
 
         detailsPanel.setPreferredSize(new Dimension(530,adminFrame.getHeight()-200));
@@ -332,6 +385,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 new NewProductDialog(admin);
             }
+
         });
 
         detailsPanel.setBackground(Color.lightGray);

@@ -1,19 +1,15 @@
 package gui;
 
 import api.Administrator;
-import api.User;
 
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.text.ParseException;
+
+import static api.Administrator.getMaskFormatter;
 
 public class NewProductDialog {
-
     private static final JLabel titleLabel=new JLabel("            Τίτλος: ");
     private static final JLabel descriptionLabel=new JLabel("     Περιγραφή: ");
     private static final JLabel categoryLabel=new JLabel("     Κατηγορία: ");
@@ -21,7 +17,6 @@ public class NewProductDialog {
     private static final JLabel priceLabel=new JLabel("            Τιμή: ");
     private static final JLabel qtyLabel=new JLabel(" Απόθεμα: ");
     private static JTextField titleTextField=new JTextField();
-    //private static JTextField descriptionTextField=new JTextField();
     private static JTextArea descriptionTextField=new JTextArea();
     private static JComboBox<String> categoryBox=new JComboBox<>();
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
@@ -30,20 +25,19 @@ public class NewProductDialog {
     private static JFormattedTextField doubleQtyTextField=new JFormattedTextField(getMaskFormatter("###.##"));
     private static final JLabel euroLabel=new JLabel("€                            ");
     private static final JLabel unitLabel=new JLabel();
+    private static final JLabel failedLabel=new JLabel("Συμπληρώστε τα κενά πεδία",SwingConstants.CENTER);
     private static final JDialog dialog=new JDialog();
     private static final JPanel panel=new JPanel();
     private static final JButton button=new JButton("Προσθήκη");
 
-
     public NewProductDialog(Administrator admin){
+        failedLabel.setVisible(false);
         dialog.setResizable(false);
         dialog.setLayout(new BorderLayout());
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setTitle("Προσθήκη Νέου Προϊόντος");
         dialog.setSize(420,380);
         dialog.setLocationRelativeTo(null);
-
-
 
         for (String i: admin.getCategories()){
             categoryBox.addItem(i);
@@ -76,7 +70,6 @@ public class NewProductDialog {
             }
         });
 
-
         subcategoryBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +88,6 @@ public class NewProductDialog {
                 }
             }
         });
-
 
 
         titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -118,7 +110,6 @@ public class NewProductDialog {
         titleTextField.setFont(new Font("Times New Roman", Font.BOLD, 16));
         descriptionTextField.setFont(new Font("Times New Roman", Font.BOLD, 16));
 
-
         if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")){
             unitLabel.setText(" kg                     ");
             doubleQtyTextField.setVisible(true);
@@ -133,6 +124,9 @@ public class NewProductDialog {
 
         button.setFont(new Font("Serif",Font.BOLD,16));
         button.setPreferredSize(new Dimension(120,35));
+
+        failedLabel.setFont(new Font("Serif",Font.BOLD,16));
+        failedLabel.setPreferredSize(new Dimension(400,30));
 
         button.addActionListener(new ActionListener() {
             @Override
@@ -150,19 +144,23 @@ public class NewProductDialog {
                     qty = Double.parseDouble(intQtyTextField.getText());
                 }
                 try {
-                    x= admin.addProduct(title,description,category,subcategory,price,qty);
+                    x= admin.CheckAddProduct(title,description,category,subcategory,price,qty);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                new NewProductResultDialog(x);
+
                 if(x==0){
+                    admin.addProduct(title,description,category,subcategory,price,qty);
                     admin.setProducts();
+                    new NewProductSuccessDialog();
                     titleTextField.setText("");
                     descriptionTextField.setText("");
                     priceTextField.setText("");
                     intQtyTextField.setText("");
                     doubleQtyTextField.setText("");
                     dialog.dispose();
+                }else {
+                    failedLabel.setVisible(true);
                 }
             }
         });
@@ -185,21 +183,9 @@ public class NewProductDialog {
         panel.add(unitLabel);
 
         panel.add(button);
+        panel.add(failedLabel);
 
         dialog.add(panel,BorderLayout.CENTER);
         dialog.setVisible(true);
     }
-
-    private static MaskFormatter getMaskFormatter(String format) {
-        MaskFormatter mask = null;
-        try {
-            mask = new MaskFormatter(format);
-            mask.setPlaceholderCharacter('0');
-        }catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-        return mask;
-    }
-
-
 }
