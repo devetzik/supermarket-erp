@@ -1,17 +1,12 @@
 package gui;
 
 import api.*;
-import gui.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import static gui.CustomerFrame.custFrame;
 
 /**
  * Το πρόγραμμά σας πρέπει να έχει μόνο μία main, η οποία πρέπει να είναι η παρακάτω.
@@ -38,7 +33,7 @@ public class Main implements Serializable,ActionListener {
     private static Utilities util = new Utilities();
     private static User currnentUser;
 
-    public static void main (String[] args) throws IOException, ClassNotFoundException {
+    public static void main (String[] args){
         frame.setTitle("Supermarket e-shop");
         frame.setSize(900, 600);
         frame.setLayout(new BorderLayout());

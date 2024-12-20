@@ -34,7 +34,11 @@ public class OrderHistoryDialog {
         dialog.setResizable(false);
 
         for (int i=0; i<orderHistory.size();i++){
-            str[i]="              #"+(i+1)+ "                      "+ orderHistory.get(i).getDatetime()+"               "+String.format("%.2f",orderHistory.get(i).getTotal())+"€";
+            if (i>8){
+                str[i] = "             #" + (i + 1) + "                     " + orderHistory.get(i).getDatetime() + "               " + String.format("%.2f", orderHistory.get(i).getTotal()) + "€";
+            }else {
+                str[i] = "              #" + (i + 1) + "                      " + orderHistory.get(i).getDatetime() + "               " + String.format("%.2f", orderHistory.get(i).getTotal()) + "€";
+            }
         }
 
         ordersList=new JList<>(str);

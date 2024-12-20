@@ -9,7 +9,6 @@ public class Administrator extends User implements Serializable {
     private Utilities util=new Utilities();
     private ArrayList<Product> products=util.productsLoader();
     private ArrayList<Order> orderHistory=util.orderHistoryLoader();
-
     private String [][] cat= util.catLoader();
 
 
@@ -23,11 +22,9 @@ public class Administrator extends User implements Serializable {
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
     public int addProduct(String title, String description, String category, String subcategory, double price, double qty) throws IOException {
-
         if (title.isBlank() || description.isBlank() || price==0){
             return 1;
         }
-
 
         Product product=new Product(title,description,category,subcategory,price,qty);
         util.productsWriter(product);
@@ -42,9 +39,6 @@ public class Administrator extends User implements Serializable {
         util.productsWriter(newP);
         util.productsRemover(product);
     }
-
-
-
 
     public String[] noInvProducts(){
         int counter=0;
@@ -86,23 +80,17 @@ public class Administrator extends User implements Serializable {
             }
         }
 
-        HashMap<String,Integer> sM= sortByValue(sales,false);
-
-
-        return sM;
+        return sortByValue(sales,false);
     }
 
-    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order)
-    {
+    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order) {
         List<Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
-        // Sorting the list based on values
         list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
                 ? o1.getKey().compareTo(o2.getKey())
                 : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
                 ? o2.getKey().compareTo(o1.getKey())
                 : o2.getValue().compareTo(o1.getValue()));
         return list.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> b, LinkedHashMap::new));
-
     }
 }

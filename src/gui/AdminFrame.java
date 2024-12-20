@@ -38,10 +38,8 @@ public class AdminFrame {
     private static final JLabel titleLabel=new JLabel("Τίτλος");
     private static final JLabel categoryLabel=new JLabel("Κατηγορία");
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία");
-    private static JComboBox<String> categoryBox;
+    private static JComboBox<String> categoryBox=new JComboBox<>();
     private static JComboBox<String> subcategoryBox=new JComboBox<>();
-    private static String [] categories;
-    private static String [] subcategories;
     private static Administrator admin;
     private static JLabel productTitle=new JLabel();
     private static JLabel productDetails=new JLabel();
@@ -56,10 +54,9 @@ public class AdminFrame {
     private static final JPanel detailsPanel=new JPanel();
     private static final JPanel productsPanel=new JPanel();
     private static JList<String> productsList;
-    private static JScrollPane scrollPane;
+    private static JScrollPane scrollPane=new JScrollPane();
 
     public AdminFrame(Administrator administrator){
-        scrollPane=new JScrollPane();
         detailsPanel.setVisible(false);
 
         admin=administrator;
@@ -72,9 +69,7 @@ public class AdminFrame {
             public void windowClosing(WindowEvent e) {
                 adminFrame.dispose();
                 frame.setVisible(true);
-                scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
-                categoryBox.setVisible(false);
                 detailsPanel.setVisible(false);
             }
         });
@@ -94,9 +89,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 adminFrame.dispose();
                 frame.setVisible(true);
-                scrollPane.setVisible(false);
                 searchPanel.setVisible(false);
-                categoryBox.setVisible(false);
                 detailsPanel.setVisible(false);
             }
         });
@@ -147,8 +140,9 @@ public class AdminFrame {
         searchTextField.setPreferredSize(new Dimension(200,25));
         searchButton.setPreferredSize(new Dimension(100,25));
 
-        categories= admin.getCategories();
-        categoryBox=new JComboBox<>(categories);
+        for (String i: admin.getCategories()){
+            categoryBox.addItem(i);
+        }
 
         categoryBox.setPreferredSize(new Dimension(200,25));
         subcategoryBox.setPreferredSize(new Dimension(200,25));
@@ -159,9 +153,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    subcategories= admin.getSubcategories(categoryBox.getSelectedItem().toString());
-
-                    for (String i:subcategories){
+                    for (String i:admin.getSubcategories(categoryBox.getSelectedItem().toString())){
                         subcategoryBox.addItem(i);
                     }
                 }else {
@@ -194,7 +186,6 @@ public class AdminFrame {
                     throw new RuntimeException(ex);
                 }
 
-
                 if (sR == null) {
                     new NoSearchResultsDialog();
                 } else {
@@ -214,7 +205,6 @@ public class AdminFrame {
                             detailsPanel.setVisible(true);
 
                             if (productsList.getValueIsAdjusting()) {
-
                                 String selectedProduct = productsList.getSelectedValue();
 
                                 Product product = admin.getProduct(selectedProduct);

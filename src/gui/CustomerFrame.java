@@ -19,9 +19,8 @@ import java.util.Locale;
 
 import static gui.Main.frame;
 
-
 public class CustomerFrame {
-    static final JFrame custFrame=new JFrame("Supermarket e-shop Customer Console");
+    private static final JFrame custFrame=new JFrame("Supermarket e-shop Customer Console");
     private static final JLabel username=new JLabel();
     private static final JLabel fName=new JLabel();
     private static final JLabel lName=new JLabel();
@@ -145,7 +144,6 @@ public class CustomerFrame {
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                detailsPanel.setVisible(false);
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
 
                 if (cust.getShoppingCart().isEmpty()) {
@@ -473,17 +471,14 @@ public class CustomerFrame {
 
         scrollPane.setViewportView(productsList);
         productsList.setLayoutOrientation(JList.VERTICAL);
-        addToCartButton.setVisible(false);
-        qtySpinner.setVisible(false);
+        addToCartButton.setVisible(true);
+        qtySpinner.setVisible(true);
+        unit.setVisible(true);
+
         productsList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                addToCartButton.setVisible(true);
-                updateQtyLabel.setVisible(true);
 
-                unit.setVisible(true);
-
-                qtySpinner.setVisible(true);
                 detailsPanel.setVisible(true);
                 detailsPanel.setBackground(Color.LIGHT_GRAY);
 
@@ -546,7 +541,6 @@ public class CustomerFrame {
         qtySpinner.setPreferredSize(new Dimension(60,40));
         qtySpinner.setFont(new Font("Serif",Font.BOLD,20));
 
-        unit.setVisible(false);
         unit.setFont(new Font("Serif",Font.BOLD,16));
         unit.setPreferredSize(new Dimension(40,40));
 
@@ -595,6 +589,7 @@ public class CustomerFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                detailsPanel.setVisible(false);
                 cust.removeFromCart(productsList.getSelectedValue());
 
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.valueOf(String.format("%.2f",cust.getTotal()))+"€");
@@ -614,12 +609,7 @@ public class CustomerFrame {
                 productsList.addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
-                        unit.setVisible(true);
-                        localCostLabel.setVisible(true);
-                        updateQtyLabel.setVisible(true);
-                        deleteButton.setVisible(true);
-                        updateButton.setVisible(true);
-                        qtySpinner.setVisible(true);
+
                         detailsPanel.setVisible(true);
 
                         if (productsList.getValueIsAdjusting()) {
@@ -630,11 +620,11 @@ public class CustomerFrame {
                             if(product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
                                 unit.setText("kg");
                                 qtySpinner.setModel(doubleModel);
-                                doubleModel.setValue(0.0);
+                                doubleModel.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             }else {
                                 unit.setText("τμχ.");
                                 qtySpinner.setModel(intModel);
-                                intModel.setValue(0.0);
+                                intModel.setValue(cust.getShoppingCart().get(cust.getProduct(productsList.getSelectedValue())));
                             }
 
                             productTitle.setText(product.getTitle());
@@ -654,15 +644,6 @@ public class CustomerFrame {
                     }
                 });
 
-                addToCartButton.setVisible(false);
-                qtySpinner.setVisible(false);
-                updateQtyLabel.setVisible(false);
-                updateButton.setVisible(false);
-                unit.setVisible(false);
-                localCostLabel.setVisible(false);
-                deleteButton.setVisible(false);
-                detailsPanel.setVisible(false);
-
                 if (cust.getShoppingCart().isEmpty()){
                     confirmOrderButton.setVisible(false);
                     new EmptyCartDialog();
@@ -680,13 +661,7 @@ public class CustomerFrame {
                 }
 
                 upLabel.setText("Όλα τα προϊόντα");
-                deleteButton.setVisible(false);
-                addToCartButton.setVisible(false);
-                qtySpinner.setVisible(false);
-                updateButton.setVisible(false);
-                updateQtyLabel.setVisible(false);
-                unit.setVisible(false);
-                localCostLabel.setVisible(false);
+
                 totalCostLabel.setVisible(false);
                 confirmOrderButton.setVisible(false);
                 detailsPanel.setVisible(false);
@@ -716,8 +691,7 @@ public class CustomerFrame {
                             deleteButton.setVisible(false);
                             localCostLabel.setVisible(false);
                         }
-                        qtySpinner.setVisible(true);
-                        unit.setVisible(true);
+
                         detailsPanel.setVisible(true);
 
                         if (productsList.getValueIsAdjusting()) {
