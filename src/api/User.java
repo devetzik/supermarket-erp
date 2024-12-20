@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class User implements Serializable {
-
-    Utilities util = new Utilities();
+    private Utilities util = new Utilities();
     private String username, password;
     private String[][] cat = util.catLoader();
     private ArrayList<Product> products = util.productsLoader();
@@ -68,9 +67,6 @@ public abstract class User implements Serializable {
             return sR;
         }
     }
-
-
-
 
     public String getUsername(){
         return username;

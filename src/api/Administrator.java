@@ -1,14 +1,15 @@
 package api;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
 
 public class Administrator extends User implements Serializable {
     private Utilities util=new Utilities();
     private ArrayList<Product> products=util.productsLoader();
     private ArrayList<Order> orderHistory=util.orderHistoryLoader();
-    private HashMap<String, Integer> sales;
+
     private String [][] cat= util.catLoader();
 
 
@@ -66,19 +67,42 @@ public class Administrator extends User implements Serializable {
         return null;
     }
 
-    public void adminStats() throws IOException {
-        if (orderHistory.isEmpty()){
-            System.out.println("Δεν υπάρχουν δεδομένα");
-        }else {
-            for (Order i : orderHistory) {
-                for (int j = 0; j < i.getPr().length; j++) {
-                    if (sales.containsKey(i.getPr()[j][0])) {
-                        sales.put(i.getPr()[j][0], sales.get(i.getPr()[j][0] + 1));
-                    } else {
-                        sales.put(i.getPr()[j][0], 1);
-                    }
+    public HashMap <String,Integer> mostSold() throws IOException {
+        HashMap<String, Integer> sales=new HashMap<>();
+        HashMap<String, Integer> tmp=new HashMap<>();
+        for (Order i : orderHistory) {
+            for (int j = 0; j < i.getPr().length; j++) {
+                if (tmp.containsKey(i.getPr()[j][0])) {
+                    tmp.put(i.getPr()[j][0], tmp.get(i.getPr()[j][0])+1);
+                } else {
+                    tmp.put(i.getPr()[j][0], 1);
                 }
             }
         }
+
+        for (String i : tmp.keySet()){
+            if (i!=null){
+                sales.put(i,tmp.get(i));
+            }
+        }
+
+        HashMap<String,Integer> sM= sortByValue(sales,false);
+
+
+        return sM;
+    }
+
+    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order)
+    {
+        List<Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
+
+        // Sorting the list based on values
+        list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
+                ? o1.getKey().compareTo(o2.getKey())
+                : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
+                ? o2.getKey().compareTo(o1.getKey())
+                : o2.getValue().compareTo(o1.getValue()));
+        return list.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> b, LinkedHashMap::new));
+
     }
 }

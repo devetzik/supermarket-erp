@@ -8,10 +8,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
+    private Utilities util=new Utilities();
     private String fName, lName;
     private static HashMap<Product, Double> shoppingCart = new HashMap<>();
     private ArrayList<Product> products= util.productsLoader();
     private String[][] pr =new String[products.size()][products.size()];
+
 
     // Κατασκευαστής του αντικειμένου api.Customer
 

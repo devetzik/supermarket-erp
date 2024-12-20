@@ -112,6 +112,17 @@ public class AdminFrame {
             }
         });
 
+        mostSoldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new MostSoldDialog(admin.mostSold());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
         userInfo.setPreferredSize(new Dimension(170,900));
         sparePanel.setPreferredSize(new Dimension(160,50));
         sparePanel2.setPreferredSize(new Dimension(160,50));
