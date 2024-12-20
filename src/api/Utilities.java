@@ -36,14 +36,47 @@ public class Utilities {
 
     public ArrayList<Product> productsLoader() throws IOException {
         ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Product> tmp=new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("products.txt"));
         String line;
         while ((line = reader.readLine()) != null) {
             String[] s = line.split(";");
-            products.add(new Product(s[0], s[1], s[2], s[3], Double.parseDouble(s[4]), Double.parseDouble(s[5])));
+            Product p=new Product(s[0], s[1], s[2], s[3], Double.parseDouble(s[4]), Double.parseDouble(s[5]));
+            tmp.add(p);
         }
+        boolean flag;
+        for (int i=0;i< tmp.size();i++){
+            flag=true;
+                for (int j=0;j< products.size();j++){
+                    if (products.get(j).getTitle().equals(tmp.get(i).getTitle())){
+                        flag=false;
+                    }
+                }
+                if (flag){
+                    products.add(tmp.get(i));
+                }
+            }
         reader.close();
         return products;
+    }
+
+    public void productsWriter(Product product) throws IOException {
+        ArrayList<Product> products = new ArrayList<>();
+        Product tmp;
+        BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
+        String line;
+        boolean flag=true;
+        products=productsLoader();
+        for (int i=0;i< products.size();i++){
+            tmp=products.get(i);
+            if (tmp.getTitle().equals(product.getTitle()) && tmp.getCategory().equals(product.getCategory()) && tmp.getSubcategory().equals(product.getSubcategory()) && tmp.getPrice()==product.getPrice() && tmp.getQty()==tmp.getQty()){
+                flag=false;
+            }
+        }
+        if (flag){
+            writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+ String.format("%.1f",product.getQty())+"\n");
+        }
+        writer.close();
     }
 
     public void productsRemover (Product product) throws IOException {
@@ -69,12 +102,6 @@ public class Utilities {
         r.close();
         w.close();
         new FileWriter("tmp.txt",false).close();
-    }
-
-    public void productsWriter(Product product) throws IOException {
-        BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
-        writer.append(product.getTitle()+";"+product.getDescription()+";"+product.getCategory()+";"+product.getSubcategory()+";"+product.getPrice()+";"+ String.format("%.1f",product.getQty())+"\n");
-        writer.close();
     }
 
     public String[][] catLoader() throws IOException {

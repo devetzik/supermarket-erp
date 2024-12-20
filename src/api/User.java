@@ -138,4 +138,12 @@ public abstract class User implements Serializable {
         }
         return product;
     }
+
+    public void setProducts(){
+        try {
+            products=util.productsLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

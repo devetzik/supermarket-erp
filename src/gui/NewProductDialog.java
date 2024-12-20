@@ -29,9 +29,9 @@ public class NewProductDialog {
     private static JFormattedTextField intQtyTextField=new JFormattedTextField(getMaskFormatter("###"));
     private static JFormattedTextField doubleQtyTextField=new JFormattedTextField(getMaskFormatter("###.##"));
     private static final JLabel euroLabel=new JLabel("€                            ");
-    private static JLabel unitLabel=new JLabel();
-    private static JDialog dialog=new JDialog();
-    private static JPanel panel=new JPanel();
+    private static final JLabel unitLabel=new JLabel();
+    private static final JDialog dialog=new JDialog();
+    private static final JPanel panel=new JPanel();
     private static final JButton button=new JButton("Προσθήκη");
 
 
@@ -137,6 +137,7 @@ public class NewProductDialog {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int x;
                 String title= titleTextField.getText();
                 String description= descriptionTextField.getText();
                 String category= categoryBox.getSelectedItem().toString();
@@ -149,9 +150,19 @@ public class NewProductDialog {
                     qty = Double.parseDouble(intQtyTextField.getText());
                 }
                 try {
-                    new NewProductResultDialog(admin.addProduct(title,description,category,subcategory,price,qty));
+                    x= admin.addProduct(title,description,category,subcategory,price,qty);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
+                }
+                new NewProductResultDialog(x);
+                if(x==0){
+                    admin.setProducts();
+                    titleTextField.setText("");
+                    descriptionTextField.setText("");
+                    priceTextField.setText("");
+                    intQtyTextField.setText("");
+                    doubleQtyTextField.setText("");
+                    dialog.dispose();
                 }
             }
         });
