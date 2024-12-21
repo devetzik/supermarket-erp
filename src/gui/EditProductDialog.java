@@ -9,24 +9,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Objects;
 
 import static api.Administrator.getMaskFormatter;
 
 public class EditProductDialog {
-    private Utilities util=new Utilities();
     private static final JLabel titleLabel=new JLabel("            Τίτλος: ");
     private static final JLabel descriptionLabel=new JLabel("     Περιγραφή: ");
     private static final JLabel categoryLabel=new JLabel("     Κατηγορία: ");
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία: ");
     private static final JLabel priceLabel=new JLabel("            Τιμή: ");
     private static final JLabel qtyLabel=new JLabel(" Απόθεμα: ");
-    private static JTextField titleTextField=new JTextField();
-    private static JTextArea descriptionTextField=new JTextArea();
-    private static JComboBox<String> categoryBox=new JComboBox<>();
-    private static JComboBox<String> subcategoryBox=new JComboBox<>();
-    private static JFormattedTextField priceTextField=new JFormattedTextField(getMaskFormatter("##.##"));
-    private static JFormattedTextField intQtyTextField=new JFormattedTextField(getMaskFormatter("###"));
-    private static JFormattedTextField doubleQtyTextField=new JFormattedTextField(getMaskFormatter("###.##"));
+    private static final JTextField titleTextField=new JTextField();
+    private static final JTextArea descriptionTextField=new JTextArea();
+    private static final JComboBox<String> categoryBox=new JComboBox<>();
+    private static final JComboBox<String> subcategoryBox=new JComboBox<>();
+    private static final JFormattedTextField priceTextField=new JFormattedTextField(getMaskFormatter("##.##"));
+    private static final JFormattedTextField intQtyTextField=new JFormattedTextField(getMaskFormatter("###"));
+    private static final JFormattedTextField doubleQtyTextField=new JFormattedTextField(getMaskFormatter("###.##"));
     private static final JLabel euroLabel=new JLabel("€                            ");
     private static final JLabel unitLabel=new JLabel();
     private static final JDialog dialog=new JDialog();
@@ -43,25 +43,13 @@ public class EditProductDialog {
         dialog.setSize(420,380);
         dialog.setLocationRelativeTo(null);
 
-        titleTextField.setText(product.getTitle());
-        descriptionTextField.setText(product.getDescription());
-        priceTextField.setText(String.valueOf(product.getPrice()));
-        categoryBox.setSelectedItem(product.getCategory());
-        subcategoryBox.setSelectedItem(product.getSubcategory());
-        if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
-            doubleQtyTextField.setText(String.valueOf(product.getQty()));
-
-        }else {
-            intQtyTextField.setText(String.valueOf(product.getQty()));
-        }
-
 
         for (String i: admin.getCategories()){
             categoryBox.addItem(i);
         }
         categoryBox.removeItem("Όλες οι κατηγορίες");
 
-        for (String i : admin.getSubcategories(categoryBox.getSelectedItem().toString())) {
+        for (String i : admin.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())) {
             subcategoryBox.addItem(i);
         }
         subcategoryBox.removeItem("Όλες οι υποκατηγορίες");
@@ -75,7 +63,7 @@ public class EditProductDialog {
                 }
                 subcategoryBox.removeItem("Όλες οι υποκατηγορίες");
 
-                if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")){
+                if (Objects.equals(subcategoryBox.getSelectedItem(), "Φρούτα") || Objects.equals(subcategoryBox.getSelectedItem(), "Λαχανικά")){
                     unitLabel.setText(" kg                     ");
                     doubleQtyTextField.setVisible(true);
                     intQtyTextField.setVisible(false);
@@ -91,7 +79,7 @@ public class EditProductDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (categoryBox.getSelectedItem().equals("Φρέσκα τρόφιμα")) {
-                    if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")) {
+                    if (Objects.equals(subcategoryBox.getSelectedItem(), "Φρούτα") || Objects.equals(subcategoryBox.getSelectedItem(), "Λαχανικά")) {
                         unitLabel.setText(" kg                     ");
                         doubleQtyTextField.setVisible(true);
                         intQtyTextField.setVisible(false);
@@ -100,12 +88,25 @@ public class EditProductDialog {
                         intQtyTextField.setVisible(true);
                         doubleQtyTextField.setVisible(false);
                     }
-
-
                 }
             }
         });
 
+        titleTextField.setText(product.getTitle());
+        descriptionTextField.setText(product.getDescription());
+        categoryBox.setSelectedItem(product.getCategory());
+        subcategoryBox.setSelectedItem(product.getSubcategory());
+        if (product.getPrice()>=10) {
+            priceTextField.setText(String.valueOf(product.getPrice()));
+        }else {
+            priceTextField.setText("0"+String.valueOf(product.getPrice()));
+        }
+        if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
+            doubleQtyTextField.setText(String.valueOf(product.getQty()));
+
+        }else {
+            intQtyTextField.setText(String.valueOf(product.getQty()));
+        }
 
         titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
         descriptionLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -127,7 +128,7 @@ public class EditProductDialog {
         titleTextField.setFont(new Font("Times New Roman", Font.BOLD, 16));
         descriptionTextField.setFont(new Font("Times New Roman", Font.BOLD, 16));
 
-        if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")){
+        if (Objects.equals(subcategoryBox.getSelectedItem(), "Φρούτα") || Objects.equals(subcategoryBox.getSelectedItem(), "Λαχανικά")){
             unitLabel.setText(" kg                     ");
             doubleQtyTextField.setVisible(true);
             intQtyTextField.setVisible(false);
@@ -152,7 +153,7 @@ public class EditProductDialog {
                 String title= titleTextField.getText();
                 String description= descriptionTextField.getText();
                 String category= categoryBox.getSelectedItem().toString();
-                String subcategory= subcategoryBox.getSelectedItem().toString();
+                String subcategory= Objects.requireNonNull(subcategoryBox.getSelectedItem()).toString();
                 double price= Double.parseDouble(priceTextField.getText());
                 double qty;
                 if (subcategory.equals("Φρούτα")  || subcategory.equals("Λαχανικά")){
@@ -168,13 +169,13 @@ public class EditProductDialog {
 
                 if(x==0){
                     try {
-                        util.productsRemover(product);
+                        Utilities.productsRemover(product);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                     admin.addProduct(title,description,category,subcategory,price,qty);
                     admin.setProducts();
-                    new NewProductSuccessDialog();
+                    new ProductEditSuccessDialog();
                     dialog.dispose();
                 }else {
                     failedLabel.setVisible(true);

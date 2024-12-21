@@ -2,14 +2,11 @@ package api;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class User implements Serializable {
-    private Utilities util = new Utilities();
     private String username, password;
-    private String[][] cat = util.catLoader();
-    private ArrayList<Product> products = util.productsLoader();
-
+    private String[][] cat = Utilities.catLoader();
+    private ArrayList<Product> products = Utilities.productsLoader();
 
     // Κατασκευαστής αντικειμένου User
 
@@ -137,7 +134,7 @@ public abstract class User implements Serializable {
 
     public void setProducts(){
         try {
-            products=util.productsLoader();
+            products= Utilities.productsLoader();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

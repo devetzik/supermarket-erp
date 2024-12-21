@@ -30,7 +30,6 @@ public class ProductDeletedDialog {
             }
         });
 
-
         panel.add(label);
         panel.add(button);
 

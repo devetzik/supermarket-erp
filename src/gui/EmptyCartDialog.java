@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 
 public class EmptyCartDialog {
 
-    private static JDialog dialog=new JDialog();
+    private static final JDialog dialog=new JDialog();
     private static final JLabel label=new JLabel("Το καλάθι είναι άδειο",SwingConstants.CENTER);
     private static final JButton button=new JButton("OK");
-    private static JPanel panel=new JPanel();
+    private static final JPanel panel=new JPanel();
     public EmptyCartDialog(){
         dialog.setSize(300,150);
         dialog.setLocationRelativeTo(null);

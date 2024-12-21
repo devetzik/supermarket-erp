@@ -1,18 +1,16 @@
 package api;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Customer extends User implements Serializable {
-    private Utilities util=new Utilities();
-    private String fName, lName;
-    private static HashMap<Product, Double> shoppingCart = new HashMap<>();
-    private ArrayList<Product> products= util.productsLoader();
-    private String[][] pr =new String[products.size()][products.size()];
+    private final String fName;
+    private final String lName;
+    private static final HashMap<Product, Double> shoppingCart = new HashMap<>();
+    private final ArrayList<Product> products= Utilities.productsLoader();
+    private final String[][] pr =new String[products.size()][products.size()];
 
 
     // Κατασκευαστής του αντικειμένου api.Customer
@@ -53,14 +51,14 @@ public class Customer extends User implements Serializable {
             k++;
         }
         Order order = new Order(currentUser.getUsername(), pr, LocalDate.now().toString(), getTotal());
-        util.orderWriter(order);
+        Utilities.orderWriter(order);
 
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
 
-            util.productsRemover(i);
-            util.productsWriter(newP);
+            Utilities.productsRemover(i);
+            Utilities.productsWriter(newP);
 
         }
         shoppingCart.clear();
@@ -69,9 +67,9 @@ public class Customer extends User implements Serializable {
 
     // Μέθοδος για την προσπέλαση του ιστορικού παραγγελιών
 
-    public ArrayList viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
+    public ArrayList<Order> viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
         ArrayList<Order> tmp=new ArrayList<>();
-        ArrayList<Order> orderHistory=util. orderHistoryLoader();
+        ArrayList<Order> orderHistory= Utilities. orderHistoryLoader();
         for (Order i : orderHistory) {
             if (i.getUsername().equals(customer.getUsername())) {
                 tmp.add(i);

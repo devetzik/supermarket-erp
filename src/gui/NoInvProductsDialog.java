@@ -1,20 +1,17 @@
 package gui;
 
-import api.Order;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class NoInvProductsDialog {
-    private static JDialog dialog = new JDialog();
+    private static final JDialog dialog = new JDialog();
     private static final JLabel productLabel = new JLabel("Προϊόν", SwingConstants.CENTER);
     private static final JButton closeButton = new JButton("Κλείσιμο");
-    private static JList noInvProductsList;
-    private static JScrollPane scrollPane = new JScrollPane();
-    private static JPanel panel = new JPanel();
+    private static JList<String> noInvProductsList;
+    private static final JScrollPane scrollPane = new JScrollPane();
+    private static final JPanel panel = new JPanel();
 
 
     public NoInvProductsDialog(String[] noInvProducts) {

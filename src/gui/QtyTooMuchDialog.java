@@ -8,11 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class QtyTooMuchDialog {
-
-    private static JDialog dialog=new JDialog();
-    private static JPanel panel=new JPanel();
-    private static JLabel label=new JLabel("Δεν είναι διαθέσιμη η επιλεγμένη ποσότητα. ",SwingConstants.CENTER);
-    private static JLabel label2=new JLabel();
+    private static final JDialog dialog=new JDialog();
+    private static final JPanel panel=new JPanel();
+    private static final JLabel label=new JLabel("Δεν είναι διαθέσιμη η επιλεγμένη ποσότητα. ",SwingConstants.CENTER);
+    private static final JLabel label2=new JLabel();
     private static final JButton button=new JButton("OK");
 
     public QtyTooMuchDialog(Product product){
@@ -34,7 +33,6 @@ public class QtyTooMuchDialog {
             label2.setText("Επιλέξτε ποσότητα μικρότερη από "+ (int)product.getQty()+product.getUnit());
         }
 
-
         button.setPreferredSize(new Dimension(100,30));
 
         button.addActionListener(new ActionListener() {
@@ -44,13 +42,11 @@ public class QtyTooMuchDialog {
             }
         });
 
-
         panel.add(label);
         panel.add(label2);
         panel.add(button);
 
         dialog.add(panel);
         dialog.setVisible(true);
-
     }
 }

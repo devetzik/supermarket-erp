@@ -6,43 +6,49 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginResultDialog {
+    private static final JDialog dialog =new JDialog();
+    private static final JPanel panel =new JPanel();
+    private static final JLabel label =new JLabel("",SwingConstants.CENTER);
+    private static final JButton button =new JButton("OK");
 
-    private static JDialog loginResultDialog=new JDialog();
-    private static JPanel resultPanel=new JPanel();
-    private static JLabel resultLabel=new JLabel();
-    private static JButton ok=new JButton();
     public LoginResultDialog(int result){
+        dialog.setSize(400,150);
+        dialog.setLocationRelativeTo(null);
+        dialog.setLayout(new BorderLayout());
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setResizable(false);
+
         if (result==0){
-            resultLabel.setText("Καλωσήρθατε");
+            dialog.setTitle("Καλωσήρθατε");
+            label.setText("Καλωσήρθατε");
         } else if (result==1) {
-            resultLabel.setText("Λάθος password, προσπαθήστε ξανά");
+            dialog.setTitle("Λάθος password");
+            label.setText("Λάθος password, προσπαθήστε ξανά");
         } else if (result==2) {
-            resultLabel.setText("Δεν βρέθηκε χρήστης με αυτό το username");
+            dialog.setTitle("Μη εγγεγραμμένος χρήστης");
+            label.setText("Δεν βρέθηκε χρήστης με αυτό το username");
         } else if (result==3) {
-            resultLabel.setText("Συμπληρώστε τα κενά πεδία");
+            dialog.setTitle("Κενά πεδία");
+            label.setText("Συμπληρώστε τα κενά πεδία");
         }
-        resultLabel.setFont(new Font("Serif",Font.BOLD,16));
 
-        loginResultDialog.setSize(400,150);
-        loginResultDialog.setLocationRelativeTo(null);
-        loginResultDialog.setLayout(new BorderLayout());
-        loginResultDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        loginResultDialog.setResizable(false);
+        label.setPreferredSize(new Dimension(350,50));
+        label.setFont(new Font("Serif",Font.BOLD,18));
 
-        resultPanel.add(resultLabel);
+        button.setPreferredSize(new Dimension(100,30));
+        button.setFont(new Font("Serif", Font.BOLD, 16));
 
-        ok.setText("OK");
-        ok.setBounds(150,60,100,30);
-        ok.addActionListener(new ActionListener() {
+        button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginResultDialog.dispose();
+                dialog.dispose();
             }
         });
 
-        loginResultDialog.add(ok);
+        panel.add(label);
+        panel.add(button);
 
-        loginResultDialog.add(resultPanel,BorderLayout.CENTER);
-        loginResultDialog.setVisible(true);
+        dialog.add(panel,BorderLayout.CENTER);
+        dialog.setVisible(true);
     }
 }

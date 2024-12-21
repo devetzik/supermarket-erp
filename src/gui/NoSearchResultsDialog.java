@@ -6,12 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NoSearchResultsDialog {
-
     private static final JDialog dialog=new JDialog();
     private static final JPanel panel=new JPanel();
     private static final JLabel label=new JLabel("Δεν βρέθηκαν αποτελέσματα αναζήτησης",SwingConstants.CENTER);
     private static final JButton button=new JButton("OK");
-
 
     public NoSearchResultsDialog(){
         dialog.setLocationRelativeTo(null);

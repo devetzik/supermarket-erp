@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class OrderConfirmedDialog {
-    private static JDialog dialog=new JDialog();
-    private static JPanel panel=new JPanel();
-    private static JLabel label=new JLabel("Η παραγγελία ολοκληρώθηκε με επιτυχία",SwingConstants.CENTER);
+    private static final JDialog dialog=new JDialog();
+    private static final JPanel panel=new JPanel();
+    private static final JLabel label=new JLabel("Η παραγγελία ολοκληρώθηκε με επιτυχία",SwingConstants.CENTER);
     private static final JButton button=new JButton("OK");
 
     public OrderConfirmedDialog(){

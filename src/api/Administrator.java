@@ -8,11 +8,8 @@ import java.util.stream.Collectors;
 
 
 public class Administrator extends User implements Serializable {
-    private Utilities util=new Utilities();
-    private ArrayList<Product> products=util.productsLoader();
-    private ArrayList<Order> orderHistory=util.orderHistoryLoader();
-    private String [][] cat= util.catLoader();
-
+    private ArrayList<Product> products= Utilities.productsLoader();
+    private ArrayList<Order> orderHistory= Utilities.orderHistoryLoader();
 
     // Κατασκευαστής για το αντικείμενο Administrator
 
@@ -28,32 +25,18 @@ public class Administrator extends User implements Serializable {
             return 1;
         }
 
-
-
         return 0;
     }
 
     public void addProduct(String title, String description, String category, String subcategory, double price, double qty){
         Product product=new Product(title,description,category,subcategory,price,qty);
         try {
-            util.productsWriter(product);
+            Utilities.productsWriter(product);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-    public int editProduct(Product product,String title, String description, String category, String subcategory, double price, double qty) throws IOException {
-        if (title.isBlank() || description.isBlank() || price==0){
-            return 1;
-        }
-
-        Product newP= new Product(title, description, category, subcategory, price, qty);
-
-        util.productsWriter(newP);
-        util.productsRemover(product);
-        return 0;
-    }
 
     public String[] noInvProducts(){
         int counter=0;

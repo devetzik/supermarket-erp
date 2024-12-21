@@ -13,13 +13,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.Objects;
 
 import static gui.Main.frame;
 
 public class AdminFrame {
-    private Utilities util=new Utilities();
-    private static JFrame adminFrame=new JFrame("Supermarket e-shop Administrator Console");
-    private static JPanel userInfo=new JPanel();
+    private static final JFrame adminFrame=new JFrame("Supermarket e-shop Administrator Console");
+    private static final JPanel userInfo=new JPanel();
     private static final JButton editProductButton=new JButton("Επεξεργασία");
     private static final JButton deleteProductButton=new JButton("Διαγραφή");
     private static final JButton productsButton=new JButton("Προϊόντα");
@@ -28,33 +28,33 @@ public class AdminFrame {
     private static final JButton addProductButton=new JButton("Νέο προϊόν");
     private static final JButton noInventoryButton=new JButton("Χωρίς Απόθεμα");
     private static final JButton mostSoldButton=new JButton("Πιο Δημοφιλή");
-    private static JTextField searchTextField=new JTextField();
-    private static JPanel searchPanel=new JPanel();
-    private static JPanel sparePanel=new JPanel();
+    private static final JTextField searchTextField=new JTextField();
+    private static final JPanel searchPanel=new JPanel();
+    private static final JPanel sparePanel=new JPanel();
     private static final JPanel sparePanel2=new JPanel();
-    private static JLabel username=new JLabel();
+    private static final JLabel username=new JLabel();
     private static final JLabel statsLabel=new JLabel("Στατιστικά προϊόντων:");
     private static final JLabel searchLabel=new JLabel("Αναζήτηση προϊόντος:                        ");
     private static final JLabel titleLabel=new JLabel("Τίτλος");
     private static final JLabel categoryLabel=new JLabel("Κατηγορία");
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία");
-    private static JComboBox<String> categoryBox=new JComboBox<>();
-    private static JComboBox<String> subcategoryBox=new JComboBox<>();
+    private static final JComboBox<String> categoryBox=new JComboBox<>();
+    private static final JComboBox<String> subcategoryBox=new JComboBox<>();
     private static Administrator admin;
-    private static JLabel productTitle=new JLabel();
-    private static JLabel productDetails=new JLabel();
-    private static JLabel productCategory=new JLabel();
-    private static JLabel productSubcategory=new JLabel();
-    private static JLabel productPrice=new JLabel();
-    private static JLabel productQty=new JLabel();
+    private static final JLabel productTitle=new JLabel();
+    private static final JLabel productDetails=new JLabel();
+    private static final JLabel productCategory=new JLabel();
+    private static final JLabel productSubcategory=new JLabel();
+    private static final JLabel productPrice=new JLabel();
+    private static final JLabel productQty=new JLabel();
     private static final JLabel spareLabel=new JLabel();
     private static final JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
-    private static JLabel unit=new JLabel();
+    private static final JLabel unit=new JLabel();
     private static final JPanel sparePanel3=new JPanel();
     private static final JPanel detailsPanel=new JPanel();
     private static final JPanel productsPanel=new JPanel();
     private static JList<String> productsList;
-    private static JScrollPane scrollPane=new JScrollPane();
+    private static final JScrollPane scrollPane=new JScrollPane();
 
     public AdminFrame(Administrator administrator){
         detailsPanel.setVisible(false);
@@ -153,7 +153,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    for (String i:admin.getSubcategories(categoryBox.getSelectedItem().toString())){
+                    for (String i:admin.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())){
                         subcategoryBox.addItem(i);
                     }
                 }else {
@@ -176,10 +176,10 @@ public class AdminFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String title = searchTextField.getText();
-                String category = categoryBox.getSelectedItem().toString();
-                String subcategory = subcategoryBox.getSelectedItem().toString();
+                String category = Objects.requireNonNull(categoryBox.getSelectedItem()).toString();
+                String subcategory = Objects.requireNonNull(subcategoryBox.getSelectedItem()).toString();
 
-                String[] sR = new String[0];
+                String[] sR;
                 try {
                     sR = admin.productSearch(title, category, subcategory);
                 } catch (IOException ex) {
@@ -213,11 +213,11 @@ public class AdminFrame {
                                 productDetails.setText(product.getDescription());
                                 productCategory.setText("Κατηγορία: " + product.getCategory());
                                 productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
-                                productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                                productPrice.setText("Τιμή: " + product.getPrice() + "0" + "€");
                                 if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                                    productQty.setText("Διαθέσιμο απόθεμα: " + product.getQty() + product.getUnit());
                                 } else {
-                                    productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                    productQty.setText("Διαθέσιμο απόθεμα: " + (int) product.getQty() + product.getUnit());
                                 }
                             }
                         }
@@ -230,7 +230,7 @@ public class AdminFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    util.productsRemover(admin.getProduct(productsList.getSelectedValue()));
+                    Utilities.productsRemover(admin.getProduct(productsList.getSelectedValue()));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -260,11 +260,11 @@ public class AdminFrame {
                             productDetails.setText(product.getDescription());
                             productCategory.setText("Κατηγορία: " + product.getCategory());
                             productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
-                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                            productPrice.setText("Τιμή: " + product.getPrice() + "0" + "€");
                             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                                productQty.setText("Διαθέσιμο απόθεμα: " + product.getQty() + product.getUnit());
                             } else {
-                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                productQty.setText("Διαθέσιμο απόθεμα: " + (int) product.getQty() + product.getUnit());
                             }
                         }
                     }
@@ -327,11 +327,11 @@ public class AdminFrame {
                     productDetails.setText(product.getDescription());
                     productCategory.setText("Κατηγορία: " + product.getCategory());
                     productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
-                    productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                    productPrice.setText("Τιμή: " + product.getPrice() + "0" + "€");
                     if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                        productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                        productQty.setText("Διαθέσιμο απόθεμα: " + product.getQty() + product.getUnit());
                     } else {
-                        productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                        productQty.setText("Διαθέσιμο απόθεμα: " + (int) product.getQty() + product.getUnit());
                     }
                 }
             }
@@ -368,11 +368,11 @@ public class AdminFrame {
                             productDetails.setText(product.getDescription());
                             productCategory.setText("Κατηγορία: " + product.getCategory());
                             productSubcategory.setText("Υποκατηγορία: " + product.getSubcategory());
-                            productPrice.setText("Τιμή: " + String.valueOf(product.getPrice() + "0") + "€");
+                            productPrice.setText("Τιμή: " + product.getPrice() + "0" + "€");
                             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
-                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf(product.getQty()) + product.getUnit());
+                                productQty.setText("Διαθέσιμο απόθεμα: " + product.getQty() + product.getUnit());
                             } else {
-                                productQty.setText("Διαθέσιμο απόθεμα: " + String.valueOf((int) product.getQty()) + product.getUnit());
+                                productQty.setText("Διαθέσιμο απόθεμα: " + (int) product.getQty() + product.getUnit());
                             }
                         }
                     }

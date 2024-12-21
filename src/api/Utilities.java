@@ -2,14 +2,13 @@ package api;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Utilities {
     private static ArrayList<Administrator> admins = new ArrayList<>();
     private static ArrayList<Customer> customers = new ArrayList<>();
-    private User currentUser;
+    private static User currentUser;
 
-    public ArrayList<Administrator> adminLoader() throws IOException, ClassNotFoundException {
+    public static ArrayList<Administrator> adminLoader() throws IOException, ClassNotFoundException {
         ArrayList<Administrator> admins = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("admins.txt"));
         String line;
@@ -22,7 +21,7 @@ public class Utilities {
         return admins;
     }
 
-    public ArrayList<Customer> custLoader() throws IOException, ClassNotFoundException {
+    public static ArrayList<Customer> custLoader() throws IOException, ClassNotFoundException {
         ArrayList<Customer> customers = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("customers.txt"));
         String line;
@@ -34,7 +33,7 @@ public class Utilities {
         return customers;
     }
 
-    public ArrayList<Product> productsLoader() throws IOException {
+    public static ArrayList<Product> productsLoader() throws IOException {
         ArrayList<Product> products = new ArrayList<>();
         ArrayList<Product> tmp=new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("products.txt"));
@@ -60,7 +59,7 @@ public class Utilities {
         return products;
     }
 
-    public void productsWriter(Product product) throws IOException {
+    public static void productsWriter(Product product) throws IOException {
         ArrayList<Product> products = new ArrayList<>();
         Product tmp;
         BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
@@ -79,7 +78,7 @@ public class Utilities {
         writer.close();
     }
 
-    public void productsRemover (Product product) throws IOException {
+    public static void productsRemover (Product product) throws IOException {
         ArrayList<Product> products=productsLoader();
         products.remove(product);
         BufferedReader reader=new BufferedReader(new FileReader("products.txt"));
@@ -104,7 +103,7 @@ public class Utilities {
         new FileWriter("tmp.txt",false).close();
     }
 
-    public String[][] catLoader() throws IOException {
+    public static String[][] catLoader() throws IOException {
         String[][] cat = new String[30][10];
         String[] c = new String[30];
         String[] scat = new String[10];
@@ -125,7 +124,7 @@ public class Utilities {
         return cat;
     }
 
-    public void orderWriter(Order order) throws IOException {
+    public static void orderWriter(Order order) throws IOException {
         BufferedWriter writer=new BufferedWriter(new FileWriter("orderhistory.txt",true));
         if (order.getTotal()!=0){
         writer.append(order.getUsername()+";");
@@ -145,7 +144,7 @@ public class Utilities {
         writer.close();
     }
 
-    public ArrayList<Order> orderHistoryLoader() throws IOException, ClassNotFoundException {
+    public static ArrayList<Order> orderHistoryLoader() throws IOException, ClassNotFoundException {
         ArrayList<Order> orderHistory = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("orderhistory.txt"));
         String line;
@@ -168,7 +167,7 @@ public class Utilities {
     }
 
 
-    public int loginCheck(String username, String password) throws IOException, ClassNotFoundException {
+    public static int loginCheck(String username, String password) throws IOException, ClassNotFoundException {
         admins = adminLoader();
         customers = custLoader();
 
@@ -202,7 +201,7 @@ public class Utilities {
     }
 
 
-    public int addCustomer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
+    public static int addCustomer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
         admins = adminLoader();
         customers = custLoader();
 
@@ -243,7 +242,7 @@ public class Utilities {
         return 0;
     }
 
-    public User getCurrentUser(String username){
+    public static User getCurrentUser(String username){
         for (Customer i: customers){
             if (i.getUsername().equals(username)){
                 return i;
@@ -256,11 +255,4 @@ public class Utilities {
         }
         return currentUser;
     }
-
-
-
-
 }
-
-
-

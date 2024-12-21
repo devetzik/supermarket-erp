@@ -21,6 +21,7 @@ public class NoHistoryFoundDialog {
 
         label.setFont(new Font("Serif",Font.BOLD,16));
         label.setPreferredSize(new Dimension(350,50));
+        button.setFont(new Font("Serif", Font.BOLD, 16));
         button.setPreferredSize(new Dimension(100,30));
 
         button.addActionListener(new ActionListener() {

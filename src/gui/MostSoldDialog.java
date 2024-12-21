@@ -9,13 +9,13 @@ import java.util.HashMap;
 public class MostSoldDialog {
     private static HashMap<String,Integer> sales=new HashMap<>();
     private String [] str;
-    private static JDialog dialog=new JDialog();
+    private static final JDialog dialog=new JDialog();
     private static final JLabel productLabel=new JLabel("Παραγγελίες              Προϊόν      ",SwingConstants.LEFT);
     private static final JButton closeButton=new JButton("Κλείσιμο");
-    private static JList salesList;
+    private static JList<String> salesList;
     private static final JPanel panel=new JPanel();
-    private static JScrollPane scrollPane=new JScrollPane();
-    private static JPanel wordsPanel=new JPanel();
+    private static final JScrollPane scrollPane=new JScrollPane();
+    private static final JPanel wordsPanel=new JPanel();
 
     public MostSoldDialog(HashMap<String,Integer> s){
         sales=s;

@@ -16,22 +16,20 @@ import java.io.*;
  */
 public class Main implements Serializable,ActionListener {
     public static JFrame frame=new JFrame();
-    private static JPanel panel = new JPanel();
-    private static JPanel signupPanel = new JPanel();
-    private static JPanel loginPanel = new JPanel();
-    private static JPanel eastPanel = new JPanel();
-    private static JPanel westPanel = new JPanel();
+    private static final JPanel panel = new JPanel();
+    private static final JPanel signupPanel = new JPanel();
+    private static final JPanel loginPanel = new JPanel();
+    private static final JPanel eastPanel = new JPanel();
+    private static final JPanel westPanel = new JPanel();
     private static final JLabel welcome = new JLabel("Καλωσήρθατε στο e-shop του Supermarket", SwingConstants.CENTER);
     private static final JLabel loginLabel = new JLabel("\nΕίσοδος", SwingConstants.CENTER);
     private static final JLabel usernameLabel = new JLabel("Username");
     private static final JLabel passwordLabel = new JLabel("Password ");
-    private static JTextField usernameTextfield = new JTextField();
-    private static JPasswordField passwordField = new JPasswordField();
-    private static JButton loginButton = new JButton("Είσοδος");
-    private static JButton signupButton = new JButton("Εγγραφή");
-    private static JLabel signupLabel = new JLabel("Δεν έχετε λογαριασμό;");
-    private static Utilities util = new Utilities();
-    private static User currnentUser;
+    private static final JTextField usernameTextfield = new JTextField();
+    private static final JPasswordField passwordField = new JPasswordField();
+    private static final JButton loginButton = new JButton("Είσοδος");
+    private static final JButton signupButton = new JButton("Εγγραφή");
+    private static final JLabel signupLabel = new JLabel("Δεν έχετε λογαριασμό;");
 
     public static void main (String[] args){
         frame.setTitle("Supermarket e-shop");
@@ -71,7 +69,6 @@ public class Main implements Serializable,ActionListener {
         panel.setPreferredSize(new Dimension(300, 700));
         panel.setBackground(Color.orange);
 
-
         signupLabel.setFont(new Font("Serif", Font.BOLD, 20));
         signupButton.setPreferredSize(new Dimension(100, 30));
         signupPanel.setPreferredSize(new Dimension(200, 100));
@@ -109,12 +106,12 @@ public class Main implements Serializable,ActionListener {
         String password = passwordField.getText();
 
         try {
-            a = util.loginCheck(username, password);
+            a = Utilities.loginCheck(username, password);
             if (a == 0) {
                 frame.dispose();
                 usernameTextfield.setText("");
                 passwordField.setText("");
-                currnentUser = util.getCurrentUser(username);
+                User currnentUser = Utilities.getCurrentUser(username);
                 if (currnentUser instanceof Administrator) {
                     new AdminFrame((Administrator) currnentUser);
                 } else {

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Objects;
 
 import static api.Administrator.getMaskFormatter;
 
@@ -16,13 +17,13 @@ public class NewProductDialog {
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία: ");
     private static final JLabel priceLabel=new JLabel("            Τιμή: ");
     private static final JLabel qtyLabel=new JLabel(" Απόθεμα: ");
-    private static JTextField titleTextField=new JTextField();
-    private static JTextArea descriptionTextField=new JTextArea();
-    private static JComboBox<String> categoryBox=new JComboBox<>();
-    private static JComboBox<String> subcategoryBox=new JComboBox<>();
-    private static JFormattedTextField priceTextField=new JFormattedTextField(getMaskFormatter("##.##"));
-    private static JFormattedTextField intQtyTextField=new JFormattedTextField(getMaskFormatter("###"));
-    private static JFormattedTextField doubleQtyTextField=new JFormattedTextField(getMaskFormatter("###.##"));
+    private static final JTextField titleTextField=new JTextField();
+    private static final JTextArea descriptionTextField=new JTextArea();
+    private static final JComboBox<String> categoryBox=new JComboBox<>();
+    private static final JComboBox<String> subcategoryBox=new JComboBox<>();
+    private static final JFormattedTextField priceTextField=new JFormattedTextField(getMaskFormatter("##.##"));
+    private static final JFormattedTextField intQtyTextField=new JFormattedTextField(getMaskFormatter("###"));
+    private static final JFormattedTextField doubleQtyTextField=new JFormattedTextField(getMaskFormatter("###.##"));
     private static final JLabel euroLabel=new JLabel("€                            ");
     private static final JLabel unitLabel=new JLabel();
     private static final JLabel failedLabel=new JLabel("Συμπληρώστε τα κενά πεδία",SwingConstants.CENTER);
@@ -58,7 +59,7 @@ public class NewProductDialog {
                 }
                 subcategoryBox.removeItem("Όλες οι υποκατηγορίες");
 
-                if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")){
+                if (Objects.equals(subcategoryBox.getSelectedItem(), "Φρούτα") || Objects.equals(subcategoryBox.getSelectedItem(), "Λαχανικά")){
                     unitLabel.setText(" kg                     ");
                     doubleQtyTextField.setVisible(true);
                     intQtyTextField.setVisible(false);
@@ -74,7 +75,7 @@ public class NewProductDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (categoryBox.getSelectedItem().equals("Φρέσκα τρόφιμα")) {
-                    if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")) {
+                    if (Objects.equals(subcategoryBox.getSelectedItem(), "Φρούτα") || Objects.equals(subcategoryBox.getSelectedItem(), "Λαχανικά")) {
                         unitLabel.setText(" kg                     ");
                         doubleQtyTextField.setVisible(true);
                         intQtyTextField.setVisible(false);
@@ -110,7 +111,7 @@ public class NewProductDialog {
         titleTextField.setFont(new Font("Times New Roman", Font.BOLD, 16));
         descriptionTextField.setFont(new Font("Times New Roman", Font.BOLD, 16));
 
-        if (subcategoryBox.getSelectedItem().equals("Φρούτα") || subcategoryBox.getSelectedItem().equals("Λαχανικά")){
+        if (Objects.equals(subcategoryBox.getSelectedItem(), "Φρούτα") || Objects.equals(subcategoryBox.getSelectedItem(), "Λαχανικά")){
             unitLabel.setText(" kg                     ");
             doubleQtyTextField.setVisible(true);
             intQtyTextField.setVisible(false);
@@ -181,7 +182,6 @@ public class NewProductDialog {
         panel.add(intQtyTextField);
         panel.add(doubleQtyTextField);
         panel.add(unitLabel);
-
         panel.add(button);
         panel.add(failedLabel);
 

@@ -11,32 +11,30 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class SignUpDialog {
-    private Utilities util=new Utilities();
-    private static JDialog dialog=new JDialog();
-    private static JButton ok=new JButton("Εγγραφή");
-    private static JPanel labelsPanel=new JPanel();
-    private static JPanel textFieldsPanel=new JPanel();
-    private static JPanel fNamePanel=new JPanel();
-    private static JPanel up=new JPanel();
+    private static final JDialog dialog=new JDialog();
+    private static final JButton ok=new JButton("Εγγραφή");
+    private static final JPanel panel=new JPanel();
     private static final JLabel label=new JLabel("Συμπληρώστε τα στοιχεία σας\n");
     private static final JLabel spare=new JLabel("                                                                                                    ");
     private static final JLabel spare2=new JLabel("                                                                                                    ");
     private static final JLabel spare3=new JLabel("                                                                                                    ");
-    private static final JLabel fNameLabel=new JLabel("Όνομα     ");
-    private static final JLabel lNameLabel=new JLabel("Επώνυμο ");
-    private static final JLabel usernameLabel=new JLabel("Username");
-    private static final JLabel passwordLabel=new JLabel("Password ");
-    private static JTextField fNameTextField=new JTextField();
-    private static JTextField lNameTextField=new JTextField();
-    private static JTextField usernameTextField=new JTextField();
-    private static JPasswordField passwordField=new JPasswordField();
+    private static final JLabel fNameLabel=new JLabel("Όνομα: ", SwingConstants.RIGHT);
+    private static final JLabel lNameLabel=new JLabel("Επώνυμο: ",SwingConstants.RIGHT);
+    private static final JLabel usernameLabel=new JLabel("Username: ",SwingConstants.RIGHT);
+    private static final JLabel passwordLabel=new JLabel("Password: ",SwingConstants.RIGHT);
+    private static final JTextField fNameTextField=new JTextField();
+    private static final JTextField lNameTextField=new JTextField();
+    private static final JTextField usernameTextField=new JTextField();
+    private static final JPasswordField passwordField=new JPasswordField();
+    private static final JLabel failedLabel= new JLabel("",SwingConstants.CENTER);
 
     public SignUpDialog(){
 
-        dialog.setSize(370,450);
+        failedLabel.setVisible(false);
+        dialog.setSize(430,380);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setTitle("Φόρμα εγγραφής νέου χρήστη");
-        dialog.setLayout(new FlowLayout());
+        dialog.setLayout(new BorderLayout());
         dialog.setResizable(false);
         dialog.setLocationRelativeTo(null);
 
@@ -52,7 +50,8 @@ public class SignUpDialog {
         usernameTextField.setPreferredSize(new Dimension(200,30));
         passwordField.setPreferredSize(new Dimension(200,30));
 
-        ok.setPreferredSize(new Dimension(100,30));
+        ok.setPreferredSize(new Dimension(110,40));
+        ok.setFont(new Font("Serif",Font.BOLD,18));
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,34 +63,58 @@ public class SignUpDialog {
                 int b;
 
                 try {
-                    b = util.addCustomer(username, password, fName, lName);
+                    b = Utilities.addCustomer(username, password, fName, lName);
                 } catch (IOException | ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
                 if (b==0){
+                    new SignUpSuccessDialog();
                     dialog.dispose();
                     fNameTextField.setText("");
                     lNameTextField.setText("");
                     usernameTextField.setText("");
                     passwordField.setText("");
+                }else {
+                    failedLabel.setVisible(true);
+                    if (b==1) {
+                        failedLabel.setText("Το username χρησιμοποιείται");
+                    } else if (b==3) {
+                        failedLabel.setText("Συμπληρώστε τα κενά πεδία");
+                    } else if (b==4) {
+                        failedLabel.setText("Όνομα και επίθετο δεν μπορούν να περιέχουν αριθμούς");
+                    }
                 }
-                new SignUpResultDialog(b);
             }
         });
 
-        dialog.add(spare3);
-        dialog.add(label);
-        dialog.add(spare);
-        dialog.add(fNameLabel);
-        dialog.add(fNameTextField);
-        dialog.add(lNameLabel);
-        dialog.add(lNameTextField);
-        dialog.add(usernameLabel);
-        dialog.add(usernameTextField);
-        dialog.add(passwordLabel);
-        dialog.add(passwordField);
-        dialog.add(spare2);
-        dialog.add(ok);
+        fNameLabel.setPreferredSize(new Dimension(100,30));
+        lNameLabel.setPreferredSize(new Dimension(100,30));
+        usernameLabel.setPreferredSize(new Dimension(100,30));
+        passwordLabel.setPreferredSize(new Dimension(100,30));
+
+        failedLabel.setFont(new Font("Serif",Font.BOLD,16));
+        failedLabel.setPreferredSize(new Dimension(400,30));
+
+        spare3.setPreferredSize(new Dimension(400,15));
+        spare.setPreferredSize(new Dimension(400,20));
+        spare2.setPreferredSize(new Dimension(400,20));
+
+        panel.setPreferredSize(new Dimension(400,450));
+
+        panel.add(spare3);
+        panel.add(label);
+        panel.add(spare);
+        panel.add(fNameLabel);
+        panel.add(fNameTextField);
+        panel.add(lNameLabel);
+        panel.add(lNameTextField);
+        panel.add(usernameLabel);
+        panel.add(usernameTextField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(spare2);
+        panel.add(ok);
+        panel.add(failedLabel);
 
         dialog.addWindowListener(new WindowAdapter() {
             @Override
@@ -104,6 +127,7 @@ public class SignUpDialog {
             }
         });
 
+        dialog.add(panel,BorderLayout.CENTER);
         dialog.setVisible(true);
     }
 }

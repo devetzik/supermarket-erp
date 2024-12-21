@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    private String title, description, category, subcategory, unit;
-    private double price,qty;
-
+    private final String title;
+    private final String description;
+    private final String category;
+    private final String subcategory;
+    private final double price;
+    private double qty;
 
     public Product(String title, String description, String category, String subcategory, double price, double qty){
         this.title=title;
@@ -19,24 +22,6 @@ public class Product implements Serializable {
 
 
     // Setters για τα χαρακτηριστικά του προϊόντος
-
-    public void setTitle(String title){
-        this.title=title;
-    }
-
-    public void setDescription(String description){
-        this.description=description;
-    }
-
-    public void setCategory(String category){
-        this.category=category;
-    }
-
-    public void setSubcategory(String subcategory) { this.subcategory=subcategory;}
-
-    public void setPrice(double price){
-        this.price=price;
-    }
 
     public void setQty(double qty){
         this.qty=qty;
@@ -68,23 +53,13 @@ public class Product implements Serializable {
     }
 
     public String getUnit(){
+        String unit;
         if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
-            unit=" kg  ";
+            unit =" kg  ";
         }
         else {
             unit = " τμχ.";
         }
         return unit;
-    }
-
-
-    public String getDetails(){
-        if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")){
-            unit=" kg";
-        }
-        else {
-            unit=" τεμάχια";
-        }
-        return ("Τίτλος: "+ title+"\nΠεριγραφή: "+ description+"\nΚατηγορία: "+category+"\nΥποκατηγορία: "+subcategory+"\nΤιμή: "+price+"€\nΠοσότητα: "+qty+unit);
     }
 }

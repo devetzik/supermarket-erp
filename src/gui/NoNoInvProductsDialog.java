@@ -30,7 +30,6 @@ public class NoNoInvProductsDialog {
             }
         });
 
-
         panel.add(label);
         panel.add(button);
 

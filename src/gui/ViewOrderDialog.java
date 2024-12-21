@@ -21,8 +21,8 @@ public class ViewOrderDialog {
     private static final JLabel priceLabel=new JLabel("            Τιμή    ");
     private static final JLabel qtyLabel=new JLabel("Ποσότητα       ");
     private static final JLabel localcostLabel=new JLabel("    Κόστος");
-    private static JScrollPane scrollPane=new JScrollPane();
-    private Customer customer;
+    private static final JScrollPane scrollPane=new JScrollPane();
+    private final Customer customer;
 
     {
         try {

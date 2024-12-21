@@ -11,15 +11,15 @@ import java.util.ArrayList;
 public class OrderHistoryDialog {
     private static ArrayList<Order> orderHistory=new ArrayList<>();
     private String [] str;
-    private static JDialog dialog=new JDialog();
+    private static final JDialog dialog=new JDialog();
     private static final JLabel orderLabel=new JLabel("Παραγγελία #     ",SwingConstants.LEFT);
     private static final JLabel dateLabel= new JLabel("Ημερομηνία      ",SwingConstants.CENTER);
     private static final JLabel costLabel=new JLabel("Κόστος",SwingConstants.RIGHT);
     private static final JButton closeButton=new JButton("Κλείσιμο");
     private static final JButton viewButton=new JButton("Προβολή");
-    private static JList ordersList;
-    private static JScrollPane scrollPane=new JScrollPane();
-    private static JPanel panel=new JPanel();
+    private static JList<String> ordersList;
+    private static final JScrollPane scrollPane=new JScrollPane();
+    private static final JPanel panel=new JPanel();
 
 
     public OrderHistoryDialog(ArrayList<Order> ordHis){
@@ -43,7 +43,6 @@ public class OrderHistoryDialog {
 
         ordersList=new JList<>(str);
         ordersList.setFont(new Font("Serif",Font.BOLD,16));
-
 
         scrollPane.setViewportView(ordersList);
         ordersList.setLayoutOrientation(JList.VERTICAL);
@@ -73,7 +72,6 @@ public class OrderHistoryDialog {
         dateLabel.setFont((new Font("Serif",Font.BOLD,18)));
         costLabel.setFont((new Font("Serif",Font.BOLD,18)));
 
-
         panel.add(orderLabel);
         panel.add(dateLabel);
         panel.add(costLabel);
@@ -82,7 +80,6 @@ public class OrderHistoryDialog {
         panel.add(closeButton);
 
         dialog.add(panel);
-
         dialog.setVisible(true);
     }
 }

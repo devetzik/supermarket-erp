@@ -5,22 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpResultDialog {
+public class ProductEditSuccessDialog {
     private static final JDialog resultDialog=new JDialog();
     private static final JLabel resultLabel=new JLabel();
     private static final JButton ok=new JButton();
     private static final JPanel resultPanel=new JPanel();
 
-    public SignUpResultDialog(int result){
-        if (result==0){
-            resultLabel.setText("Επιτυχής εγγραφή");
-        } else if (result==1) {
-            resultLabel.setText("Το username χρησιμοποιείται");
-        } else if (result==3) {
-            resultLabel.setText("Συμπληρώστε τα κενά πεδία");
-        } else if (result==4) {
-            resultLabel.setText("Το όνομα και το επίθετο δεν μπορούν να περιέχουν αριθμούς");
-        }
+    public ProductEditSuccessDialog(){
+        resultDialog.setTitle("Επεξεργασία Προϊόντος");
+        resultLabel.setText("Επιτυχής επεξεργασία προϊόντος");
+
         resultLabel.setFont(new Font("Serif",Font.BOLD,16));
 
         resultDialog.setSize(500,150);
