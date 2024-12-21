@@ -5,8 +5,19 @@ import java.util.ArrayList;
 
 public abstract class User implements Serializable {
     private String username, password;
-    private String[][] cat = Utilities.catLoader();
+    private static String[][] cat;
+
+    static {
+        try {
+            cat = Utilities.catLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private ArrayList<Product> products = Utilities.productsLoader();
+    private static String[] categories=new String[30];
+    private static String[] subcategories=new String[30];
 
     // Κατασκευαστής αντικειμένου User
 
@@ -71,14 +82,14 @@ public abstract class User implements Serializable {
     public String getPassword(){
         return password;
     }
-    public String[] getCategories(){
+    public static String[] getCategories(){
         int counter=0;
         for (int i=0; i<cat.length;i++){
             if (cat[i][0]!=null){
                 counter++;
             }
         }
-        String[] categories=new String[counter+1];
+        categories=new String[counter+1];
         categories[0]="Όλες οι κατηγορίες";
         for (int i=0;i<counter;i++){
             categories[i+1]=cat[i][0];
@@ -86,7 +97,7 @@ public abstract class User implements Serializable {
         return categories;
     }
 
-    public String[] getSubcategories(String category){
+    public static String[] getSubcategories(String category){
         int counter=0;
         for (int i=0; i< cat.length;i++){
             if (cat[i][0]!=null) {
@@ -99,7 +110,7 @@ public abstract class User implements Serializable {
                 }
             }
         }
-        String[] subcategories=new String[counter+1];
+        subcategories=new String[counter+1];
         subcategories[0]="Όλες οι υποκατηγορίες";
         for (int i=0; i< cat.length;i++){
             if (cat[i][0]!=null){

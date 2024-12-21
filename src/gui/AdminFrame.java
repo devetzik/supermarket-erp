@@ -2,6 +2,7 @@ package gui;
 
 import api.Administrator;
 import api.Product;
+import api.User;
 import api.Utilities;
 
 import javax.swing.*;
@@ -38,8 +39,8 @@ public class AdminFrame {
     private static final JLabel titleLabel=new JLabel("Τίτλος");
     private static final JLabel categoryLabel=new JLabel("Κατηγορία");
     private static final JLabel subcategoryLabel=new JLabel("Υποκατηγορία");
-    private static final JComboBox<String> categoryBox=new JComboBox<>();
-    private static final JComboBox<String> subcategoryBox=new JComboBox<>();
+    private static final JComboBox<String> categoryBox=new JComboBox<>(User.getCategories());
+    private static final JComboBox<String> subcategoryBox=new JComboBox<>(User.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString()));
     private static Administrator admin;
     private static final JLabel productTitle=new JLabel();
     private static final JLabel productDetails=new JLabel();
@@ -140,14 +141,9 @@ public class AdminFrame {
         searchTextField.setPreferredSize(new Dimension(200,25));
         searchButton.setPreferredSize(new Dimension(100,25));
 
-        for (String i: admin.getCategories()){
-            categoryBox.addItem(i);
-        }
-
         categoryBox.setPreferredSize(new Dimension(200,25));
         subcategoryBox.setPreferredSize(new Dimension(200,25));
 
-        subcategoryBox.addItem("Όλες οι υποκατηγορίες");
         categoryBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

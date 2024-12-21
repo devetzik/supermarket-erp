@@ -10,7 +10,7 @@ public class Utilities {
 
     public static ArrayList<Administrator> adminLoader() throws IOException, ClassNotFoundException {
         ArrayList<Administrator> admins = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("admins.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\admins.txt"));
         String line;
 
         while ((line = reader.readLine()) != null) {
@@ -23,7 +23,7 @@ public class Utilities {
 
     public static ArrayList<Customer> custLoader() throws IOException, ClassNotFoundException {
         ArrayList<Customer> customers = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("customers.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\customers.txt"));
         String line;
         while ((line = reader.readLine()) != null) {
             String[] s = line.split(";");
@@ -36,7 +36,7 @@ public class Utilities {
     public static ArrayList<Product> productsLoader() throws IOException {
         ArrayList<Product> products = new ArrayList<>();
         ArrayList<Product> tmp=new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("products.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\products.txt"));
         String line;
         while ((line = reader.readLine()) != null) {
             String[] s = line.split(";");
@@ -62,7 +62,7 @@ public class Utilities {
     public static void productsWriter(Product product) throws IOException {
         ArrayList<Product> products = new ArrayList<>();
         Product tmp;
-        BufferedWriter writer=new BufferedWriter(new FileWriter("products.txt",true));
+        BufferedWriter writer=new BufferedWriter(new FileWriter("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\products.txt",true));
         String line;
         boolean flag=true;
         products=productsLoader();
@@ -81,8 +81,8 @@ public class Utilities {
     public static void productsRemover (Product product) throws IOException {
         ArrayList<Product> products=productsLoader();
         products.remove(product);
-        BufferedReader reader=new BufferedReader(new FileReader("products.txt"));
-        BufferedWriter writer=new BufferedWriter(new FileWriter("tmp.txt",true));
+        BufferedReader reader=new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\products.txt"));
+        BufferedWriter writer=new BufferedWriter(new FileWriter("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\tmp.txt",true));
         String line;
         while ((line= reader.readLine())!=null){
             if (!line.contains(product.getTitle()) ){
@@ -92,8 +92,8 @@ public class Utilities {
         reader.close();
         writer.close();
         new FileWriter("products.txt",false).close();
-        BufferedReader r= new BufferedReader(new FileReader("tmp.txt"));
-        BufferedWriter w=new BufferedWriter(new FileWriter("products.txt"));
+        BufferedReader r= new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\tmp.txt"));
+        BufferedWriter w=new BufferedWriter(new FileWriter("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\products.txt"));
 
         while ((line= r.readLine())!=null){
             w.append(line + "\n");
@@ -107,7 +107,7 @@ public class Utilities {
         String[][] cat = new String[30][10];
         String[] c = new String[30];
         String[] scat = new String[10];
-        BufferedReader reader = new BufferedReader(new FileReader("categories_subcategories.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\categories_subcategories.txt"));
         int i = 0;
         String line, line2;
         while ((line = reader.readLine()) != null) {
@@ -125,7 +125,7 @@ public class Utilities {
     }
 
     public static void orderWriter(Order order) throws IOException {
-        BufferedWriter writer=new BufferedWriter(new FileWriter("orderhistory.txt",true));
+        BufferedWriter writer=new BufferedWriter(new FileWriter("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\orderhistory.txt",true));
         if (order.getTotal()!=0){
         writer.append(order.getUsername()+";");
         for (int i=0;i<order.getPr().length;i++){
@@ -146,7 +146,7 @@ public class Utilities {
 
     public static ArrayList<Order> orderHistoryLoader() throws IOException, ClassNotFoundException {
         ArrayList<Order> orderHistory = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("orderhistory.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\orderhistory.txt"));
         String line;
         String[] s ;
 
@@ -235,7 +235,7 @@ public class Utilities {
 
         // Προσθήκη του νέου πελάτη στη λίστα των customers
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter("customers.txt", true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\devetzik\\IdeaProjects\\mymarket-3708\\resources\\customers.txt", true));
         writer.append("\n" + username + ";" + password + ";" + fName + ";" + lName);
         writer.close();
 

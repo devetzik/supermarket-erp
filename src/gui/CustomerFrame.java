@@ -3,6 +3,7 @@ package gui;
 import api.Customer;
 import api.Order;
 import api.Product;
+import api.User;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -53,15 +54,16 @@ public class CustomerFrame {
     private static final JPanel productsPanel=new JPanel();
     private static final JPanel detailsPanel=new JPanel();
     private static JList<String> productsList;
-    private static final JComboBox<String> categoryBox=new JComboBox<>();
-    private static final JComboBox<String> subcategoryBox=new JComboBox<>();
+    private static Customer cust;
+    private static final JComboBox<String> categoryBox=new JComboBox<>(User.getCategories());
+    private static final JComboBox<String> subcategoryBox=new JComboBox<>(User.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString()));
     private static final JScrollPane scrollPane=new JScrollPane();
     private static final JSpinner qtySpinner= new JSpinner();
     private static final JLabel updateQtyLabel= new JLabel("Επιλεγμένη ποσότητα");
     private static final JButton updateButton= new JButton("Ενημέρωση");
     private static final JButton deleteButton=new JButton("Διαγραφή");
     private static String[] pro;
-    private static Customer cust;
+
     private static final SpinnerNumberModel intModel=new SpinnerNumberModel (0.0,0,500.0,1);
     private static final SpinnerNumberModel doubleModel= new SpinnerNumberModel(0.0,0,500.0,0.1);
 
@@ -392,14 +394,9 @@ public class CustomerFrame {
             }
         });
 
-        for (String i: cust.getCategories()){
-            categoryBox.addItem(i);
-        }
-
         categoryBox.setPreferredSize(new Dimension(200,25));
         subcategoryBox.setPreferredSize(new Dimension(200,25));
 
-        subcategoryBox.addItem("Όλες οι υποκατηγορίες");
         categoryBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

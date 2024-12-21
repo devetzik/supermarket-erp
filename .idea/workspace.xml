@@ -1,40 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="MyMarket:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="edit product done">
-      <change afterPath="$PROJECT_DIR$/src/gui/ProductEditSuccessDialog.java" afterDir="false" />
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final, after warnings removal">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/MyMarket_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyMarket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyMarket.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admins.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories_subcategories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/products.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/EditProductDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/EditProductDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/EmptyCartDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/EmptyCartDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LoginResultDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LoginResultDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/MostSoldDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MostSoldDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NewProductDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NewProductDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NewProductSuccessDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NewProductSuccessDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NoHistoryFoundDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NoHistoryFoundDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NoInvProductsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NoInvProductsDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NoNoInvProductsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NoNoInvProductsDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NoSearchResultsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NoSearchResultsDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/OrderConfirmedDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/OrderConfirmedDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/OrderHistoryDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ProductDeletedDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ProductDeletedDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/QtyTooMuchDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/QtyTooMuchDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ShoppingCartDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/SignUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SignUpDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/SignUpResultDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SignUpSuccessDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,9 +59,14 @@
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Deve/Desktop/Java Project 2024/mymarket-3708&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/devetzik/IdeaProjects/mymarket-3708/src/META-INF/MANIFEST.MF&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -374,7 +368,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734725668950</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="final, after warnings removal">
+      <created>1734800731977</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1734800731977</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -389,7 +390,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="initialized kinda" />
     <MESSAGE value="login perfect" />
     <MESSAGE value="admin functions" />
     <MESSAGE value="prodremoverfinal...productedit" />
@@ -414,7 +414,8 @@
     <MESSAGE value="most sold final" />
     <MESSAGE value="most sold final++code cleanup" />
     <MESSAGE value="edit product done" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit product done" />
+    <MESSAGE value="final, after warnings removal" />
+    <option name="LAST_COMMIT_MESSAGE" value="final, after warnings removal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
