@@ -9,21 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final, after warnings removal">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/MyMarket_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="most sold final++code cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyMarket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyMarket.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admins.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories_subcategories.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/orderhistory.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/products.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/products.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/products.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/tmp.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/tmp.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/EditProductDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/EditProductDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

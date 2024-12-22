@@ -8,8 +8,25 @@ import java.util.stream.Collectors;
 
 
 public class Administrator extends User implements Serializable {
-    private ArrayList<Product> products= Utilities.productsLoader();
-    private ArrayList<Order> orderHistory= Utilities.orderHistoryLoader();
+    private static ArrayList<Product> products;
+
+    static {
+        try {
+            products = Utilities.productsLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ArrayList<Order> orderHistory;
+
+    static {
+        try {
+            orderHistory = Utilities.orderHistoryLoader();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Κατασκευαστής για το αντικείμενο Administrator
 
@@ -102,4 +119,13 @@ public class Administrator extends User implements Serializable {
         }
         return mask;
     }
+
+    public void setProducts(){
+        try {
+            products= Utilities.productsLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

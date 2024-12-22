@@ -98,6 +98,7 @@ public class AdminFrame {
         noInventoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if (admin.noInvProducts()==null){
                     new NoNoInvProductsDialog();
                 }else {
@@ -420,5 +421,18 @@ public class AdminFrame {
         scrollPane.setVisible(true);
         searchPanel.setVisible(true);
         adminFrame.setVisible(true);
+    }
+
+    public static void setProductDetails(String title, String description, String category, String subcategory, double price, double qty, String unit){
+        productTitle.setText(title);
+        productDetails.setText(description);
+        productCategory.setText("Κατηγορία: " + category);
+        productSubcategory.setText("Υποκατηγορία: " + subcategory);
+        productPrice.setText("Τιμή: " + price + "0" + "€");
+        if (subcategory.equals("Φρούτα") || subcategory.equals("Λαχανικά")) {
+            productQty.setText("Διαθέσιμο απόθεμα: " + qty + unit);
+        } else {
+            productQty.setText("Διαθέσιμο απόθεμα: " + (int) qty + unit);
+        }
     }
 }

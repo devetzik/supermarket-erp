@@ -99,13 +99,20 @@ public class EditProductDialog {
         if (product.getPrice()>=10) {
             priceTextField.setText(String.valueOf(product.getPrice()));
         }else {
-            priceTextField.setText("0"+String.valueOf(product.getPrice()));
+            priceTextField.setText("0"+ product.getPrice());
         }
         if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
-            doubleQtyTextField.setText(String.valueOf(product.getQty()));
-
+            if (product.getQty()>=100) {
+                doubleQtyTextField.setText(String.valueOf(product.getQty()));
+            }else {
+                doubleQtyTextField.setText("0"+ product.getQty());
+            }
         }else {
-            intQtyTextField.setText(String.valueOf(product.getQty()));
+            if (product.getQty()>=100) {
+                intQtyTextField.setText(String.valueOf(product.getQty()));
+            }else {
+                intQtyTextField.setText("0"+ product.getQty());
+            }
         }
 
         titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -175,6 +182,7 @@ public class EditProductDialog {
                     }
                     admin.addProduct(title,description,category,subcategory,price,qty);
                     admin.setProducts();
+                    AdminFrame.setProductDetails(title,description,category,subcategory,price,qty,unitLabel.getText());
                     new ProductEditSuccessDialog();
                     dialog.dispose();
                 }else {
