@@ -15,7 +15,16 @@ public abstract class User implements Serializable {
         }
     }
 
-    private ArrayList<Product> products = Utilities.productsLoader();
+    private static ArrayList<Product> products;
+
+    static {
+        try {
+            products = Utilities.productsLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static String[] categories=new String[30];
     private static String[] subcategories=new String[30];
 
@@ -125,7 +134,7 @@ public abstract class User implements Serializable {
     }
 
 
-    public String[] getProductsNames(){
+    public static String[] getProductsNames(){
         String[] productsNames=new String[products.size()];
         for (int i=0;i<products.size();i++){
             productsNames[i]=products.get(i).getTitle();
@@ -133,7 +142,7 @@ public abstract class User implements Serializable {
         return productsNames;
     }
 
-    public Product getProduct(String productTitle){
+    public static Product getProduct(String productTitle){
         Product product=null;
         for (Product i:products){
             if (i.getTitle().equals(productTitle)){

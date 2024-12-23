@@ -402,7 +402,7 @@ public class CustomerFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    for (String i:cust.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())){
+                    for (String i: User.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())){
                         subcategoryBox.addItem(i);
                     }
                 }else {

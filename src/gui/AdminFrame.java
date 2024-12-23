@@ -150,7 +150,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
                 if (categoryBox.getSelectedIndex()!=0) {
-                    for (String i:admin.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())){
+                    for (String i: User.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())){
                         subcategoryBox.addItem(i);
                     }
                 }else {
@@ -231,7 +231,7 @@ public class AdminFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                admin.setProducts();
+                Administrator.setProducts();
 
                 new ProductDeletedDialog();
 

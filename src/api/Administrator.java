@@ -18,7 +18,7 @@ public class Administrator extends User implements Serializable {
         }
     }
 
-    private static ArrayList<Order> orderHistory;
+    private static final ArrayList<Order> orderHistory;
 
     static {
         try {
@@ -45,7 +45,7 @@ public class Administrator extends User implements Serializable {
         return 0;
     }
 
-    public void addProduct(String title, String description, String category, String subcategory, double price, double qty){
+    public static void addProduct(String title, String description, String category, String subcategory, double price, double qty){
         Product product=new Product(title,description,category,subcategory,price,qty);
         try {
             Utilities.productsWriter(product);
@@ -120,7 +120,7 @@ public class Administrator extends User implements Serializable {
         return mask;
     }
 
-    public void setProducts(){
+    public static void setProducts(){
         try {
             products= Utilities.productsLoader();
         } catch (IOException e) {

@@ -2,6 +2,7 @@ package gui;
 
 import api.Administrator;
 import api.Product;
+import api.User;
 import api.Utilities;
 
 import javax.swing.*;
@@ -44,12 +45,12 @@ public class EditProductDialog {
         dialog.setLocationRelativeTo(null);
 
 
-        for (String i: admin.getCategories()){
+        for (String i: User.getCategories()){
             categoryBox.addItem(i);
         }
         categoryBox.removeItem("Όλες οι κατηγορίες");
 
-        for (String i : admin.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())) {
+        for (String i : User.getSubcategories(Objects.requireNonNull(categoryBox.getSelectedItem()).toString())) {
             subcategoryBox.addItem(i);
         }
         subcategoryBox.removeItem("Όλες οι υποκατηγορίες");
@@ -58,7 +59,7 @@ public class EditProductDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 subcategoryBox.removeAllItems();
-                for (String i : admin.getSubcategories(categoryBox.getSelectedItem().toString())) {
+                for (String i : User.getSubcategories(categoryBox.getSelectedItem().toString())) {
                     subcategoryBox.addItem(i);
                 }
                 subcategoryBox.removeItem("Όλες οι υποκατηγορίες");
@@ -181,7 +182,7 @@ public class EditProductDialog {
                         throw new RuntimeException(ex);
                     }
                     admin.addProduct(title,description,category,subcategory,price,qty);
-                    admin.setProducts();
+                    Administrator.setProducts();
                     AdminFrame.setProductDetails(title,description,category,subcategory,price,qty,unitLabel.getText());
                     new ProductEditSuccessDialog();
                     dialog.dispose();
