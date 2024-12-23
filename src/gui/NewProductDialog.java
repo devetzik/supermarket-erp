@@ -144,15 +144,11 @@ public class NewProductDialog {
                 }else {
                     qty = Double.parseDouble(intQtyTextField.getText());
                 }
-                try {
-                    x= admin.CheckAddProduct(title,description,category,subcategory,price,qty);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                x= admin.CheckAddProduct(title,description,price);
 
                 if(x==0){
-                    admin.addProduct(title,description,category,subcategory,price,qty);
-                    admin.setProducts();
+                    Administrator.addProduct(title,description,category,subcategory,price,qty);
+                    Administrator.setProducts();
                     new NewProductSuccessDialog();
                     titleTextField.setText("");
                     descriptionTextField.setText("");

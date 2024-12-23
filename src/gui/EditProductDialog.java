@@ -169,11 +169,7 @@ public class EditProductDialog {
                 }else {
                     qty = Double.parseDouble(intQtyTextField.getText());
                 }
-                try {
-                    x= admin.CheckAddProduct(title,description,category,subcategory,price,qty);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                x= admin.CheckAddProduct(title,description,price);
 
                 if(x==0){
                     try {
@@ -181,7 +177,7 @@ public class EditProductDialog {
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                    admin.addProduct(title,description,category,subcategory,price,qty);
+                    Administrator.addProduct(title,description,category,subcategory,price,qty);
                     Administrator.setProducts();
                     AdminFrame.setProductDetails(title,description,category,subcategory,price,qty,unitLabel.getText());
                     new ProductEditSuccessDialog();

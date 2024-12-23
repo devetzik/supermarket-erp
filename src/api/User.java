@@ -28,17 +28,31 @@ public abstract class User implements Serializable {
     private static String[] categories=new String[30];
     private static String[] subcategories=new String[30];
 
-    // Κατασκευαστής αντικειμένου User
 
-    public User(String username, String password) throws IOException {
+    /**
+     * Κατασκευαστής: Δημιουργεί έναν χρήστη με τις δεδομένες παραμέτρους.
+     *
+     * @param username το όνομα χρήστη του χρήστη
+     * @param password ο κωδικός του χρήστη
+     */
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
 
-    // Μέθοδος για την αναζήτηση προϊόντων
 
-    public String [] productSearch(String title, String category, String subcategory) throws IOException {
+    /**
+     * Αναζήτα τα προϊόντα που πληρούν τα κριτήρια αναζήτης, με βάση τον τίτλο, την κατηγορία και την υποκατηγορία που
+     * έχει επιλέξει ο χρήστης. Δημιουργεί έναν μονοδιάστο πίνακα στον οποίο τοποθετεί τα ονόματα των προϊόντων-
+     * αποτελεσμάτων και το επιστρέφει.
+     *
+     * @param title ο τίτλος του προϊόντος που αναζητείται
+     * @param category η επιλεγμένη κατηγορία προς αναζήτηση
+     * @param subcategory η επιλεγμένη υποκατηγορία προς αναζήτηση
+     * @return String[] sR  τα ονόματα των προϊόντων που πληρούν τα κριτήρια αναζήτησης
+     */
+    public String [] productSearch(String title, String category, String subcategory){
         ArrayList<String> searchResults = new ArrayList<>();
         if (title.isBlank() && category.equals("Όλες οι κατηγορίες")) {
             for (Product p: products){
@@ -85,12 +99,27 @@ public abstract class User implements Serializable {
         }
     }
 
+    /**
+     * Getter για την επιστροφή του username του χρήστη.
+     */
     public String getUsername(){
         return username;
     }
+
+    /**
+     * Getter για την επιστροφή του password του χρήστη.
+     */
     public String getPassword(){
         return password;
     }
+
+
+    /**
+     * Διαβάζει τις κατηγορίες των προϊόντων και δημιουργεί έναν μονοδιάστατο πίνακα String[] στον οποίο
+     * τις τοποθετεί και τον επιστρέφει.
+     *
+     * @return String[] categories, οι κατηγορίες των προϊόντων
+     */
     public static String[] getCategories(){
         int counter=0;
         for (int i=0; i<cat.length;i++){
@@ -106,6 +135,14 @@ public abstract class User implements Serializable {
         return categories;
     }
 
+
+    /**
+     * Διαβάζει τις υποκατηγορίες μιας κατηγορίας που δέχεται ως παράμετρο και δημιοιυργεί έναν μονοδιάστατο πίνακα
+     * String[] στον οποίο τις τοποθετεί και τον επιστρέφει.
+     *
+     * @param category η επιλεγμένη κατηγορία.
+     * @return String[] subcategories, οι υποκατηγορίες της επιλεγμένης κατηγορίας.
+     */
     public static String[] getSubcategories(String category){
         int counter=0;
         for (int i=0; i< cat.length;i++){
@@ -134,6 +171,13 @@ public abstract class User implements Serializable {
     }
 
 
+
+    /**
+     * Διαβάζει τα προϊόντα της λίστας products και δημιουργεί έναν μονοδιάστατο πίνακα String[] στον οποίο
+     * τοποθετεί τα ονόματά τους και τον επιστρέφει.
+     *
+     * @return String[] productsNames, τα ονόματα των προϊόντων.
+     */
     public static String[] getProductsNames(){
         String[] productsNames=new String[products.size()];
         for (int i=0;i<products.size();i++){
@@ -142,6 +186,14 @@ public abstract class User implements Serializable {
         return productsNames;
     }
 
+
+
+    /**
+     * Δέχεται ως παράμετρο το όνομα ενός προϊόντος και επιστρέφει το αντικείμενο Product που αντιστοιχεί στο προϊόν.
+     *
+     * @param productTitle ο τίτλος του προϊόντος
+     * @return product, αντικείμενο Product
+     */
     public static Product getProduct(String productTitle){
         Product product=null;
         for (Product i:products){

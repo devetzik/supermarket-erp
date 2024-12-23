@@ -37,7 +37,14 @@ public class Administrator extends User implements Serializable {
 
     // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
-    public int CheckAddProduct(String title, String description, String category, String subcategory, double price, double qty) throws IOException {
+    /**
+     *
+     * @param title
+     * @param description
+     * @param price
+     * @return
+     */
+    public int CheckAddProduct(String title, String description, double price){
         if (title.isBlank() || description.isBlank() || price==0){
             return 1;
         }
@@ -45,6 +52,15 @@ public class Administrator extends User implements Serializable {
         return 0;
     }
 
+    /**
+     *
+     * @param title
+     * @param description
+     * @param category
+     * @param subcategory
+     * @param price
+     * @param qty
+     */
     public static void addProduct(String title, String description, String category, String subcategory, double price, double qty){
         Product product=new Product(title,description,category,subcategory,price,qty);
         try {
@@ -55,6 +71,10 @@ public class Administrator extends User implements Serializable {
     }
 
 
+    /**
+     *
+     * @return
+     */
     public String[] noInvProducts(){
         int counter=0;
         for (Product i : products){
@@ -76,7 +96,11 @@ public class Administrator extends User implements Serializable {
         return null;
     }
 
-    public HashMap <String,Integer> mostSold() throws IOException {
+    /**
+     *
+     * @return
+     */
+    public HashMap <String,Integer> mostSold() {
         HashMap<String, Integer> sales=new HashMap<>();
         HashMap<String, Integer> tmp=new HashMap<>();
         for (Order i : orderHistory) {
@@ -98,6 +122,12 @@ public class Administrator extends User implements Serializable {
         return sortByValue(sales,false);
     }
 
+    /**
+     *
+     * @param unsortMap
+     * @param order
+     * @return
+     */
     private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order) {
         List<Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
