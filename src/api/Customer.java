@@ -9,29 +9,52 @@ public class Customer extends User implements Serializable {
     private final String fName;
     private final String lName;
     private static final HashMap<Product, Double> shoppingCart = new HashMap<>();
-    private final ArrayList<Product> products= Utilities.productsLoader();
+    private final ArrayList<Product> products;
+
+    {
+        try {
+            products = Utilities.productsLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private final String[][] pr =new String[products.size()][products.size()];
 
 
-    // Κατασκευαστής του αντικειμένου api.Customer
 
-    public Customer(String username, String password, String fName, String lName) throws IOException, ClassNotFoundException {
+    /**
+     * Κατασκευαστής: Δημιουργεί έναν πελάτη με τις δεδομένες παραμέτρους
+     *
+     * @param username το όνομα χρήστη του χρήστη
+     * @param password ο κωδικός του χρήστη
+     * @param fName το όνομα του χρήστη
+     * @param lName το επώνυμο του χρήστη
+     */
+    public Customer(String username, String password, String fName, String lName){
         super(username, password);
         this.fName=fName;
         this.lName=lName;
     }
 
 
-
-    // Μέθοδος για την προσθήκη προϊόντος στο καλάθι, με έλεγχο έγκυρης εκχώρησης και διαθεσιμότητας
-
+    /**
+     * Προσθέτει ένα προϊόν στο καλάθι.
+     *
+     * @param product  το επιλεγμένο προϊόν
+     * @param posotita  η επιλεγμένη ποσότητα του επιλεγμένου προϊόντος
+     */
     public void addToShoppingCart(Product product, double posotita){
         shoppingCart.put(product, posotita);
     }
 
 
-    // Μέθοδος για τον υπολογισμό του συνολικού κόστους του καλαθιού
 
+    /**
+     * Υπολογίζει και επιστρέφει το συνολικό κόστος της παραγγελίας του χρήστη.
+     *
+     * @return το συνολικό κόστος της παραγγελίας
+     */
     public double getTotal(){
         double total = 0;
         for (Product i : shoppingCart.keySet()){
@@ -41,35 +64,63 @@ public class Customer extends User implements Serializable {
     }
 
 
-    //Ολοκλήρωση παραγγελίας, εγγραφή στο ιστορικό και αφαίρεση αποθέματος
 
-    public void confirmOrder(User currentUser) throws IOException{
+    /**
+     * Ολοκληρώνει την παραγγελία ενός χρήστη, καταγράφει την παραγγελία στο ιστορικό και ενημερώνει τις διαθέσιμες
+     * ποσότητες των επιλεγμένων προϊόντων.
+     *
+     * @param customer  ο χρήστης που ολοκληρώνει την παραγγελία
+     */
+    public void confirmOrder(Customer customer){
         int k=0;
         for (Product i: shoppingCart.keySet()){
             pr[k][0]=i.getTitle();
             pr[k][1]=shoppingCart.get(i).toString();
             k++;
         }
-        Order order = new Order(currentUser.getUsername(), pr, LocalDate.now().toString(), getTotal());
-        Utilities.orderWriter(order);
+        Order order = new Order(customer.getUsername(), pr, LocalDate.now().toString(), getTotal());
+        try {
+            Utilities.orderWriter(order);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
 
-            Utilities.productsRemover(i);
-            Utilities.productsWriter(newP);
+            try {
+                Utilities.productsRemover(i);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                Utilities.productsWriter(newP);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         }
         shoppingCart.clear();
     }
 
 
-    // Μέθοδος για την προσπέλαση του ιστορικού παραγγελιών
 
-    public ArrayList<Order> viewOrderHistory(Customer customer) throws IOException, ClassNotFoundException {
+    /**
+     * Ελέγχει ολόκληρο το ιστορικό τον παραγγελιών και βρίσκει τις παραγγελίες που έχουν γίνει από έναν συγκεκριμένο
+     * πελάτη.
+     *
+     * @param customer  ο πελάτης του οποίου το ιστορικό ψάχνουμε
+     * @return Arraylist tmp, τη λίστα με τις παραγγελίες του χρήστη
+     */
+    public ArrayList<Order> getOrderHistory(Customer customer){
         ArrayList<Order> tmp=new ArrayList<>();
-        ArrayList<Order> orderHistory= Utilities. orderHistoryLoader();
+        ArrayList<Order> orderHistory= null;
+        try {
+            orderHistory = Utilities. orderHistoryLoader();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         for (Order i : orderHistory) {
             if (i.getUsername().equals(customer.getUsername())) {
                 tmp.add(i);
@@ -78,17 +129,37 @@ public class Customer extends User implements Serializable {
         return tmp;
     }
 
+
+    /**
+     * Getter για το όνομα του χρήστη.
+     */
     public String getfName(){
         return fName;
     }
 
+
+    /**
+     * Getter για το επώνυμο του χρήστη
+     */
     public String getlName(){
         return lName;
     }
 
+
+    /**
+     * Getter για το καλάθι αγορών του χρήστη.
+     */
     public HashMap<Product,Double> getShoppingCart(){
         return shoppingCart;
     }
+
+
+    /**
+     * Ενημερώνει την επιλεγμένη ποσότητα ενός προϊόντος στο καλάθι αγορών του χρήστη.
+     *
+     * @param title ο τίτλος του προϊόντος
+     * @param qty η νέα επιλεγμένη ποσότητα του προϊόντος
+     */
      public void updateCartQty(String title, double qty){
         for (Product p: shoppingCart.keySet()){
             if (p.getTitle().equals(title)){
@@ -99,22 +170,21 @@ public class Customer extends User implements Serializable {
      }
 
 
-     public void removeFromCart(String title){
+    /**
+     * Αφαιρεί ένα προϊόν από το καλάθι του χρήστη.
+     *
+     * @param title ο τίτλος του προϊόντος
+     */
+    public void removeFromCart(String title){
         HashMap<Product,Double> sctmp=new HashMap<>();
         for (Product p:shoppingCart.keySet()){
             sctmp.put(p,shoppingCart.get(p));
         }
-
-        //shoppingCart.clear();
 
         for (Product p: sctmp.keySet()){
             if (p.getTitle().equals(title)) {
                 shoppingCart.remove(p);
             }
         }
-
-
-
-
     }
 }

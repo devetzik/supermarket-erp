@@ -4,7 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public abstract class User implements Serializable {
-    private String username, password;
+    private final String username;
+    private final String password;
     private static String[][] cat;
 
     static {
@@ -24,9 +25,6 @@ public abstract class User implements Serializable {
             throw new RuntimeException(e);
         }
     }
-
-    private static String[] categories=new String[30];
-    private static String[] subcategories=new String[30];
 
 
     /**
@@ -127,7 +125,7 @@ public abstract class User implements Serializable {
                 counter++;
             }
         }
-        categories=new String[counter+1];
+        String[] categories = new String[counter + 1];
         categories[0]="Όλες οι κατηγορίες";
         for (int i=0;i<counter;i++){
             categories[i+1]=cat[i][0];
@@ -156,7 +154,7 @@ public abstract class User implements Serializable {
                 }
             }
         }
-        subcategories=new String[counter+1];
+        String[] subcategories = new String[counter + 1];
         subcategories[0]="Όλες οι υποκατηγορίες";
         for (int i=0; i< cat.length;i++){
             if (cat[i][0]!=null){

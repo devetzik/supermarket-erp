@@ -28,21 +28,26 @@ public class Administrator extends User implements Serializable {
         }
     }
 
-    // Κατασκευαστής για το αντικείμενο Administrator
 
-    public Administrator(String username, String password) throws IOException, ClassNotFoundException {
+    /**
+     * Κατασκευαστής: Δημιουργεί έναν διαχειριστή με τις δεδομένες παραμέτρους.
+     *
+     * @param username το όνομα χρήστη του διαχειριστή
+     * @param password το επώνυμο του διαχειριστή
+     */
+    public Administrator(String username, String password){
         super(username,password);
     }
 
 
-    // Μέθοδος για την προσθήκη νέου προϊόντος στο σύστημα
 
     /**
+     * Ελέγχει τη σωστή εκχώρηση των χαρακτηριστικών ενός νέου προϊόντος στο σύστημα του supermarket.
      *
-     * @param title
-     * @param description
-     * @param price
-     * @return
+     * @param title ο τίτλος του προϊόντος
+     * @param description η περιγραφή του προϊόντος
+     * @param price η τιμή του προϊόντος
+     * @return 0 αν έχει γίνει σωστή εκχώρηση, 1 αν κάποιο από τα απαιτούμενα πεδία είναι κενό
      */
     public int CheckAddProduct(String title, String description, double price){
         if (title.isBlank() || description.isBlank() || price==0){
@@ -52,14 +57,17 @@ public class Administrator extends User implements Serializable {
         return 0;
     }
 
+
+
     /**
+     * Προσθέτει ένα νέο προϊόν στο σύστημα του supermarket.
      *
-     * @param title
-     * @param description
-     * @param category
-     * @param subcategory
-     * @param price
-     * @param qty
+     * @param title ο τίτλος του προϊόντος
+     * @param description η περιγραφή του προϊόντος
+     * @param category η κατηγορία του προϊόντος
+     * @param subcategory η υποκατηγορία του προϊόντος
+     * @param price η τιμή του προϊόντος
+     * @param qty η ποσότητα του διαθέσιμου αποθέματος του προϊόντος
      */
     public static void addProduct(String title, String description, String category, String subcategory, double price, double qty){
         Product product=new Product(title,description,category,subcategory,price,qty);
@@ -72,8 +80,10 @@ public class Administrator extends User implements Serializable {
 
 
     /**
+     * Ελέγχει αν υπάρχουν προϊόντα με μηδενικό απόθεμα.
      *
-     * @return
+     * @return Έναν μονοδιάστατο πίνακα String[] με τους τίτλους των προϊόντων με μηδενικό απόθεμα/
+     * null αν δεν υπάρχουν τέτοια προϊόντα
      */
     public String[] noInvProducts(){
         int counter=0;
@@ -96,9 +106,12 @@ public class Administrator extends User implements Serializable {
         return null;
     }
 
+
     /**
+     * Ελέγχει το ιστορικό παραγγελιών του supermarket και καταγράφει για το κάθε προϊόν, σε πόσες παραγγελίες έχει
+     * εμφανιστεί.
      *
-     * @return
+     * @return Ένα ταξινομημένο hashmap με τα προϊόντα και τις φορές που έχουν συμπεριληφθεί σε παραγγελίες
      */
     public HashMap <String,Integer> mostSold() {
         HashMap<String, Integer> sales=new HashMap<>();
@@ -123,10 +136,11 @@ public class Administrator extends User implements Serializable {
     }
 
     /**
+     * Ταξινομεί τα περιεχόμενα ενός Hashmap με κριτήριο τις τιμές (values)
      *
-     * @param unsortMap
-     * @param order
-     * @return
+     * @param unsortMap το μη-ταξινομημένο Hashmap
+     * @param order boolean τιμή για να καθορίσει τη σειρά ταξινόμησης (αύξουσα/φθίνουσα)(true/false)
+     * @return το ταξινομημένο Hashmap
      */
     private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order) {
         List<Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
@@ -139,6 +153,11 @@ public class Administrator extends User implements Serializable {
         return list.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> b, LinkedHashMap::new));
     }
 
+
+    /**
+     * Getter για την επιλεγμένη μάσκα
+     * @param format το format της μάσκας
+     */
     public static MaskFormatter getMaskFormatter(String format) {
         MaskFormatter mask = null;
         try {
@@ -150,6 +169,10 @@ public class Administrator extends User implements Serializable {
         return mask;
     }
 
+
+    /**
+     * Setter για τα προϊόντα του supermarket (σε περίπτωση επεξεργασίας/προσθήκης/διαγραφής)
+     */
     public static void setProducts(){
         try {
             products= Utilities.productsLoader();
@@ -157,5 +180,4 @@ public class Administrator extends User implements Serializable {
             throw new RuntimeException(e);
         }
     }
-
 }
