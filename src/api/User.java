@@ -6,25 +6,9 @@ import java.util.ArrayList;
 public abstract class User implements Serializable {
     private final String username;
     private final String password;
-    private static String[][] cat;
+    private static String[][] cat= Utilities.catLoader();
+    private static ArrayList<Product> products= Utilities.productsLoader();
 
-    static {
-        try {
-            cat = Utilities.catLoader();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static ArrayList<Product> products;
-
-    static {
-        try {
-            products = Utilities.productsLoader();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     /**

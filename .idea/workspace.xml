@@ -9,12 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final, after warnings removal">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="finished JavaDoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/EditProductDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/EditProductDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/NoInvProductsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NoInvProductsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/SignUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SignUpDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -373,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1734892024581</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="finished JavaDoc">
+      <created>1735043995424</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1735043995424</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -388,7 +402,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="admin functions" />
     <MESSAGE value="prodremoverfinal...productedit" />
     <MESSAGE value="fixed system.in problems" />
     <MESSAGE value="searchbar ready" />
@@ -413,7 +426,8 @@
     <MESSAGE value="edit product done" />
     <MESSAGE value="final, after warnings removal" />
     <MESSAGE value="fixed noinv+prodedit" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed noinv+prodedit" />
+    <MESSAGE value="finished JavaDoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished JavaDoc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -9,16 +9,7 @@ public class Customer extends User implements Serializable {
     private final String fName;
     private final String lName;
     private static final HashMap<Product, Double> shoppingCart = new HashMap<>();
-    private final ArrayList<Product> products;
-
-    {
-        try {
-            products = Utilities.productsLoader();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    private final ArrayList<Product> products= Utilities.productsLoader();
     private final String[][] pr =new String[products.size()][products.size()];
 
 
@@ -79,26 +70,14 @@ public class Customer extends User implements Serializable {
             k++;
         }
         Order order = new Order(customer.getUsername(), pr, LocalDate.now().toString(), getTotal());
-        try {
-            Utilities.orderWriter(order);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Utilities.orderWriter(order);
 
         for (Product i : shoppingCart.keySet()){
             Product newP=i;
             newP.setQty(i.getQty()-shoppingCart.get(i));
 
-            try {
-                Utilities.productsRemover(i);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                Utilities.productsWriter(newP);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Utilities.productsRemover(i);
+            Utilities.productsWriter(newP);
 
         }
         shoppingCart.clear();
@@ -116,11 +95,7 @@ public class Customer extends User implements Serializable {
     public ArrayList<Order> getOrderHistory(Customer customer){
         ArrayList<Order> tmp=new ArrayList<>();
         ArrayList<Order> orderHistory= null;
-        try {
-            orderHistory = Utilities. orderHistoryLoader();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        orderHistory = Utilities. orderHistoryLoader();
         for (Order i : orderHistory) {
             if (i.getUsername().equals(customer.getUsername())) {
                 tmp.add(i);

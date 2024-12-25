@@ -84,7 +84,7 @@ public class Product implements Serializable {
     /**
      * Ελέγχει σε ποια υποκατηγορία ανήκει το προϊόν και του αναθέτει την ανάλογη μονάδα μέτρησης κιλά/τεμάχια.
      *
-     * @return unit, την μονάδα μέτρησης του προϊόντος
+     * @return unit, τη μονάδα μέτρησης του προϊόντος
      */
     public String getUnit(){
         String unit;

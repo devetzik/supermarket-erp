@@ -62,11 +62,7 @@ public class SignUpDialog {
                 String password = passwordField.getText();
                 int b;
 
-                try {
-                    b = Utilities.addCustomer(username, password, fName, lName);
-                } catch (IOException | ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
-                }
+                b = Utilities.addCustomer(username, password, fName, lName);
                 if (b==0){
                     new SignUpSuccessDialog();
                     dialog.dispose();

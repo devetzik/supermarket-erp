@@ -8,25 +8,8 @@ import java.util.stream.Collectors;
 
 
 public class Administrator extends User implements Serializable {
-    private static ArrayList<Product> products;
-
-    static {
-        try {
-            products = Utilities.productsLoader();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final ArrayList<Order> orderHistory;
-
-    static {
-        try {
-            orderHistory = Utilities.orderHistoryLoader();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static ArrayList<Product> products= Utilities.productsLoader();
+    private static final ArrayList<Order> orderHistory= Utilities.orderHistoryLoader();
 
 
     /**
@@ -71,11 +54,7 @@ public class Administrator extends User implements Serializable {
      */
     public static void addProduct(String title, String description, String category, String subcategory, double price, double qty){
         Product product=new Product(title,description,category,subcategory,price,qty);
-        try {
-            Utilities.productsWriter(product);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Utilities.productsWriter(product);
     }
 
 
@@ -174,10 +153,6 @@ public class Administrator extends User implements Serializable {
      * Setter για τα προϊόντα του supermarket (σε περίπτωση επεξεργασίας/προσθήκης/διαγραφής)
      */
     public static void setProducts(){
-        try {
-            products= Utilities.productsLoader();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        products= Utilities.productsLoader();
     }
 }

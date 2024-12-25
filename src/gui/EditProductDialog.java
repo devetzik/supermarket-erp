@@ -172,11 +172,7 @@ public class EditProductDialog {
                 x= admin.CheckAddProduct(title,description,price);
 
                 if(x==0){
-                    try {
-                        Utilities.productsRemover(product);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    Utilities.productsRemover(product);
                     Administrator.addProduct(title,description,category,subcategory,price,qty);
                     Administrator.setProducts();
                     AdminFrame.setProductDetails(title,description,category,subcategory,price,qty,unitLabel.getText());

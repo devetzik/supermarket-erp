@@ -22,10 +22,6 @@ public class NoInvProductsDialog {
         dialog.setLayout(new BorderLayout());
         dialog.setResizable(false);
 
-        for (int i=0;i<noInvProducts.length;i++){
-            System.out.println(noInvProducts[i]);
-        }
-
         noInvProductsList = new JList<>(noInvProducts);
         noInvProductsList.setFont(new Font("Serif", Font.BOLD, 16));
 

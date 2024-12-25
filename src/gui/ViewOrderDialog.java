@@ -22,15 +22,6 @@ public class ViewOrderDialog {
     private static final JLabel qtyLabel=new JLabel("Ποσότητα       ");
     private static final JLabel localcostLabel=new JLabel("    Κόστος");
     private static final JScrollPane scrollPane=new JScrollPane();
-    private final Customer customer;
-
-    {
-        try {
-            customer = new Customer("","","","");
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     public ViewOrderDialog(Order order){
@@ -52,7 +43,7 @@ public class ViewOrderDialog {
         str=new String[counter];
 
         for (int i = 0; i< counter; i++){
-            Product product=customer.getProduct(pr[i][0]);
+            Product product= User.getProduct(pr[i][0]);
             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
                 str[i] = "           " + String.format("%.1f",Double.parseDouble(pr[i][1])) + product.getUnit() + "             " + pr[i][0];
             }else {

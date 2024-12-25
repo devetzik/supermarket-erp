@@ -110,11 +110,7 @@ public class AdminFrame {
         mostSoldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    new MostSoldDialog(admin.mostSold());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                new MostSoldDialog(admin.mostSold());
             }
         });
 
@@ -177,11 +173,7 @@ public class AdminFrame {
                 String subcategory = Objects.requireNonNull(subcategoryBox.getSelectedItem()).toString();
 
                 String[] sR;
-                try {
-                    sR = admin.productSearch(title, category, subcategory);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                sR = admin.productSearch(title, category, subcategory);
 
                 if (sR == null) {
                     new NoSearchResultsDialog();
@@ -204,7 +196,7 @@ public class AdminFrame {
                             if (productsList.getValueIsAdjusting()) {
                                 String selectedProduct = productsList.getSelectedValue();
 
-                                Product product = admin.getProduct(selectedProduct);
+                                Product product = User.getProduct(selectedProduct);
 
                                 productTitle.setText(product.getTitle());
                                 productDetails.setText(product.getDescription());
@@ -226,18 +218,14 @@ public class AdminFrame {
         deleteProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Utilities.productsRemover(admin.getProduct(productsList.getSelectedValue()));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                Utilities.productsRemover(User.getProduct(productsList.getSelectedValue()));
                 Administrator.setProducts();
 
                 new ProductDeletedDialog();
 
                 detailsPanel.setVisible(false);
 
-                productsList = new JList<>(admin.getProductsNames());
+                productsList = new JList<>(User.getProductsNames());
                 productsList.setFont(new Font("Serif", Font.BOLD, 16));
 
                 scrollPane.setViewportView(productsList);
@@ -251,7 +239,7 @@ public class AdminFrame {
                         if (productsList.getValueIsAdjusting()) {
                             String selectedProduct = productsList.getSelectedValue();
 
-                            Product product = admin.getProduct(selectedProduct);
+                            Product product = User.getProduct(selectedProduct);
 
                             productTitle.setText(product.getTitle());
                             productDetails.setText(product.getDescription());
@@ -272,7 +260,7 @@ public class AdminFrame {
         editProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditProductDialog(admin,admin.getProduct(productsList.getSelectedValue()));
+                new EditProductDialog(admin, User.getProduct(productsList.getSelectedValue()));
             }
         });
 
@@ -298,7 +286,7 @@ public class AdminFrame {
         sparePanel3.setPreferredSize(new Dimension(30,adminFrame.getHeight()-200));
         sparePanel3.setBackground(Color.orange);
 
-        productsList=new JList<>(admin.getProductsNames());
+        productsList=new JList<>(User.getProductsNames());
         productsList.setFont(new Font("Serif",Font.BOLD,16));
 
         scrollPane.setViewportView(productsList);
@@ -313,7 +301,7 @@ public class AdminFrame {
 
                     String selectedProduct = productsList.getSelectedValue();
 
-                    Product product = admin.getProduct(selectedProduct);
+                    Product product = User.getProduct(selectedProduct);
                     if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
                         unit.setText("kg");
                     } else {
@@ -339,7 +327,7 @@ public class AdminFrame {
             public void actionPerformed(ActionEvent e) {
                 detailsPanel.setVisible(false);
 
-                productsList=new JList<>(admin.getProductsNames());
+                productsList=new JList<>(User.getProductsNames());
                 productsList.setFont(new Font("Serif",Font.BOLD,16));
 
                 scrollPane.setViewportView(productsList);
@@ -354,7 +342,7 @@ public class AdminFrame {
 
                             String selectedProduct = productsList.getSelectedValue();
 
-                            Product product = admin.getProduct(selectedProduct);
+                            Product product = User.getProduct(selectedProduct);
                             if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
                                 unit.setText("kg");
                             } else {

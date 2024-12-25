@@ -105,21 +105,17 @@ public class Main implements Serializable,ActionListener {
         String username = usernameTextfield.getText();
         String password = passwordField.getText();
 
-        try {
-            a = Utilities.loginCheck(username, password);
-            if (a == 0) {
-                frame.dispose();
-                usernameTextfield.setText("");
-                passwordField.setText("");
-                User currnentUser = Utilities.getCurrentUser(username);
-                if (currnentUser instanceof Administrator) {
-                    new AdminFrame((Administrator) currnentUser);
-                } else {
-                    new CustomerFrame((Customer) currnentUser);
-                }
+        a = Utilities.loginCheck(username, password);
+        if (a == 0) {
+            frame.dispose();
+            usernameTextfield.setText("");
+            passwordField.setText("");
+            User currnentUser = Utilities.getCurrentUser(username);
+            if (currnentUser instanceof Administrator) {
+                new AdminFrame((Administrator) currnentUser);
+            } else {
+                new CustomerFrame((Customer) currnentUser);
             }
-        } catch (IOException | ClassNotFoundException ex) {
-            throw new RuntimeException(ex);
         }
         new LoginResultDialog(a);
     }
