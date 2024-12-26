@@ -32,7 +32,7 @@ public class CustomerFrame {
     private static final JLabel productSubcategory=new JLabel();
     private static final JLabel productPrice=new JLabel();
     private static final JLabel productQty=new JLabel();
-    private static final JLabel spareLabel=new JLabel();
+    private static final JLabel spareLabel=new JLabel("",SwingConstants.CENTER);
     private static final JLabel upLabel=new JLabel("Όλα τα προϊόντα",SwingConstants.CENTER);
     private static final JLabel unit=new JLabel();
     private static final JLabel localCostLabel=new JLabel();
@@ -266,6 +266,13 @@ public class CustomerFrame {
                                 productQty.setText("Διαθέσιμο απόθεμα: "+(int) product.getQty()+product.getUnit());
                                 localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + User.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(User.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                             }
+                            if (product.getQty()==0){
+                                addToCartButton.setEnabled(false);
+                                spareLabel.setText("Εξαντλημένο");
+                            }else {
+                                addToCartButton.setEnabled(true);
+                                spareLabel.setText("");
+                            }
                         }
                     }
                 });
@@ -378,6 +385,13 @@ public class CustomerFrame {
                                 else {
                                     productQty.setText("Διαθέσιμο απόθεμα: "+(int) product.getQty()+product.getUnit());
                                     localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + User.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(User.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                                }
+                                if (product.getQty()==0){
+                                    addToCartButton.setEnabled(false);
+                                    spareLabel.setText("Εξαντλημένο");
+                                }else {
+                                    addToCartButton.setEnabled(true);
+                                    spareLabel.setText("");
                                 }
                             }
                         }
@@ -494,11 +508,20 @@ public class CustomerFrame {
                         productQty.setText("Διαθέσιμο απόθεμα: "+(int) product.getQty()+product.getUnit());
                         localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + User.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(User.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
                     }
+                    if (product.getQty()==0){
+                        addToCartButton.setEnabled(false);
+                        spareLabel.setText("Εξαντλημένο");
+                    }else {
+                        addToCartButton.setEnabled(true);
+                        spareLabel.setText("");
+                    }
                 }
             }
         });
 
         spareLabel.setPreferredSize(new Dimension(500,100));
+        spareLabel.setFont(new Font("Serif",Font.BOLD,22));
+        spareLabel.setForeground(Color.red);
 
         qtySpinner.setPreferredSize(new Dimension(60,40));
         qtySpinner.setFont(new Font("Serif",Font.BOLD,20));
@@ -678,6 +701,13 @@ public class CustomerFrame {
                             else {
                                 productQty.setText("Διαθέσιμο απόθεμα: "+(int) product.getQty()+product.getUnit());
                                 localCostLabel.setText("Κόστος: "+ Math.round((double)qtySpinner.getValue()) +" x " + User.getProduct(productsList.getSelectedValue()).getPrice()+" = " + String.format("%.2f",(double)qtySpinner.getValue()*(User.getProduct(productsList.getSelectedValue()).getPrice()))+"€");
+                            }
+                            if (product.getQty()==0){
+                                addToCartButton.setEnabled(false);
+                                spareLabel.setText("Εξαντλημένο");
+                            }else {
+                                addToCartButton.setEnabled(true);
+                                spareLabel.setText("");
                             }
                         }
                     }

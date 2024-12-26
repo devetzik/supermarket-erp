@@ -9,19 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="finished JavaDoc">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="finished JavaDoc ++ fixed trycatch">
+      <change afterPath="$PROJECT_DIR$/test/api/AdministratorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/api/CustomerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/api/ProductTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/api/UserTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/api/UtilitiesTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyMarket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyMarket.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/AdminFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/EditProductDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/EditProductDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/NoInvProductsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/NoInvProductsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/CustomerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CustomerFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/QtyTooMuchDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/QtyTooMuchDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/SignUpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SignUpDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ViewOrderDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/api/TestTODELETE.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +34,7 @@
       <list>
         <option value="JUnit4 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -58,13 +60,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/devetzik/IdeaProjects/mymarket-3708/src/META-INF/MANIFEST.MF&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -72,6 +75,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="api" />
       <recent name="" />
     </key>
   </component>
@@ -79,6 +83,12 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.Main" />
       <module name="MyMarket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -91,10 +101,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserTest.productSearchBySubcategoryProductsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyMarket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserTest" />
+      <option name="METHOD_NAME" value="productSearchBySubcategoryProductsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserTest.productSearchByTitleAndCategoryProductsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyMarket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserTest" />
+      <option name="METHOD_NAME" value="productSearchByTitleAndCategoryProductsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserTest.productSearchByTitleProductsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyMarket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.UserTest" />
+      <option name="METHOD_NAME" value="productSearchByTitleProductsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in MyMarket" />
+        <item itemvalue="JUnit.UserTest.productSearchByTitleAndCategoryProductsTest" />
+        <item itemvalue="JUnit.UserTest.productSearchByTitleProductsTest" />
+        <item itemvalue="JUnit.UserTest.productSearchBySubcategoryProductsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -387,7 +448,14 @@
       <option name="project" value="LOCAL" />
       <updated>1735043995424</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="finished JavaDoc ++ fixed trycatch">
+      <created>1735158484173</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1735158484173</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -402,7 +470,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="prodremoverfinal...productedit" />
     <MESSAGE value="fixed system.in problems" />
     <MESSAGE value="searchbar ready" />
     <MESSAGE value="adminFrame basic ready" />
@@ -427,7 +494,8 @@
     <MESSAGE value="final, after warnings removal" />
     <MESSAGE value="fixed noinv+prodedit" />
     <MESSAGE value="finished JavaDoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished JavaDoc" />
+    <MESSAGE value="finished JavaDoc ++ fixed trycatch" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished JavaDoc ++ fixed trycatch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

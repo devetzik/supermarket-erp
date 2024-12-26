@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 public class QtyTooMuchDialog {
     private static final JDialog dialog=new JDialog();
     private static final JPanel panel=new JPanel();
-    private static final JLabel label=new JLabel("Δεν είναι διαθέσιμη η επιλεγμένη ποσότητα. ",SwingConstants.CENTER);
-    private static final JLabel label2=new JLabel();
+    private static final JLabel label=new JLabel("Δεν είναι διαθέσιμη η επιλεγμένη ποσότητα.",SwingConstants.CENTER);
+    private static final JLabel label2=new JLabel("",SwingConstants.CENTER);
     private static final JButton button=new JButton("OK");
 
     public QtyTooMuchDialog(Product product){
@@ -27,10 +27,16 @@ public class QtyTooMuchDialog {
         label2.setFont(new Font("Serif",Font.BOLD,16));
         label2.setPreferredSize(new Dimension(350,30));
 
-        if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")){
-            label2.setText("Επιλέξτε ποσότητα μικρότερη από "+ product.getQty()+product.getUnit());
+        if (product.getQty()==0){
+            label.setText("Το προϊόν δεν είναι διαθέσιμο.");
+            label2.setText("");
         }else {
-            label2.setText("Επιλέξτε ποσότητα μικρότερη από "+ (int)product.getQty()+product.getUnit());
+            label.setText("Δεν είναι διαθέσιμη η επιλεγμένη ποσότητα.");
+            if (product.getSubcategory().equals("Φρούτα") || product.getSubcategory().equals("Λαχανικά")) {
+                label2.setText("Επιλέξτε ποσότητα μικρότερη από " + product.getQty() + product.getUnit());
+            } else {
+                label2.setText("Επιλέξτε ποσότητα μικρότερη από " + (int) product.getQty() + product.getUnit());
+            }
         }
 
         button.setPreferredSize(new Dimension(100,30));

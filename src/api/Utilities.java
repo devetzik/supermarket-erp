@@ -17,7 +17,7 @@ public class Utilities {
         ArrayList<Administrator> admins = new ArrayList<>();
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\admins.txt"));
+            reader = new BufferedReader(new FileReader("resources\\admins.txt"));
 
             String line;
 
@@ -43,7 +43,7 @@ public class Utilities {
         ArrayList<Customer> customers = new ArrayList<>();
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\customers.txt"));
+            reader = new BufferedReader(new FileReader("resources\\customers.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] s = line.split(";");
@@ -66,7 +66,7 @@ public class Utilities {
         ArrayList<Product> tmp = new ArrayList<>();
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\products.txt"));
+            reader = new BufferedReader(new FileReader("resources\\products.txt"));
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -104,7 +104,7 @@ public class Utilities {
         Product tmp;
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\products.txt", true));
+            writer = new BufferedWriter(new FileWriter("resources\\products.txt", true));
             String line;
             boolean flag = true;
             products = productsLoader();
@@ -134,8 +134,8 @@ public class Utilities {
         products.remove(product);
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\products.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\tmp.txt", true));
+            reader = new BufferedReader(new FileReader("resources\\products.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("resources\\tmp.txt", true));
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!line.contains(product.getTitle())) {
@@ -144,16 +144,16 @@ public class Utilities {
             }
             reader.close();
             writer.close();
-            new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\products.txt", false).close();
-            BufferedReader r = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\tmp.txt"));
-            BufferedWriter w = new BufferedWriter(new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\products.txt"));
+            new FileWriter("resources\\products.txt", false).close();
+            BufferedReader r = new BufferedReader(new FileReader("resources\\tmp.txt"));
+            BufferedWriter w = new BufferedWriter(new FileWriter("resources\\products.txt"));
 
             while ((line = r.readLine()) != null) {
                 w.append(line + "\n");
             }
             r.close();
             w.close();
-            new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\tmp.txt", false).close();
+            new FileWriter("resources\\tmp.txt", false).close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -171,7 +171,7 @@ public class Utilities {
         String[] scat = new String[10];
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\categories_subcategories.txt"));
+            reader = new BufferedReader(new FileReader("resources\\categories_subcategories.txt"));
             int i = 0;
             String line, line2;
             while ((line = reader.readLine()) != null) {
@@ -199,7 +199,7 @@ public class Utilities {
     public static void orderWriter(Order order) {
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\orderhistory.txt", true));
+            writer = new BufferedWriter(new FileWriter("resources\\orderhistory.txt", true));
 
             if (order.getTotal() != 0) {
                 writer.append(order.getUsername() + ";");
@@ -232,7 +232,7 @@ public class Utilities {
         ArrayList<Order> orderHistory = new ArrayList<>();
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\orderhistory.txt"));
+            reader = new BufferedReader(new FileReader("resources\\orderhistory.txt"));
 
             String line;
             String[] s;
@@ -251,10 +251,10 @@ public class Utilities {
                 orderHistory.add(new Order(s[0], pr, s[3], Double.parseDouble(s[4])));
             }
             reader.close();
-            return orderHistory;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return orderHistory;
     }
 
 
@@ -301,17 +301,16 @@ public class Utilities {
 
 
     /**
-     * Ελέγχει αν έχει γίνει σωστή εισαγωγή των στοιχείων ενός νέου χρήστη κατά τη διάρκεια της εγγραφής, και αν ναι
-     * γράφει τον νέο χρήστη στο αρχείο των χρηστών.
+     * Ελέγχει αν έχει γίνει σωστή εισαγωγή των στοιχείων ενός νέου χρήστη κατά τη διάρκεια της εγγραφής.
      *
      * @param username  το όνομα χρήστη
      * @param password  ο κωδικός χρήστη
      * @param fName  το όνομα του χρήστη
      * @param lName  το επώνυμο του χρήστη
-     * @return  0 αν έχει γίνει σωστή εισαγωγή-εγγραφή του νέου χρήστη/ 1 αν το εισαχθέν username χρησιμοποιείται/
-     * 3 αν ένα από τα πεδία είναι κενό/ 4 αν υπάρχει αριθμός στο πεδίο του ονόματος ήτ του επωνύμου
+     * @return  0 αν έχει γίνει σωστή εισαγωγή των στοιχείων του νέου χρήστη/ 1 αν το εισαχθέν username χρησιμοποιείται/
+     * 3 αν ένα από τα πεδία είναι κενό/ 4 αν υπάρχει αριθμός στο πεδίο του ονόματος ή του επωνύμου
      */
-    public static int addCustomer(String username, String password, String fName, String lName) {
+    public static int checkAddCustomer(String username, String password, String fName, String lName) {
         admins = adminLoader();
         customers = custLoader();
 
@@ -334,18 +333,28 @@ public class Utilities {
                 return 1;
             }
         }
+        return 0;
+    }
 
+
+    /**
+     * Γράφει έναν νέο χρήστη στο αρχείο των χρηστών.
+     *
+     * @param username  το όνομα χρήστη
+     * @param password  ο κωδικός χρήστη
+     * @param fName  το όνομα του χρήστη
+     * @param lName  το επώνυμο του χρήστη
+     */
+    public static void addCustomer(String username, String password, String fName, String lName){
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter("C:\\Users\\Deve\\IdeaProjects\\mymarket-3708\\resources\\customers.txt", true));
+            writer = new BufferedWriter(new FileWriter("resources\\customers.txt", true));
 
             writer.append("\n" + username + ";" + password + ";" + fName + ";" + lName);
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return 0;
     }
 
 

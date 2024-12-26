@@ -25,16 +25,16 @@ public abstract class User implements Serializable {
 
 
     /**
-     * Αναζήτα τα προϊόντα που πληρούν τα κριτήρια αναζήτης, με βάση τον τίτλο, την κατηγορία και την υποκατηγορία που
-     * έχει επιλέξει ο χρήστης. Δημιουργεί έναν μονοδιάστο πίνακα στον οποίο τοποθετεί τα ονόματα των προϊόντων-
+     * Αναζήτα τα προϊόντα που πληρούν τα κριτήρια αναζήτησης, με βάση τον τίτλο, την κατηγορία και την υποκατηγορία που
+     * έχει επιλέξει ο χρήστης. Δημιουργεί έναν μονοδιάστατο πίνακα στον οποίο τοποθετεί τα ονόματα των προϊόντων-
      * αποτελεσμάτων και το επιστρέφει.
      *
      * @param title ο τίτλος του προϊόντος που αναζητείται
      * @param category η επιλεγμένη κατηγορία προς αναζήτηση
      * @param subcategory η επιλεγμένη υποκατηγορία προς αναζήτηση
-     * @return String[] sR  τα ονόματα των προϊόντων που πληρούν τα κριτήρια αναζήτησης
+     * @return String[] sR τα ονόματα των προϊόντων που πληρούν τα κριτήρια αναζήτησης
      */
-    public String [] productSearch(String title, String category, String subcategory){
+    public static String [] productSearch(String title, String category, String subcategory){
         ArrayList<String> searchResults = new ArrayList<>();
         if (title.isBlank() && category.equals("Όλες οι κατηγορίες")) {
             for (Product p: products){

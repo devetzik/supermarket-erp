@@ -62,8 +62,9 @@ public class SignUpDialog {
                 String password = passwordField.getText();
                 int b;
 
-                b = Utilities.addCustomer(username, password, fName, lName);
+                b = Utilities.checkAddCustomer(username, password, fName, lName);
                 if (b==0){
+                    Utilities.addCustomer(username,password,fName,lName);
                     new SignUpSuccessDialog();
                     dialog.dispose();
                     fNameTextField.setText("");
