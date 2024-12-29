@@ -2,6 +2,8 @@ package api;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AdministratorTest {
@@ -40,22 +42,5 @@ public class AdministratorTest {
         String description="description";
         double price=10;
         assertEquals(0,administrator.CheckAddProduct(title,description,price));
-    }
-
-
-    @org.junit.jupiter.api.Test
-    void noInvProductsTest() {
-        Product product1=new Product("title1", "description", "category", "subcategory", 1,10);
-        Product product2=new Product("title2", "description", "category", "subcategory", 2,0);
-        Product product3=new Product("title3", "description", "category", "subcategory", 3,0);
-        Product product4=new Product("title4", "description", "category", "subcategory", 4,10);
-        Product product5=new Product("title5", "description", "category", "subcategory", 3,0);
-        Product product6=new Product("title6", "description", "category", "subcategory", 4,10);
-        String[] noInvTest=new String[3];
-        noInvTest[0]=product2.getTitle();
-        noInvTest[1]=product3.getTitle();
-        noInvTest[2]=product5.getTitle();
-
-
     }
 }

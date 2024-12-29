@@ -114,4 +114,31 @@ class UtilitiesTest {
         String password="password1";
         assertEquals(0,Utilities.loginCheck(username,password));
     }
+
+    @Test
+    void adminLoaderTest() {
+        ArrayList<Administrator> admins= Utilities.adminLoader();
+        assertEquals(2,admins.size());
+        assertEquals("admin1",admins.get(0).getUsername());
+        assertEquals("password1",admins.get(0).getPassword());
+        assertEquals("admin2",admins.get(1).getUsername());
+        assertEquals("password2",admins.get(1).getPassword());
+    }
+
+
+    @Test
+    void custLoaderTest() {
+        ArrayList<Customer> customers=Utilities.custLoader();
+        assertEquals("user1",customers.get(0).getUsername());
+        assertEquals("password1",customers.get(0).getPassword());
+        assertEquals("user2",customers.get(1).getUsername());
+        assertEquals("password2",customers.get(1).getPassword());
+    }
+
+    @Test
+    void productsLoaderTest() {
+        ArrayList<Product> products=Utilities.productsLoader();
+        assertEquals(38,products.size());
+        assertEquals("Πορτοκάλια 1kg",products.get(0).getTitle());
+    }
 }

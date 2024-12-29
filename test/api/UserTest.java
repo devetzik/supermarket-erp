@@ -87,5 +87,4 @@ class UserTest {
         String[] searchResults={"Καρότα 1kg"};
         assertArrayEquals(searchResults,User.productSearch(title,category,subcategory));
     }
-
 }
