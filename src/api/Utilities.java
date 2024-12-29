@@ -130,8 +130,6 @@ public class Utilities {
      * @param product το προϊόν προς διαγραφή
      */
     public static void productsRemover(Product product) {
-        ArrayList<Product> products = productsLoader();
-        products.remove(product);
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader("resources\\products.txt"));

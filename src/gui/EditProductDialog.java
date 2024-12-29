@@ -175,6 +175,7 @@ public class EditProductDialog {
                     Utilities.productsRemover(product);
                     Administrator.addProduct(title,description,category,subcategory,price,qty);
                     AdminFrame.setProductDetails(title,description,category,subcategory,price,qty,unitLabel.getText());
+                    Administrator.setProducts();
                     new ProductEditSuccessDialog();
                     dialog.dispose();
                 }else {

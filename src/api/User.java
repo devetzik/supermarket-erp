@@ -186,5 +186,11 @@ public abstract class User implements Serializable {
         return product;
     }
 
+    /**
+     * Setter για τα προϊόντα του supermarket (σε περίπτωση επεξεργασίας/προσθήκης/διαγραφής)
+     */
+    public static void setProducts(){
+        products= Utilities.productsLoader();
+    }
 
 }

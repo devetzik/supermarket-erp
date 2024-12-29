@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 
 public class Administrator extends User implements Serializable {
-    private static ArrayList<Product> products= Utilities.productsLoader();
-    private static final ArrayList<Order> orderHistory= Utilities.orderHistoryLoader();
-
 
     /**
      * Κατασκευαστής: Δημιουργεί έναν διαχειριστή με τις δεδομένες παραμέτρους.
@@ -65,6 +62,7 @@ public class Administrator extends User implements Serializable {
      * null αν δεν υπάρχουν τέτοια προϊόντα
      */
     public String[] noInvProducts(){
+        ArrayList<Product> products = Utilities.productsLoader();
         int counter=0;
         for (Product i : products){
             if (i.getQty()==0){
@@ -93,6 +91,7 @@ public class Administrator extends User implements Serializable {
      * @return Ένα ταξινομημένο hashmap με τα προϊόντα και τις φορές που έχουν συμπεριληφθεί σε παραγγελίες
      */
     public HashMap <String,Integer> mostSold() {
+        ArrayList<Order> orderHistory = Utilities.orderHistoryLoader();
         HashMap<String, Integer> sales=new HashMap<>();
         HashMap<String, Integer> tmp=new HashMap<>();
         for (Order i : orderHistory) {
@@ -146,13 +145,5 @@ public class Administrator extends User implements Serializable {
             ex.printStackTrace();
         }
         return mask;
-    }
-
-
-    /**
-     * Setter για τα προϊόντα του supermarket (σε περίπτωση επεξεργασίας/προσθήκης/διαγραφής)
-     */
-    public static void setProducts(){
-        products= Utilities.productsLoader();
     }
 }
