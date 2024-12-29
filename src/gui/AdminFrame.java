@@ -325,6 +325,7 @@ public class AdminFrame {
         productsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Administrator.setProducts();
                 detailsPanel.setVisible(false);
 
                 productsList=new JList<>(User.getProductsNames());

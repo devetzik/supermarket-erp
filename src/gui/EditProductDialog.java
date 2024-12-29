@@ -174,7 +174,6 @@ public class EditProductDialog {
                 if(x==0){
                     Utilities.productsRemover(product);
                     Administrator.addProduct(title,description,category,subcategory,price,qty);
-                    Administrator.setProducts();
                     AdminFrame.setProductDetails(title,description,category,subcategory,price,qty,unitLabel.getText());
                     new ProductEditSuccessDialog();
                     dialog.dispose();
