@@ -9,12 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="fixed productedit">
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final?!">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/MyMarket_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/MyMarket_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Administrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/api/AdministratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/AdministratorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/api/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/UserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/api/UtilitiesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/UtilitiesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +52,8 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/devetzik/IdeaProjects/mymarket-3708/src/META-INF/MANIFEST.MF&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/devetzik/IdeaProjects/mymarket-3708/resources/tmp.txt&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
@@ -71,7 +68,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AdministratorTest.noInvProductsTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.Main" />
       <module name="MyMarket" />
@@ -151,11 +148,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.AdministratorTest.noInvProductsTest" />
         <item itemvalue="JUnit.UtilitiesTest.productsLoaderTest" />
         <item itemvalue="JUnit.UtilitiesTest.custLoaderTest" />
         <item itemvalue="JUnit.UtilitiesTest.adminLoaderTest" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -469,7 +466,14 @@
       <option name="project" value="LOCAL" />
       <updated>1735504907601</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="final?!">
+      <created>1735507025957</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1735507025957</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -484,7 +488,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adminFrame basic ready" />
     <MESSAGE value="cart works-delete" />
     <MESSAGE value="fixes logout/relogin issues" />
     <MESSAGE value="desktop fixes" />
@@ -509,7 +512,8 @@
     <MESSAGE value="finished JavaDoc ++ fixed trycatch" />
     <MESSAGE value="Started tests ++ redlabel" />
     <MESSAGE value="fixed productedit" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed productedit" />
+    <MESSAGE value="final?!" />
+    <option name="LAST_COMMIT_MESSAGE" value="final?!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

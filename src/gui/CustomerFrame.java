@@ -144,6 +144,7 @@ public class CustomerFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 totalCostLabel.setText("Συνολικό κόστος παραγγελίας: "+String.format("%.2f",cust.getTotal())+"€");
+                spareLabel.setText("");
 
                 if (cust.getShoppingCart().isEmpty()) {
                     new EmptyCartDialog();
