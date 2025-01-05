@@ -9,9 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final?!">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/MyMarket_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/MyMarket_jar.xml" afterDir="false" />
+    <list default="true" id="4962100c-d0a3-448f-8930-2e998309a824" name="Changes" comment="final?! +spare label fix">
+      <change afterPath="$PROJECT_DIR$/test/api/OrderTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/orderhistory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/orderhistory.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/products.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/products.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/api/CustomerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/CustomerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/api/ProductTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/ProductTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/api/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/api/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,21 +75,16 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="gui.Main" />
+  <component name="RunManager" selected="JUnit.All in MyMarket">
+    <configuration name="All in MyMarket" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyMarket" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="gui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AdministratorTest.noInvProductsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CustomerTest.getOrderHistoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyMarket" />
       <extension name="coverage">
         <pattern>
@@ -91,14 +93,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="api" />
-      <option name="MAIN_CLASS_NAME" value="api.AdministratorTest" />
-      <option name="METHOD_NAME" value="noInvProductsTest" />
+      <option name="MAIN_CLASS_NAME" value="api.CustomerTest" />
+      <option name="METHOD_NAME" value="getOrderHistoryTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UtilitiesTest.adminLoaderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CustomerTest.removeFromCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyMarket" />
       <extension name="coverage">
         <pattern>
@@ -107,14 +109,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="api" />
-      <option name="MAIN_CLASS_NAME" value="api.UtilitiesTest" />
-      <option name="METHOD_NAME" value="adminLoaderTest" />
+      <option name="MAIN_CLASS_NAME" value="api.CustomerTest" />
+      <option name="METHOD_NAME" value="removeFromCart" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UtilitiesTest.custLoaderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest.getProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyMarket" />
       <extension name="coverage">
         <pattern>
@@ -123,14 +125,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="api" />
-      <option name="MAIN_CLASS_NAME" value="api.UtilitiesTest" />
-      <option name="METHOD_NAME" value="custLoaderTest" />
+      <option name="MAIN_CLASS_NAME" value="api.UserTest" />
+      <option name="METHOD_NAME" value="getProduct" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UtilitiesTest.productsLoaderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserTest.getProductsNamesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyMarket" />
       <extension name="coverage">
         <pattern>
@@ -139,8 +141,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="api" />
-      <option name="MAIN_CLASS_NAME" value="api.UtilitiesTest" />
-      <option name="METHOD_NAME" value="productsLoaderTest" />
+      <option name="MAIN_CLASS_NAME" value="api.UserTest" />
+      <option name="METHOD_NAME" value="getProductsNamesTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -148,11 +150,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.AdministratorTest.noInvProductsTest" />
-        <item itemvalue="JUnit.UtilitiesTest.productsLoaderTest" />
-        <item itemvalue="JUnit.UtilitiesTest.custLoaderTest" />
-        <item itemvalue="JUnit.UtilitiesTest.adminLoaderTest" />
+        <item itemvalue="JUnit.All in MyMarket" />
+        <item itemvalue="JUnit.CustomerTest.getOrderHistoryTest" />
+        <item itemvalue="JUnit.CustomerTest.removeFromCart" />
+        <item itemvalue="JUnit.UserTest.getProductsNamesTest" />
+        <item itemvalue="JUnit.UserTest.getProduct" />
       </list>
     </recent_temporary>
   </component>
@@ -473,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1735507025957</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="final?! +spare label fix">
+      <created>1735512519988</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1735512519988</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -488,7 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cart works-delete" />
     <MESSAGE value="fixes logout/relogin issues" />
     <MESSAGE value="desktop fixes" />
     <MESSAGE value="Customer Console FINAL?!?!" />
@@ -513,7 +521,8 @@
     <MESSAGE value="Started tests ++ redlabel" />
     <MESSAGE value="fixed productedit" />
     <MESSAGE value="final?!" />
-    <option name="LAST_COMMIT_MESSAGE" value="final?!" />
+    <MESSAGE value="final?! +spare label fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="final?! +spare label fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -524,5 +533,11 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/mymarket_3708$CustomerTest_getOrderHistoryTest.ic" NAME="CustomerTest.getOrderHistoryTest Coverage Results" MODIFIED="1736083517315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>api.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/mymarket_3708$All_in_MyMarket.ic" NAME="All in MyMarket Coverage Results" MODIFIED="1736084686351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

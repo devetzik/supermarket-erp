@@ -54,7 +54,7 @@ class UserTest {
         String category="Φρέσκα τρόφιμα";
         String subcategory="Όλες οι υποκατηγορίες";
 
-        String[] searchResults={"Πορτοκάλια 1kg", "Καρότα 1kg", "Κιμάς Μοσχαρίσιος 500g", "Φιλέτο Σολομού 300g"};
+        String[] searchResults={"Πορτοκάλια 1kg", "Καρότα 1kg", "Φιλέτο Σολομού 300g", "Κιμάς Μοσχαρίσιος 500g"};
         assertArrayEquals(searchResults,User.productSearch(title,category,subcategory));
     }
 
@@ -86,5 +86,33 @@ class UserTest {
 
         String[] searchResults={"Καρότα 1kg"};
         assertArrayEquals(searchResults,User.productSearch(title,category,subcategory));
+    }
+
+    @Test
+    void productSearchByAllParameters() {
+        String title="καρ";
+        String category="Φρέσκα τρόφιμα";
+        String subcategory="Λαχανικά";
+
+        String[] searchResults={"Καρότα 1kg"};
+        assertArrayEquals(searchResults,User.productSearch(title,category,subcategory));
+    }
+
+    @Test
+    void getProductTest() {
+        User.setProducts();
+        ArrayList<Product> products=User.getProducts();
+        assertEquals(User.getProduct("Πορτοκάλια 1kg"),products.get(0));
+    }
+
+    @Test
+    void getProductsNamesTest() {
+        ArrayList<Product> products=User.getProducts();
+        String[] productsNames=new String[products.size()];
+        for (int i=0;i<products.size();i++){
+            productsNames[i]=products.get(i).getTitle();
+        }
+
+        assertArrayEquals(productsNames,User.getProductsNames());
     }
 }

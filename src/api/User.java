@@ -193,4 +193,6 @@ public abstract class User implements Serializable {
         products= Utilities.productsLoader();
     }
 
+    public static ArrayList<Product> getProducts() { return products;}
+
 }

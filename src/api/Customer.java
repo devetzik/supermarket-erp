@@ -139,7 +139,6 @@ public class Customer extends User implements Serializable {
         for (Product p: shoppingCart.keySet()){
             if (p.getTitle().equals(title)){
                 shoppingCart.put(p,qty);
-                break;
             }
         }
      }
