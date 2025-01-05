@@ -2,6 +2,7 @@ package api;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,16 +30,7 @@ class CustomerTest {
         assertEquals(30,customer.getTotal());
     }
 
-    @Test
-    void getOrderHistoryTest() {
-        Product product1=new Product("title1", "description", "category", "subcategory", 1,10);
 
-
-        ArrayList<Order> tmp=customer.getOrderHistory(customer);
-
-        assertEquals(tmp,customer.getOrderHistory(customer));
-
-    }
 
 
     @Test
@@ -80,5 +72,42 @@ class CustomerTest {
         customer.confirmOrder(customer);
 
         Utilities.productsRemover(product1);
+        orderRemover(customer.getUsername());
+
+    }
+
+    @Test
+    void getOrderHistoryTest() {
+        ArrayList<Order> tmp=customer.getOrderHistory(customer);
+        assertEquals(tmp,customer.getOrderHistory(customer));
+
+    }
+
+    public static void orderRemover(String username) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("resources\\orderhistory.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("resources\\tmp.txt", true));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.contains(username)) {
+                    writer.append(line + "\n");
+                }
+            }
+            reader.close();
+            writer.close();
+            new FileWriter("resources\\orderhistory.txt", false).close();
+            BufferedReader r = new BufferedReader(new FileReader("resources\\tmp.txt"));
+            BufferedWriter w = new BufferedWriter(new FileWriter("resources\\orderhistory.txt"));
+
+            while ((line = r.readLine()) != null) {
+                w.append(line + "\n");
+            }
+            r.close();
+            w.close();
+            new FileWriter("resources\\tmp.txt", false).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

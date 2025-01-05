@@ -121,7 +121,7 @@ public class Administrator extends User implements Serializable {
      * @param order boolean τιμή για να καθορίσει τη σειρά ταξινόμησης (αύξουσα/φθίνουσα)(true/false)
      * @return το ταξινομημένο Hashmap
      */
-    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order) {
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> unsortMap, final boolean order) {
         List<Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
         list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
