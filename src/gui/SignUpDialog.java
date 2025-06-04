@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+
 public class SignUpDialog {
     private static final JDialog dialog=new JDialog();
     private static final JButton ok=new JButton("Εγγραφή");

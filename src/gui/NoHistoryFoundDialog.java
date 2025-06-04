@@ -11,6 +11,7 @@ public class NoHistoryFoundDialog {
     private static final JLabel label=new JLabel("Δεν βρέθηκε ιστορικό παραγγελιών",SwingConstants.CENTER);
     private static final JButton button=new JButton("OK");
 
+
     public NoHistoryFoundDialog(){
         dialog.setLocationRelativeTo(null);
         dialog.setSize(400,150);

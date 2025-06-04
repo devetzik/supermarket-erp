@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import static api.Administrator.getMaskFormatter;
 
+
 public class EditProductDialog {
     private static final JLabel titleLabel=new JLabel("            Τίτλος: ");
     private static final JLabel descriptionLabel=new JLabel("     Περιγραφή: ");

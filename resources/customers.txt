@@ -3,3 +3,4 @@ user2;password2;fName2;lName2
 1;1;1;1
 devetzik;kaka;Κωνσταντίνος;Δεβετζίδης
 sofia;sofia;Sofia;Eleftheriadou
+MS;MS;Myriam;Sirakian

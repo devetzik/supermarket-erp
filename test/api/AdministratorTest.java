@@ -34,6 +34,7 @@ public class AdministratorTest {
         assertEquals(1,administrator.CheckAddProduct(title,description,price));
     }
 
+
     @Test
     public void newProductCorrectTest() {
         String title="title";

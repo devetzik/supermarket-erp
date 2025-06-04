@@ -101,6 +101,7 @@ class UtilitiesTest {
         assertEquals(1,Utilities.loginCheck(username,password));
     }
 
+
     @Test
     void loginCheckUserNotFoundTest() {
         String username="testUsername";

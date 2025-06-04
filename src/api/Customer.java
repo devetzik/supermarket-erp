@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class Customer extends User implements Serializable {
     private final String fName;
     private final String lName;

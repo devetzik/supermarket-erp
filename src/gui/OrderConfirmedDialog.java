@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class OrderConfirmedDialog {
     private static final JDialog dialog=new JDialog();
     private static final JPanel panel=new JPanel();

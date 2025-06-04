@@ -10,7 +10,6 @@ public abstract class User implements Serializable {
     private static ArrayList<Product> products= Utilities.productsLoader();
 
 
-
     /**
      * Κατασκευαστής: Δημιουργεί έναν χρήστη με τις δεδομένες παραμέτρους.
      *

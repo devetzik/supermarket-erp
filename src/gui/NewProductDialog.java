@@ -71,6 +71,7 @@ public class NewProductDialog {
             }
         });
 
+
         subcategoryBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

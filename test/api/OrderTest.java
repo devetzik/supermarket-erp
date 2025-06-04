@@ -14,6 +14,7 @@ class OrderTest {
     double total= 15;
     Order order=new Order(username,pr,date,total);;
 
+
     @Test
     void getTotalTest() {
         assertEquals(order.getTotal(),total);

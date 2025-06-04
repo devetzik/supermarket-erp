@@ -78,6 +78,7 @@ class UserTest {
         assertArrayEquals(searchResults,User.productSearch(title,category,subcategory));
     }
 
+
     @Test
     void productSearchByTitleAndCategoryProductsTest() {
         String title="καρ";

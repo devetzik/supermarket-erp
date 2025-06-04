@@ -11,6 +11,7 @@ public class NewProductSuccessDialog {
     private static final JButton ok=new JButton("OK");
     private static final JPanel resultPanel=new JPanel();
 
+
     public NewProductSuccessDialog(){
         resultDialog.setTitle("Προσθήκη νέου προϊόντος");
         resultLabel.setText("Επιτυχής προσθήκη προϊόντος");

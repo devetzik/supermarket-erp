@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class SignUpSuccessDialog {
     private static final JDialog resultDialog=new JDialog();
     private static final JLabel resultLabel=new JLabel("Επιτυχής εγγραφή",SwingConstants.CENTER);

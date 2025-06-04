@@ -18,6 +18,7 @@ import java.util.Objects;
 import static gui.Main.frame;
 
 public class AdminFrame {
+
     private static final JFrame adminFrame=new JFrame("Supermarket e-shop Administrator Console");
     private static final JPanel userInfo=new JPanel();
     private static final JButton editProductButton=new JButton("Επεξεργασία");

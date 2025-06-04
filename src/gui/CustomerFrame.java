@@ -16,6 +16,7 @@ import java.util.Objects;
 
 import static gui.Main.frame;
 
+
 public class CustomerFrame {
     private static final JFrame custFrame=new JFrame("Supermarket e-shop Customer Console");
     private static final JLabel username=new JLabel();

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
+
     @Test
     void getUnitKgFruitTest() {
         Product product=new Product("title", "description","category","Φρούτα", 10,10);

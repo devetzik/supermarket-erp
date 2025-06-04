@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
+
 public class MostSoldDialog {
     private static HashMap<String,Integer> sales=new HashMap<>();
     private String [] str;

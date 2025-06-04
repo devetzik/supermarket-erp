@@ -150,6 +150,7 @@ public class Utilities {
                 w.append(line + "\n");
             }
             r.close();
+
             w.close();
             new FileWriter("resources\\tmp.txt", false).close();
         } catch (IOException e) {

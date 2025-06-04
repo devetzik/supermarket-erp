@@ -32,7 +32,6 @@ class CustomerTest {
 
 
 
-
     @Test
     void removeFromCartTest() {
         Product product1=new Product("title1", "description", "category", "subcategory", 1,10);

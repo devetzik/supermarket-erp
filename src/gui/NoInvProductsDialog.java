@@ -14,6 +14,7 @@ public class NoInvProductsDialog {
     private static final JPanel panel = new JPanel();
 
 
+
     public NoInvProductsDialog(String[] noInvProducts) {
         dialog.setLocationRelativeTo(null);
         dialog.setSize(400, 550);

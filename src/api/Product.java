@@ -12,6 +12,7 @@ public class Product implements Serializable {
     private double qty;
 
 
+
     /**
      * Κατασκευαστής: Δημιουργεί ένα προϊόν με τις δεδομένες παραμέτρους
      *
